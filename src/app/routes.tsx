@@ -34,6 +34,12 @@ const StockMovementsPage = lazy(() => import('@/modules/inventory/pages/StockMov
 const TransfersPage = lazy(() => import('@/modules/inventory/pages/Transfers'))
 const AdjustmentsPage = lazy(() => import('@/modules/inventory/pages/Adjustments'))
 const InventoryReportsPage = lazy(() => import('@/modules/inventory/pages/Reports'))
+const SuppliersPage = lazy(() => import('@/modules/procurement/pages/Suppliers'))
+const PurchaseRequestsPage = lazy(() => import('@/modules/procurement/pages/PurchaseRequests'))
+const PurchaseOrdersPage = lazy(() => import('@/modules/procurement/pages/PurchaseOrders'))
+const GoodsReceiptsPage = lazy(() => import('@/modules/procurement/pages/GoodsReceipts'))
+const SupplierInvoicesPage = lazy(() => import('@/modules/procurement/pages/SupplierInvoices'))
+const ProcurementReportsPage = lazy(() => import('@/modules/procurement/pages/ProcurementReports'))
 
 export const appRoutes: RouteObject[] = [
   // Public routes (guest only)
@@ -93,6 +99,14 @@ export const appRoutes: RouteObject[] = [
           { path: 'stock-transfers', element: <TransfersPage /> },
           { path: 'stock-adjustments', element: <AdjustmentsPage /> },
           { path: 'inventory-reports', element: <InventoryReportsPage /> },
+
+          // Procurement Management
+          { path: 'suppliers', element: <SuppliersPage /> },
+          { path: 'purchase-requests', element: <PurchaseRequestsPage /> },
+          { path: 'purchase-orders', element: <PurchaseOrdersPage /> },
+          { path: 'goods-receipts', element: <GoodsReceiptsPage /> },
+          { path: 'supplier-invoices', element: <SupplierInvoicesPage /> },
+          { path: 'procurement-reports', element: <ProcurementReportsPage /> },
         ],
       },
     ],

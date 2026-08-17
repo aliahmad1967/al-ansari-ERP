@@ -45,6 +45,15 @@ import type { StockMovement } from './StockMovement'
 import type { StockTransfer } from './StockTransfer'
 import type { StockAdjustment } from './StockAdjustment'
 import type { InventoryCount } from './InventoryCount'
+import type { Supplier } from './Supplier'
+import type { PurchaseRequest } from './PurchaseRequest'
+import type { PurchaseRequestItem } from './PurchaseRequestItem'
+import type { PurchaseOrder } from './PurchaseOrder'
+import type { PurchaseOrderItem } from './PurchaseOrderItem'
+import type { GoodsReceipt } from './GoodsReceipt'
+import type { GoodsReceiptItem } from './GoodsReceiptItem'
+import type { SupplierInvoice } from './SupplierInvoice'
+import type { SupplierPayment } from './SupplierPayment'
 
 import { AuditLog as AuditLogModel } from './AuditLog'
 import { AttendanceRecord as AttendanceRecordModel } from './AttendanceRecord'
@@ -87,6 +96,15 @@ import { StockMovement as StockMovementModel } from './StockMovement'
 import { StockTransfer as StockTransferModel } from './StockTransfer'
 import { StockAdjustment as StockAdjustmentModel } from './StockAdjustment'
 import { InventoryCount as InventoryCountModel } from './InventoryCount'
+import { Supplier as SupplierModel } from './Supplier'
+import { PurchaseRequest as PurchaseRequestModel } from './PurchaseRequest'
+import { PurchaseRequestItem as PurchaseRequestItemModel } from './PurchaseRequestItem'
+import { PurchaseOrder as PurchaseOrderModel } from './PurchaseOrder'
+import { PurchaseOrderItem as PurchaseOrderItemModel } from './PurchaseOrderItem'
+import { GoodsReceipt as GoodsReceiptModel } from './GoodsReceipt'
+import { GoodsReceiptItem as GoodsReceiptItemModel } from './GoodsReceiptItem'
+import { SupplierInvoice as SupplierInvoiceModel } from './SupplierInvoice'
+import { SupplierPayment as SupplierPaymentModel } from './SupplierPayment'
 
 export {
   AuditLogModel,
@@ -130,6 +148,15 @@ export {
   StockTransferModel,
   StockAdjustmentModel,
   InventoryCountModel,
+  SupplierModel,
+  PurchaseRequestModel,
+  PurchaseRequestItemModel,
+  PurchaseOrderModel,
+  PurchaseOrderItemModel,
+  GoodsReceiptModel,
+  GoodsReceiptItemModel,
+  SupplierInvoiceModel,
+  SupplierPaymentModel,
 }
 
 export type {
@@ -174,6 +201,15 @@ export type {
   StockTransfer,
   StockAdjustment,
   InventoryCount,
+  Supplier,
+  PurchaseRequest,
+  PurchaseRequestItem,
+  PurchaseOrder,
+  PurchaseOrderItem,
+  GoodsReceipt,
+  GoodsReceiptItem,
+  SupplierInvoice,
+  SupplierPayment,
 }
 
 export { AuditAction, AuditOutcome } from './AuditLog'
@@ -254,6 +290,21 @@ export { StockAdjustmentStatus } from './StockAdjustment'
 export type { StockAdjustmentInput, StockAdjustmentEntity, StockAdjustmentStatusValue, StockAdjustmentUpdate } from './StockAdjustment'
 export { InventoryCountStatus } from './InventoryCount'
 export type { InventoryCountInput, InventoryCountEntity, InventoryCountStatusValue, InventoryCountUpdate } from './InventoryCount'
+export { SupplierStatus } from './Supplier'
+export type { SupplierInput, SupplierEntity, SupplierStatusValue } from './Supplier'
+export { PurchaseRequestStatus } from './PurchaseRequest'
+export type { PurchaseRequestInput, PurchaseRequestEntity, PurchaseRequestStatusValue } from './PurchaseRequest'
+export type { PurchaseRequestItemInput, PurchaseRequestItemEntity } from './PurchaseRequestItem'
+export { PurchaseOrderStatus } from './PurchaseOrder'
+export type { PurchaseOrderInput, PurchaseOrderEntity, PurchaseOrderStatusValue } from './PurchaseOrder'
+export type { PurchaseOrderItemInput, PurchaseOrderItemEntity } from './PurchaseOrderItem'
+export { GoodsReceiptStatus } from './GoodsReceipt'
+export type { GoodsReceiptInput, GoodsReceiptEntity, GoodsReceiptStatusValue } from './GoodsReceipt'
+export type { GoodsReceiptItemInput, GoodsReceiptItemEntity } from './GoodsReceiptItem'
+export { SupplierInvoiceStatus } from './SupplierInvoice'
+export type { SupplierInvoiceInput, SupplierInvoiceEntity, SupplierInvoiceStatusValue } from './SupplierInvoice'
+export { SupplierPaymentStatus, SupplierPaymentMethod } from './SupplierPayment'
+export type { SupplierPaymentInput, SupplierPaymentEntity, SupplierPaymentStatusValue, SupplierPaymentMethodValue } from './SupplierPayment'
 export * from './base'
 
 /** The ordered list of Realm schemas installed in the database. */
@@ -299,6 +350,15 @@ export const MODEL_SCHEMAS: Realm.ObjectSchema[] = [
   StockTransferModel.schema,
   StockAdjustmentModel.schema,
   InventoryCountModel.schema,
+  SupplierModel.schema,
+  PurchaseRequestModel.schema,
+  PurchaseRequestItemModel.schema,
+  PurchaseOrderModel.schema,
+  PurchaseOrderItemModel.schema,
+  GoodsReceiptModel.schema,
+  GoodsReceiptItemModel.schema,
+  SupplierInvoiceModel.schema,
+  SupplierPaymentModel.schema,
 ]
 
 /**
@@ -348,4 +408,13 @@ export const MODEL_CLASSES: Realm.RealmObjectConstructor<Realm.AnyRealmObject>[]
   StockTransferModel,
   StockAdjustmentModel,
   InventoryCountModel,
+  SupplierModel,
+  PurchaseRequestModel,
+  PurchaseRequestItemModel,
+  PurchaseOrderModel,
+  PurchaseOrderItemModel,
+  GoodsReceiptModel,
+  GoodsReceiptItemModel,
+  SupplierInvoiceModel,
+  SupplierPaymentModel,
 ]

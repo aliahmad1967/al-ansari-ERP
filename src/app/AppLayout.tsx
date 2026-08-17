@@ -28,6 +28,8 @@ import {
   ArrowUpDown,
   Truck,
   Settings,
+  ShoppingCart,
+  FileCheck,
 } from 'lucide-react'
 
 import Button from '@/components/ui/Button'
@@ -49,6 +51,7 @@ export default function AppLayout() {
   const { t: tHr } = useTranslation('hr')
   const { t: tAtt } = useTranslation('attendance')
   const { t: tInv } = useTranslation('inventory')
+  const { t: tProc } = useTranslation('procurement')
   const { theme, toggleTheme } = useTheme()
   const { toggleLanguage } = useLanguage()
   const { sidebarCollapsed, mobileNavOpen } = useSyncExternalStore(subscribeAppUi, getAppUiState)
@@ -232,6 +235,48 @@ export default function AppLayout() {
           label: tInv('reports.title'),
           icon: <BarChart3 className="h-4 w-4" aria-hidden="true" />,
           to: '/inventory-reports',
+        },
+      ],
+    },
+    {
+      id: 'procurement',
+      label: tProc('nav.procurementManagement'),
+      items: [
+        {
+          id: 'suppliers',
+          label: tProc('nav.suppliers'),
+          icon: <Building2 className="h-4 w-4" aria-hidden="true" />,
+          to: '/suppliers',
+        },
+        {
+          id: 'purchase-requests',
+          label: tProc('nav.purchaseRequests'),
+          icon: <FileText className="h-4 w-4" aria-hidden="true" />,
+          to: '/purchase-requests',
+        },
+        {
+          id: 'purchase-orders',
+          label: tProc('nav.purchaseOrders'),
+          icon: <ShoppingCart className="h-4 w-4" aria-hidden="true" />,
+          to: '/purchase-orders',
+        },
+        {
+          id: 'goods-receipts',
+          label: tProc('nav.goodsReceipts'),
+          icon: <Package className="h-4 w-4" aria-hidden="true" />,
+          to: '/goods-receipts',
+        },
+        {
+          id: 'supplier-invoices',
+          label: tProc('nav.supplierInvoices'),
+          icon: <FileCheck className="h-4 w-4" aria-hidden="true" />,
+          to: '/supplier-invoices',
+        },
+        {
+          id: 'procurement-reports',
+          label: tProc('nav.procurementReports'),
+          icon: <BarChart3 className="h-4 w-4" aria-hidden="true" />,
+          to: '/procurement-reports',
         },
       ],
     },
