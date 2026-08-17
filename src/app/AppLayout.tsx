@@ -21,6 +21,8 @@ import {
   Clock,
   Calendar,
   BarChart3,
+  Calculator,
+  FileText,
 } from 'lucide-react'
 
 import Button from '@/components/ui/Button'
@@ -140,6 +142,36 @@ export default function AppLayout() {
           label: tAtt('reports.title'),
           icon: <BarChart3 className="h-4 w-4" aria-hidden="true" />,
           to: '/attendance-reports',
+        },
+      ],
+    },
+    {
+      id: 'payroll',
+      label: tHr('payrollRun.title'),
+      items: [
+        {
+          id: 'salary-structures',
+          label: tHr('salaryStructure.title'),
+          icon: <Layers className="h-4 w-4" aria-hidden="true" />,
+          to: '/salary-structures',
+        },
+        {
+          id: 'payroll-periods',
+          label: tHr('payrollPeriod.title'),
+          icon: <Calendar className="h-4 w-4" aria-hidden="true" />,
+          to: '/payroll-periods',
+        },
+        {
+          id: 'payroll',
+          label: tHr('payrollRun.title'),
+          icon: <Calculator className="h-4 w-4" aria-hidden="true" />,
+          to: '/payroll',
+        },
+        {
+          id: 'payslips',
+          label: tHr('payslip.title'),
+          icon: <FileText className="h-4 w-4" aria-hidden="true" />,
+          to: '/payslips',
         },
       ],
     },

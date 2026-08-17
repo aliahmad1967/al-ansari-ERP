@@ -22,6 +22,10 @@ const EmployeeDetailsPage = lazy(() => import('@/modules/hr/pages/EmployeeDetail
 const AttendancePage = lazy(() => import('@/modules/attendance/pages/Attendance'))
 const LeavePage = lazy(() => import('@/modules/attendance/pages/Leave'))
 const AttendanceReportsPage = lazy(() => import('@/modules/attendance/pages/Reports'))
+const SalaryStructuresPage = lazy(() => import('@/modules/hr/pages/SalaryStructures'))
+const PayrollPeriodsPage = lazy(() => import('@/modules/hr/pages/PayrollPeriods'))
+const PayrollRunsPage = lazy(() => import('@/modules/hr/pages/Payroll'))
+const PayslipsPage = lazy(() => import('@/modules/hr/pages/Payslips'))
 
 export const appRoutes: RouteObject[] = [
   // Public routes (guest only)
@@ -65,6 +69,12 @@ export const appRoutes: RouteObject[] = [
           { path: 'attendance', element: <AttendancePage /> },
           { path: 'leave', element: <LeavePage /> },
           { path: 'attendance-reports', element: <AttendanceReportsPage /> },
+
+          // Payroll
+          { path: 'salary-structures', element: <SalaryStructuresPage /> },
+          { path: 'payroll-periods', element: <PayrollPeriodsPage /> },
+          { path: 'payroll', element: <PayrollRunsPage /> },
+          { path: 'payslips', element: <PayslipsPage /> },
         ],
       },
     ],

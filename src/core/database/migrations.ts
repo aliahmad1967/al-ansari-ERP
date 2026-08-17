@@ -12,7 +12,7 @@ import type Realm from 'realm'
 import { DatabaseErrorCode, toDatabaseError } from './errors'
 
 /** The current schema version. Bump this when {@link MIGRATIONS} grows. */
-export const CURRENT_SCHEMA_VERSION = 4
+export const CURRENT_SCHEMA_VERSION = 5
 
 export interface MigrationStep {
   /** The schema version this step produces. */
@@ -51,6 +51,14 @@ export const MIGRATIONS: MigrationStep[] = [
     migrate: () => {
       // v4 adds attendance & leave models: Shift, AttendanceRecord,
       // LeaveType, LeaveBalance, LeaveRequest, LeaveApproval.
+    },
+  },
+  {
+    toVersion: 5,
+    migrate: () => {
+      // v5 adds payroll models: SalaryStructure, SalaryComponent,
+      // EmployeeSalary, EmployeeSalaryItem, PayrollPeriod, PayrollRun,
+      // PayrollItem, PayrollLineItem, Payslip.
     },
   },
 ]
