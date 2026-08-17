@@ -17,6 +17,10 @@ import {
   Sun,
   User,
   Users,
+  UserCircle,
+  Clock,
+  Calendar,
+  BarChart3,
 } from 'lucide-react'
 
 import Button from '@/components/ui/Button'
@@ -35,6 +39,8 @@ export default function AppLayout() {
   const { t: tShowcase } = useTranslation('showcase')
   const { t: tAuth } = useTranslation('auth')
   const { t: tOrg } = useTranslation('organization')
+  const { t: tHr } = useTranslation('hr')
+  const { t: tAtt } = useTranslation('attendance')
   const { theme, toggleTheme } = useTheme()
   const { toggleLanguage } = useLanguage()
   const { sidebarCollapsed, mobileNavOpen } = useSyncExternalStore(subscribeAppUi, getAppUiState)
@@ -104,6 +110,36 @@ export default function AppLayout() {
           label: tOrg('nav.permissions'),
           icon: <Shield className="h-4 w-4" aria-hidden="true" />,
           to: '/permissions',
+        },
+      ],
+    },
+    {
+      id: 'hr',
+      label: tHr('employee.title'),
+      items: [
+        {
+          id: 'employees',
+          label: tHr('employee.title'),
+          icon: <UserCircle className="h-4 w-4" aria-hidden="true" />,
+          to: '/employees',
+        },
+        {
+          id: 'attendance',
+          label: tAtt('attendance.title'),
+          icon: <Clock className="h-4 w-4" aria-hidden="true" />,
+          to: '/attendance',
+        },
+        {
+          id: 'leave',
+          label: tAtt('leave.title'),
+          icon: <Calendar className="h-4 w-4" aria-hidden="true" />,
+          to: '/leave',
+        },
+        {
+          id: 'attendance-reports',
+          label: tAtt('reports.title'),
+          icon: <BarChart3 className="h-4 w-4" aria-hidden="true" />,
+          to: '/attendance-reports',
         },
       ],
     },

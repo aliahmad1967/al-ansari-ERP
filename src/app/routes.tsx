@@ -17,6 +17,11 @@ const PositionsPage = lazy(() => import('@/modules/organization/pages/Positions'
 const UsersPage = lazy(() => import('@/modules/organization/pages/Users'))
 const RolesPage = lazy(() => import('@/modules/organization/pages/Roles'))
 const PermissionsPage = lazy(() => import('@/modules/organization/pages/Permissions'))
+const EmployeesPage = lazy(() => import('@/modules/hr/pages/Employees'))
+const EmployeeDetailsPage = lazy(() => import('@/modules/hr/pages/EmployeeDetails'))
+const AttendancePage = lazy(() => import('@/modules/attendance/pages/Attendance'))
+const LeavePage = lazy(() => import('@/modules/attendance/pages/Leave'))
+const AttendanceReportsPage = lazy(() => import('@/modules/attendance/pages/Reports'))
 
 export const appRoutes: RouteObject[] = [
   // Public routes (guest only)
@@ -51,6 +56,15 @@ export const appRoutes: RouteObject[] = [
           { path: 'users', element: <UsersPage /> },
           { path: 'roles', element: <RolesPage /> },
           { path: 'permissions', element: <PermissionsPage /> },
+
+          // HR Management
+          { path: 'employees', element: <EmployeesPage /> },
+          { path: 'employees/:id', element: <EmployeeDetailsPage /> },
+
+          // Attendance & Leave
+          { path: 'attendance', element: <AttendancePage /> },
+          { path: 'leave', element: <LeavePage /> },
+          { path: 'attendance-reports', element: <AttendanceReportsPage /> },
         ],
       },
     ],

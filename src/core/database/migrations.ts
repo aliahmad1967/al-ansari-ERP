@@ -12,7 +12,7 @@ import type Realm from 'realm'
 import { DatabaseErrorCode, toDatabaseError } from './errors'
 
 /** The current schema version. Bump this when {@link MIGRATIONS} grows. */
-export const CURRENT_SCHEMA_VERSION = 2
+export const CURRENT_SCHEMA_VERSION = 4
 
 export interface MigrationStep {
   /** The schema version this step produces. */
@@ -37,6 +37,20 @@ export const MIGRATIONS: MigrationStep[] = [
     migrate: () => {
       // v2 adds the Position model. Realm handles schema additions
       // automatically; no data transformation is required.
+    },
+  },
+  {
+    toVersion: 3,
+    migrate: () => {
+      // v3 adds HR models: Employee, EmploymentContract, EmployeeDocument,
+      // EmergencyContact, Education, Experience, Skill.
+    },
+  },
+  {
+    toVersion: 4,
+    migrate: () => {
+      // v4 adds attendance & leave models: Shift, AttendanceRecord,
+      // LeaveType, LeaveBalance, LeaveRequest, LeaveApproval.
     },
   },
 ]
