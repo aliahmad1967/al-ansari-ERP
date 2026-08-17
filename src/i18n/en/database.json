@@ -1,0 +1,42 @@
+{
+  "errors": {
+    "dbNotOpen": "The database is not open.",
+    "dbUnsupportedEnvironment": "Realm is not supported in this environment.",
+    "dbOpenFailed": "Failed to open the database.",
+    "dbCloseFailed": "Failed to close the database.",
+    "dbAlreadyOpen": "The database is already open.",
+    "dbNotFound": "The requested record was not found.",
+    "dbDuplicate": "A record with the same key already exists.",
+    "dbValidationFailed": "Validation failed.",
+    "dbTransactionFailed": "The database operation could not be completed.",
+    "dbMigrationFailed": "The database schema could not be upgraded.",
+    "dbBackupFailed": "Failed to create a backup.",
+    "dbRestoreFailed": "Failed to restore the backup.",
+    "dbExportFailed": "Failed to export the database.",
+    "dbResetBlocked": "Resetting the database is not allowed.",
+    "dbDeleteFailed": "Failed to delete the database.",
+    "dbCorrupted": "The database file appears to be corrupted.",
+    "dbUnknown": "An unexpected database error occurred."
+  },
+  "validation": {
+    "issue": "{{field}}: {{message}}"
+  },
+  "status": {
+    "isOpen": "Open",
+    "path": "Path",
+    "schemaVersion": "Schema version",
+    "fileExists": "File exists",
+    "sizeBytes": "Size",
+    "platform": "Platform"
+  },
+  "seed": {
+    "seeded": "Database was seeded with default data.",
+    "skipped": "Database already contains data."
+  },
+  "backup": {
+    "created": "Backup created at {{path}}"
+  },
+  "export": {
+    "created": "Export written to {{path}}"
+  }
+}

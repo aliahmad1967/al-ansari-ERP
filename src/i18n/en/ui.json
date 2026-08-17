@@ -1,0 +1,44 @@
+{
+  "dismiss": "Dismiss",
+  "optional": "Optional",
+  "close": "Close",
+  "menu": "Menu",
+  "notifications": "Notifications",
+  "breadcrumb": "Breadcrumb",
+  "actions": {
+    "cancel": "Cancel",
+    "submit": "Submit"
+  },
+  "search": {
+    "placeholder": "Search…",
+    "clear": "Clear search"
+  },
+  "pagination": {
+    "label": "Pagination",
+    "resultRange": "Showing {{start}}–{{end}} of {{total}}",
+    "itemsPerPage": "Per page",
+    "previous": "Previous page",
+    "next": "Next page",
+    "goToPage": "Go to page {{page}}"
+  },
+  "table": {
+    "selectAll": "Select all rows",
+    "selectRow": "Select row",
+    "noData": "No data",
+    "noDataHint": "No records were found to display."
+  },
+  "datePicker": {
+    "placeholder": "Select date",
+    "clear": "Clear date",
+    "calendarLabel": "Calendar",
+    "previousMonth": "Previous month",
+    "nextMonth": "Next month",
+    "weekStart": "monday"
+  },
+  "fileUpload": {
+    "dropHere": "Drag and drop files here or",
+    "browse": "browse",
+    "tooLarge": "File is too large",
+    "remove": "Remove"
+  }
+}

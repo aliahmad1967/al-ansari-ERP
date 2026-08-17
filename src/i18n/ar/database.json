@@ -1,0 +1,42 @@
+{
+  "errors": {
+    "dbNotOpen": "قاعدة البيانات غير مفتوحة.",
+    "dbUnsupportedEnvironment": "Realm غير مدعوم في هذه البيئة.",
+    "dbOpenFailed": "تعذّر فتح قاعدة البيانات.",
+    "dbCloseFailed": "تعذّر إغلاق قاعدة البيانات.",
+    "dbAlreadyOpen": "قاعدة البيانات مفتوحة بالفعل.",
+    "dbNotFound": "لم يتم العثور على السجل المطلوب.",
+    "dbDuplicate": "يوجد سجل بنفس المفتاح بالفعل.",
+    "dbValidationFailed": "فشل التحقق من الصحة.",
+    "dbTransactionFailed": "تعذّر إكمال عملية قاعدة البيانات.",
+    "dbMigrationFailed": "تعذّرت ترقية مخطط قاعدة البيانات.",
+    "dbBackupFailed": "تعذّر إنشاء نسخة احتياطية.",
+    "dbRestoreFailed": "تعذّرت استعادة النسخة الاحتياطية.",
+    "dbExportFailed": "تعذّر تصدير قاعدة البيانات.",
+    "dbResetBlocked": "إعادة تعيين قاعدة البيانات غير مسموح بها.",
+    "dbDeleteFailed": "تعذّر حذف قاعدة البيانات.",
+    "dbCorrupted": "يبدو أن ملف قاعدة البيانات تالف.",
+    "dbUnknown": "حدث خطأ غير متوقع في قاعدة البيانات."
+  },
+  "validation": {
+    "issue": "{{field}}: {{message}}"
+  },
+  "status": {
+    "isOpen": "مفتوحة",
+    "path": "المسار",
+    "schemaVersion": "إصدار المخطط",
+    "fileExists": "الملف موجود",
+    "sizeBytes": "الحجم",
+    "platform": "المنصة"
+  },
+  "seed": {
+    "seeded": "تم إنشاء البيانات الافتراضية في قاعدة البيانات.",
+    "skipped": "تحتوي قاعدة البيانات على بيانات مسبقاً."
+  },
+  "backup": {
+    "created": "تم إنشاء النسخة الاحتياطية في {{path}}"
+  },
+  "export": {
+    "created": "تمت كتابة التصدير إلى {{path}}"
+  }
+}

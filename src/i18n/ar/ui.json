@@ -1,0 +1,44 @@
+{
+  "dismiss": "إغلاق",
+  "optional": "اختياري",
+  "close": "إغلاق",
+  "menu": "القائمة",
+  "notifications": "الإشعارات",
+  "breadcrumb": "مسار التنقل",
+  "actions": {
+    "cancel": "إلغاء",
+    "submit": "إرسال"
+  },
+  "search": {
+    "placeholder": "بحث...",
+    "clear": "مسح البحث"
+  },
+  "pagination": {
+    "label": "ترقيم الصفحات",
+    "resultRange": "عرض {{start}}-{{end}} من {{total}}",
+    "itemsPerPage": "في الصفحة",
+    "previous": "الصفحة السابقة",
+    "next": "الصفحة التالية",
+    "goToPage": "الانتقال إلى الصفحة {{page}}"
+  },
+  "table": {
+    "selectAll": "تحديد جميع الصفوف",
+    "selectRow": "تحديد الصف",
+    "noData": "لا توجد بيانات",
+    "noDataHint": "لم يتم العثور على سجلات للعرض."
+  },
+  "datePicker": {
+    "placeholder": "اختر التاريخ",
+    "clear": "مسح التاريخ",
+    "calendarLabel": "التقويم",
+    "previousMonth": "الشهر السابق",
+    "nextMonth": "الشهر التالي",
+    "weekStart": "saturday"
+  },
+  "fileUpload": {
+    "dropHere": "اسحب الملفات هنا أو",
+    "browse": "تصفّح",
+    "tooLarge": "الملف كبير جدًا",
+    "remove": "إزالة"
+  }
+}
