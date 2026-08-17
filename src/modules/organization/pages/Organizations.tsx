@@ -13,9 +13,9 @@ import FormActions from '@/components/forms/FormActions'
 import { RequirePermission } from '@/components/auth/RequirePermission'
 import { formatDate } from '@/lib/format'
 import { useOrganizations } from '@/modules/organization/hooks/useOrganizations'
+import type { Organization } from '@/core/models/OrganizationStatus'
 import OrganizationForm from '@/modules/organization/forms/OrganizationForm'
-import type { Organization } from '@/core/models/Organization'
-import { OrganizationStatus } from '@/core/models/Organization'
+import { OrganizationStatus } from '@/core/models/OrganizationStatus'
 
 export default function OrganizationsPage() {
   const { t } = useTranslation('organization')

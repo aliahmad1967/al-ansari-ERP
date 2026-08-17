@@ -6,10 +6,10 @@ import FormField from '@/components/forms/FormField'
 import FormActions from '@/components/forms/FormActions'
 import Input from '@/components/ui/Input'
 import Select from '@/components/ui/Select'
-import type { Department, DepartmentInput, DepartmentStatusValue } from '@/core/models/Department'
-import { DepartmentStatus } from '@/core/models/Department'
-import type { Branch } from '@/core/models/Branch'
-import type { User } from '@/core/models/User'
+import type { Department, DepartmentInput, DepartmentStatusValue } from '@/core/models/DepartmentStatus'
+import { DepartmentStatus } from '@/core/models/DepartmentStatus'
+import type { Branch } from '@/core/models/BranchStatus'
+import type { User } from '@/core/models/UserStatus'
 
 export interface DepartmentFormProps {
   open: boolean
@@ -51,8 +51,8 @@ export function DepartmentForm({ open, onOpenChange, department, branches, users
       code: code.trim(),
       name: name.trim(),
       nameAr: nameAr.trim() || undefined,
-      branch,
-      manager,
+      branchId: branch._id,
+      managerId: manager?._id,
       status,
       notes: notes.trim() || undefined,
     })

@@ -12,9 +12,10 @@ import Dialog from '@/components/ui/Dialog'
 import FormActions from '@/components/forms/FormActions'
 import { RequirePermission } from '@/components/auth/RequirePermission'
 import { useRoles } from '@/modules/organization/hooks/useRoles'
+import type { Role } from '@/core/models/SystemRoleCode'
 import { usePermissionList } from '@/modules/organization/hooks/usePermissionList'
 import RoleForm from '@/modules/organization/forms/RoleForm'
-import type { Role } from '@/core/models/Role'
+
 
 export default function RolesPage() {
   const { t } = useTranslation('organization')
@@ -50,7 +51,7 @@ export default function RolesPage() {
       key: 'permissions',
       header: t('role.permissions'),
       render: (row) => (
-        <Badge variant="primary" fill="soft">{row.permissionCount}</Badge>
+        <Badge variant="primary" fill="soft">{(row.permissionIds as string[])?.length ?? 0}</Badge>
       ),
     },
     {

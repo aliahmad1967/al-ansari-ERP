@@ -1,68 +1,87 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
-import type { Role, RoleInput } from '@/core/models/Role'
-import type { FindOptions } from '@/core/repositories/BaseRepository'
-import { RoleService } from '@/modules/organization/services/RoleService'
+import type { Role, RoleInput } from '@/core/models/SystemRoleCode'
+import { devOrganizationService } from '@/core/services/DevOrganizationService'
 
-const service = new RoleService()
+interface RoleProvider {
+  getAll(): Role[]
+  create(input: unknown): void
+  update(id: string, changes: unknown): void
+  archive(id: string): boolean
+  restore(id: string): boolean
+}
+
+let providerPromise: Promise<RoleProvider> | null = null
+
+function getProvider(): Promise<RoleProvider> {
+  if (providerPromise) return providerPromise
+  providerPromise = (async () => {
+    try {
+      const mod = await import('@/modules/organization/services/RoleService')
+      const svc = new mod.RoleService()
+      return {
+        getAll: () => svc.findAll().map((r) => r as unknown as Role),
+        create: (input) => { svc.create(input as never) },
+        update: (id, changes) => { svc.update(id, changes as never) },
+        archive: (id) => svc.archive(id),
+        restore: (id) => svc.restore(id),
+      }
+    } catch {
+      return {
+        getAll: () => devOrganizationService.getRoles().map((r) => r as unknown as Role),
+        create: (input) => { devOrganizationService.createRole(input as Record<string, unknown>) },
+        update: (id, changes) => { devOrganizationService.updateRole(id, changes as Record<string, unknown>) },
+        archive: (id) => devOrganizationService.archiveRole(id),
+        restore: (id) => devOrganizationService.restoreRole(id),
+      }
+    }
+  })()
+  return providerPromise
+}
 
 export interface UseRolesResult {
   items: Role[]
   loading: boolean
   error: string | null
   refresh: () => void
-  create: (input: RoleInput) => Role
-  update: (id: string, changes: Partial<RoleInput>) => Role
-  archive: (id: string) => boolean
-  restore: (id: string) => boolean
-  findById: (id: string) => Role | null
-  count: () => number
+  create: (input: RoleInput) => void
+  update: (id: string, changes: Partial<RoleInput>) => void
+  archive: (id: string) => void
+  restore: (id: string) => void
 }
 
-export function useRoles(options?: FindOptions): UseRolesResult {
-  const [items, setItems] = useState<Role[]>(() => service.findAll(options))
-  const [loading, setLoading] = useState(false)
+export function useRoles(): UseRolesResult {
+  const [items, setItems] = useState<Role[]>([])
+  const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [refreshKey, setRefreshKey] = useState(0)
 
-  const refresh = useCallback(() => {
-    setLoading(true)
-    try {
-      setItems(service.findAll(options))
-      setError(null)
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Unknown error')
-    } finally {
-      setLoading(false)
-    }
-  }, [options])
+  useEffect(() => {
+    let active = true
+    getProvider()
+      .then((p) => { if (active) { setItems(p.getAll()); setError(null) } })
+      .catch((err) => { if (active) setError(err instanceof Error ? err.message : 'Unknown error') })
+      .finally(() => { if (active) setLoading(false) })
+    return () => { active = false }
+  }, [refreshKey])
+
+  const refresh = useCallback(() => setRefreshKey((k) => k + 1), [])
 
   const create = useCallback((input: RoleInput) => {
-    const result = service.create(input)
-    refresh()
-    return result
+    getProvider().then((svc) => { svc.create(input); refresh() })
   }, [refresh])
 
   const update = useCallback((id: string, changes: Partial<RoleInput>) => {
-    const result = service.update(id, changes)
-    refresh()
-    return result
+    getProvider().then((svc) => { svc.update(id, changes); refresh() })
   }, [refresh])
 
   const archive = useCallback((id: string) => {
-    const result = service.archive(id)
-    refresh()
-    return result
+    getProvider().then((svc) => { svc.archive(id); refresh() })
   }, [refresh])
 
   const restore = useCallback((id: string) => {
-    const result = service.restore(id)
-    refresh()
-    return result
+    getProvider().then((svc) => { svc.restore(id); refresh() })
   }, [refresh])
 
-  const findById = useCallback((id: string) => service.findById(id), [])
-
-  const count = useCallback(() => service.count(), [])
-
-  return { items, loading, error, refresh, create, update, archive, restore, findById, count }
+  return { items, loading, error, refresh, create, update, archive, restore }
 }

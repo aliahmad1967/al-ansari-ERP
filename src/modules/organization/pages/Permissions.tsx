@@ -9,7 +9,8 @@ import SearchInput from '@/components/forms/SearchInput'
 import Pagination from '@/components/ui/Pagination'
 import { RequirePermission } from '@/components/auth/RequirePermission'
 import { usePermissionList } from '@/modules/organization/hooks/usePermissionList'
-import type { Permission } from '@/core/models/Permission'
+import type { Permission } from '@/core/models/PermissionStatus'
+
 
 export default function PermissionsPage() {
   const { t } = useTranslation('organization')

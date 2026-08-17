@@ -13,13 +13,13 @@ import FormActions from '@/components/forms/FormActions'
 import { RequirePermission } from '@/components/auth/RequirePermission'
 import { formatDate } from '@/lib/format'
 import { useUsers } from '@/modules/organization/hooks/useUsers'
+import type { User } from '@/core/models/UserStatus'
 import { useRoles } from '@/modules/organization/hooks/useRoles'
 import { useOrganizations } from '@/modules/organization/hooks/useOrganizations'
 import { useBranches } from '@/modules/organization/hooks/useBranches'
 import { useDepartments } from '@/modules/organization/hooks/useDepartments'
 import UserForm from '@/modules/organization/forms/UserForm'
-import type { User } from '@/core/models/User'
-import { UserStatus } from '@/core/models/User'
+import { UserStatus } from '@/core/models/UserStatus'
 
 export default function UsersPage() {
   const { t } = useTranslation('organization')
@@ -73,9 +73,9 @@ export default function UsersPage() {
     { key: 'fullName', header: t('user.fullName'), sortable: true },
     { key: 'email', header: t('user.email'), sortable: true },
     {
-      key: 'role',
+      key: 'roleId',
       header: t('user.role'),
-      render: (row) => row.role?.name ?? '-',
+      render: (row) => roles.find((r) => r._id === row.roleId)?.name ?? '-',
     },
     {
       key: 'status',
@@ -88,7 +88,7 @@ export default function UsersPage() {
     {
       key: 'lastLoginAt',
       header: t('user.lastLoginAt'),
-      render: (row) => row.lastLoginAt ? formatDate(row.lastLoginAt) : '-',
+      render: (row) => row.lastLoginAt ? formatDate(row.lastLoginAt as unknown as Date) : '-',
     },
     {
       key: 'actions',

@@ -6,12 +6,12 @@ import FormField from '@/components/forms/FormField'
 import FormActions from '@/components/forms/FormActions'
 import Input from '@/components/ui/Input'
 import Select from '@/components/ui/Select'
-import type { User, UserInput, UserStatusValue } from '@/core/models/User'
-import { UserStatus } from '@/core/models/User'
-import type { Role } from '@/core/models/Role'
-import type { Organization } from '@/core/models/Organization'
-import type { Branch } from '@/core/models/Branch'
-import type { Department } from '@/core/models/Department'
+import type { User, UserInput, UserStatusValue } from '@/core/models/UserStatus'
+import { UserStatus } from '@/core/models/UserStatus'
+import type { Role } from '@/core/models/SystemRoleCode'
+import type { Organization } from '@/core/models/OrganizationStatus'
+import type { Branch } from '@/core/models/BranchStatus'
+import type { Department } from '@/core/models/DepartmentStatus'
 
 export interface UserFormProps {
   open: boolean
@@ -65,11 +65,10 @@ export function UserForm({ open, onOpenChange, user, roles, organizations, branc
       fullNameAr: fullNameAr.trim() || undefined,
       phone: phone.trim() || undefined,
       password: password || undefined,
-      passwordHash: '',
-      role,
-      organization: org,
-      branch,
-      department,
+      roleId: role?._id,
+      organizationId: org?._id,
+      branchId: branch?._id,
+      departmentId: department?._id,
       status,
       notes: notes.trim() || undefined,
     })

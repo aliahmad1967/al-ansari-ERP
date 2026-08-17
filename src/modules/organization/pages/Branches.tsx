@@ -12,10 +12,10 @@ import Dialog from '@/components/ui/Dialog'
 import FormActions from '@/components/forms/FormActions'
 import { RequirePermission } from '@/components/auth/RequirePermission'
 import { useBranches } from '@/modules/organization/hooks/useBranches'
+import type { Branch } from '@/core/models/BranchStatus'
 import { useOrganizations } from '@/modules/organization/hooks/useOrganizations'
 import BranchForm from '@/modules/organization/forms/BranchForm'
-import type { Branch } from '@/core/models/Branch'
-import { BranchStatus } from '@/core/models/Branch'
+import { BranchStatus } from '@/core/models/BranchStatus'
 
 export default function BranchesPage() {
   const { t } = useTranslation('organization')
@@ -47,9 +47,9 @@ export default function BranchesPage() {
     { key: 'name', header: t('branch.name'), sortable: true },
     { key: 'nameAr', header: t('branch.nameAr') },
     {
-      key: 'organization',
+      key: 'organizationId',
       header: t('branch.organization'),
-      render: (row) => row.organization?.name ?? '-',
+      render: (row) => organizations.find((o) => o._id === row.organizationId)?.name ?? '-',
     },
     { key: 'city', header: t('branch.city') },
     {

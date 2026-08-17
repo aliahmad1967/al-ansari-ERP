@@ -6,8 +6,8 @@ import FormField from '@/components/forms/FormField'
 import FormActions from '@/components/forms/FormActions'
 import Input from '@/components/ui/Input'
 import Select from '@/components/ui/Select'
-import type { Organization, OrganizationInput, OrganizationStatusValue } from '@/core/models/Organization'
-import { OrganizationStatus } from '@/core/models/Organization'
+import type { Organization, OrganizationInput, OrganizationStatusValue } from '@/core/models/OrganizationStatus'
+import { OrganizationStatus } from '@/core/models/OrganizationStatus'
 
 export interface OrganizationFormProps {
   open: boolean

@@ -1,75 +1,87 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
-import type { Department, DepartmentInput, DepartmentStatusValue } from '@/core/models/Department'
-import type { FindOptions } from '@/core/repositories/BaseRepository'
-import { DepartmentService } from '@/modules/organization/services/DepartmentService'
+import type { Department, DepartmentInput } from '@/core/models/DepartmentStatus'
+import { devOrganizationService } from '@/core/services/DevOrganizationService'
 
-const service = new DepartmentService()
+interface DeptProvider {
+  getAll(): Department[]
+  create(input: unknown): void
+  update(id: string, changes: unknown): void
+  archive(id: string): boolean
+  restore(id: string): boolean
+}
+
+let providerPromise: Promise<DeptProvider> | null = null
+
+function getProvider(): Promise<DeptProvider> {
+  if (providerPromise) return providerPromise
+  providerPromise = (async () => {
+    try {
+      const mod = await import('@/modules/organization/services/DepartmentService')
+      const svc = new mod.DepartmentService()
+      return {
+        getAll: () => svc.findAll().map((r) => r as unknown as Department),
+        create: (input) => { svc.create(input as never) },
+        update: (id, changes) => { svc.update(id, changes as never) },
+        archive: (id) => svc.archive(id),
+        restore: (id) => svc.restore(id),
+      }
+    } catch {
+      return {
+        getAll: () => devOrganizationService.getDepartments().map((r) => r as unknown as Department),
+        create: (input) => { devOrganizationService.createDepartment(input as Record<string, unknown>) },
+        update: (id, changes) => { devOrganizationService.updateDepartment(id, changes as Record<string, unknown>) },
+        archive: (id) => devOrganizationService.archiveDepartment(id),
+        restore: (id) => devOrganizationService.restoreDepartment(id),
+      }
+    }
+  })()
+  return providerPromise
+}
 
 export interface UseDepartmentsResult {
   items: Department[]
   loading: boolean
   error: string | null
   refresh: () => void
-  create: (input: DepartmentInput) => Department
-  update: (id: string, changes: Partial<DepartmentInput>) => Department
-  archive: (id: string) => boolean
-  restore: (id: string) => boolean
-  updateStatus: (id: string, status: DepartmentStatusValue) => Department
-  findById: (id: string) => Department | null
-  count: () => number
+  create: (input: DepartmentInput) => void
+  update: (id: string, changes: Partial<DepartmentInput>) => void
+  archive: (id: string) => void
+  restore: (id: string) => void
 }
 
-export function useDepartments(options?: FindOptions): UseDepartmentsResult {
-  const [items, setItems] = useState<Department[]>(() => service.findAll(options))
-  const [loading, setLoading] = useState(false)
+export function useDepartments(): UseDepartmentsResult {
+  const [items, setItems] = useState<Department[]>([])
+  const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [refreshKey, setRefreshKey] = useState(0)
 
-  const refresh = useCallback(() => {
-    setLoading(true)
-    try {
-      setItems(service.findAll(options))
-      setError(null)
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Unknown error')
-    } finally {
-      setLoading(false)
-    }
-  }, [options])
+  useEffect(() => {
+    let active = true
+    getProvider()
+      .then((p) => { if (active) { setItems(p.getAll()); setError(null) } })
+      .catch((err) => { if (active) setError(err instanceof Error ? err.message : 'Unknown error') })
+      .finally(() => { if (active) setLoading(false) })
+    return () => { active = false }
+  }, [refreshKey])
+
+  const refresh = useCallback(() => setRefreshKey((k) => k + 1), [])
 
   const create = useCallback((input: DepartmentInput) => {
-    const result = service.create(input)
-    refresh()
-    return result
+    getProvider().then((svc) => { svc.create(input); refresh() })
   }, [refresh])
 
   const update = useCallback((id: string, changes: Partial<DepartmentInput>) => {
-    const result = service.update(id, changes)
-    refresh()
-    return result
+    getProvider().then((svc) => { svc.update(id, changes); refresh() })
   }, [refresh])
 
   const archive = useCallback((id: string) => {
-    const result = service.archive(id)
-    refresh()
-    return result
+    getProvider().then((svc) => { svc.archive(id); refresh() })
   }, [refresh])
 
   const restore = useCallback((id: string) => {
-    const result = service.restore(id)
-    refresh()
-    return result
+    getProvider().then((svc) => { svc.restore(id); refresh() })
   }, [refresh])
 
-  const updateStatus = useCallback((id: string, status: DepartmentStatusValue) => {
-    const result = service.updateStatus(id, status)
-    refresh()
-    return result
-  }, [refresh])
-
-  const findById = useCallback((id: string) => service.findById(id), [])
-
-  const count = useCallback(() => service.count(), [])
-
-  return { items, loading, error, refresh, create, update, archive, restore, updateStatus, findById, count }
+  return { items, loading, error, refresh, create, update, archive, restore }
 }

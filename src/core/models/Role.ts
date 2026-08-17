@@ -8,18 +8,9 @@ import Realm from 'realm'
 
 import { BASE_PROPERTIES, SOFT_DELETE_PROPERTIES, type SoftDeletableEntityFields } from './base'
 import type { Permission } from './Permission'
+import { SystemRoleCode } from './SystemRoleCode'
 
-export const SystemRoleCode = {
-  SuperAdministrator: 'SUPER_ADMINISTRATOR',
-  Administrator: 'ADMINISTRATOR',
-  HRManager: 'HR_MANAGER',
-  FinanceManager: 'FINANCE_MANAGER',
-  InventoryManager: 'INVENTORY_MANAGER',
-  ProcurementManager: 'PROCUREMENT_MANAGER',
-  SalesManager: 'SALES_MANAGER',
-  Employee: 'EMPLOYEE',
-  Viewer: 'VIEWER',
-} as const
+export { SystemRoleCode }
 
 export interface RoleInput {
   code: string

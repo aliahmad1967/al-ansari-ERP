@@ -1,42 +1,53 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
-import type { Permission, PermissionInput } from '@/core/models/Permission'
-import type { FindOptions } from '@/core/repositories/BaseRepository'
-import { PermissionService } from '@/modules/organization/services/PermissionService'
+import type { Permission } from '@/core/models/PermissionStatus'
+import { devOrganizationService } from '@/core/services/DevOrganizationService'
 
-const service = new PermissionService()
+interface PermProvider {
+  getAll(): Permission[]
+}
+
+let providerPromise: Promise<PermProvider> | null = null
+
+function getProvider(): Promise<PermProvider> {
+  if (providerPromise) return providerPromise
+  providerPromise = (async () => {
+    try {
+      const mod = await import('@/modules/organization/services/PermissionService')
+      const svc = new mod.PermissionService()
+      return { getAll: () => svc.findAll().map((r) => r as unknown as Permission) }
+    } catch {
+      return { getAll: () => devOrganizationService.getPermissions().map((r) => r as unknown as Permission) }
+    }
+  })()
+  return providerPromise
+}
 
 export interface UsePermissionListResult {
   items: Permission[]
   loading: boolean
   error: string | null
   refresh: () => void
-  findById: (id: string) => Permission | null
-  count: () => number
 }
 
-export function usePermissionList(options?: FindOptions): UsePermissionListResult {
-  const [items, setItems] = useState<Permission[]>(() => service.findAll(options))
-  const [loading, setLoading] = useState(false)
+export function usePermissionList(): UsePermissionListResult {
+  const [items, setItems] = useState<Permission[]>([])
+  const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [refreshKey, setRefreshKey] = useState(0)
 
-  const refresh = useCallback(() => {
-    setLoading(true)
-    try {
-      setItems(service.findAll(options))
-      setError(null)
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Unknown error')
-    } finally {
-      setLoading(false)
-    }
-  }, [options])
+  useEffect(() => {
+    let active = true
+    getProvider()
+      .then((p) => { if (active) { setItems(p.getAll()); setError(null) } })
+      .catch((err) => { if (active) setError(err instanceof Error ? err.message : 'Unknown error') })
+      .finally(() => { if (active) setLoading(false) })
+    return () => { active = false }
+  }, [refreshKey])
 
-  const findById = useCallback((id: string) => service.findById(id), [])
+  const refresh = useCallback(() => setRefreshKey((k) => k + 1), [])
 
-  const count = useCallback(() => service.count(), [])
-
-  return { items, loading, error, refresh, findById, count }
+  return { items, loading, error, refresh }
 }
 
-export type { Permission, PermissionInput }
+export type { Permission }

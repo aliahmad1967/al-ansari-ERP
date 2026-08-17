@@ -6,13 +6,9 @@ import Realm from 'realm'
 
 import { BASE_PROPERTIES, SOFT_DELETE_PROPERTIES, type SoftDeletableEntityFields } from './base'
 import type { Organization } from './Organization'
+import { BranchStatus, type BranchStatusValue } from './BranchStatus'
 
-export const BranchStatus = {
-  Active: 'active',
-  Inactive: 'inactive',
-} as const
-
-export type BranchStatusValue = (typeof BranchStatus)[keyof typeof BranchStatus]
+export { BranchStatus, type BranchStatusValue } from './BranchStatus'
 
 export interface BranchInput {
   code: string

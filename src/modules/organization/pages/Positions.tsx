@@ -12,10 +12,10 @@ import Dialog from '@/components/ui/Dialog'
 import FormActions from '@/components/forms/FormActions'
 import { RequirePermission } from '@/components/auth/RequirePermission'
 import { usePositions } from '@/modules/organization/hooks/usePositions'
+import type { Position } from '@/core/models/PositionStatus'
 import { useDepartments } from '@/modules/organization/hooks/useDepartments'
 import PositionForm from '@/modules/organization/forms/PositionForm'
-import type { Position } from '@/core/models/Position'
-import { PositionStatus } from '@/core/models/Position'
+import { PositionStatus } from '@/core/models/PositionStatus'
 
 export default function PositionsPage() {
   const { t } = useTranslation('organization')
@@ -47,9 +47,9 @@ export default function PositionsPage() {
     { key: 'title', header: t('position.titleField'), sortable: true },
     { key: 'titleAr', header: t('position.titleAr') },
     {
-      key: 'department',
+      key: 'departmentId',
       header: t('position.department'),
-      render: (row) => row.department?.name ?? '-',
+      render: (row) => departments.find((d) => d._id === row.departmentId)?.name ?? '-',
     },
     { key: 'grade', header: t('position.grade') },
     {

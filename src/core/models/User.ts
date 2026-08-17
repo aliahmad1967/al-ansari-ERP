@@ -12,14 +12,9 @@ import type { Branch } from './Branch'
 import type { Department } from './Department'
 import type { Organization } from './Organization'
 import type { Role } from './Role'
+import { UserStatus, type UserStatusValue } from './UserStatus'
 
-export const UserStatus = {
-  Active: 'active',
-  Inactive: 'inactive',
-  Suspended: 'suspended',
-} as const
-
-export type UserStatusValue = (typeof UserStatus)[keyof typeof UserStatus]
+export { UserStatus, type UserStatusValue } from './UserStatus'
 
 export interface UserInput {
   username: string

@@ -6,9 +6,9 @@ import FormField from '@/components/forms/FormField'
 import FormActions from '@/components/forms/FormActions'
 import Input from '@/components/ui/Input'
 import Select from '@/components/ui/Select'
-import type { Position, PositionInput, PositionStatusValue } from '@/core/models/Position'
-import { PositionStatus } from '@/core/models/Position'
-import type { Department } from '@/core/models/Department'
+import type { Position, PositionInput, PositionStatusValue } from '@/core/models/PositionStatus'
+import { PositionStatus } from '@/core/models/PositionStatus'
+import type { Department } from '@/core/models/DepartmentStatus'
 
 export interface PositionFormProps {
   open: boolean
@@ -48,7 +48,7 @@ export function PositionForm({ open, onOpenChange, position, departments, onSubm
       code: code.trim(),
       title: title.trim(),
       titleAr: titleAr.trim() || undefined,
-      department: dept,
+      departmentId: dept._id,
       grade: grade.trim() || undefined,
       status,
       notes: notes.trim() || undefined,

@@ -6,8 +6,8 @@ import FormField from '@/components/forms/FormField'
 import FormActions from '@/components/forms/FormActions'
 import Input from '@/components/ui/Input'
 import Checkbox from '@/components/ui/Checkbox'
-import type { Role, RoleInput } from '@/core/models/Role'
-import type { Permission } from '@/core/models/Permission'
+import type { Role, RoleInput } from '@/core/models/SystemRoleCode'
+import type { Permission } from '@/core/models/PermissionStatus'
 
 export interface RoleFormProps {
   open: boolean
@@ -26,8 +26,8 @@ export function RoleForm({ open, onOpenChange, role, allPermissions, onSubmit }:
   const [nameAr, setNameAr] = useState(() => role?.nameAr ?? '')
   const [description, setDescription] = useState(() => role?.description ?? '')
   const [selectedPermissionIds, setSelectedPermissionIds] = useState<Set<string>>(() => {
-    if (role?.permissions) {
-      return new Set(role.permissions.map((p) => p._id))
+    if (role?.permissionIds) {
+      return new Set(role.permissionIds)
     }
     return new Set()
   })
@@ -55,13 +55,12 @@ export function RoleForm({ open, onOpenChange, role, allPermissions, onSubmit }:
 
   const handleSubmit = () => {
     if (!validate()) return
-    const permissions = allPermissions.filter((p) => selectedPermissionIds.has(p._id))
     onSubmit({
       code: code.trim(),
       name: name.trim(),
       nameAr: nameAr.trim() || undefined,
       description: description.trim() || undefined,
-      permissions,
+      permissionIds: Array.from(selectedPermissionIds),
     })
     onOpenChange(false)
   }

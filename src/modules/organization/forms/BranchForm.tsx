@@ -6,9 +6,9 @@ import FormField from '@/components/forms/FormField'
 import FormActions from '@/components/forms/FormActions'
 import Input from '@/components/ui/Input'
 import Select from '@/components/ui/Select'
-import type { Branch, BranchInput, BranchStatusValue } from '@/core/models/Branch'
-import { BranchStatus } from '@/core/models/Branch'
-import type { Organization } from '@/core/models/Organization'
+import type { Branch, BranchInput, BranchStatusValue } from '@/core/models/BranchStatus'
+import { BranchStatus } from '@/core/models/BranchStatus'
+import type { Organization } from '@/core/models/OrganizationStatus'
 
 export interface BranchFormProps {
   open: boolean
@@ -50,7 +50,7 @@ export function BranchForm({ open, onOpenChange, branch, organizations, onSubmit
       code: code.trim(),
       name: name.trim(),
       nameAr: nameAr.trim() || undefined,
-      organization: org,
+      organizationId: org._id,
       city: city.trim() || undefined,
       email: email.trim() || undefined,
       phone: phone.trim() || undefined,

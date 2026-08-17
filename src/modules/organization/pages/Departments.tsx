@@ -12,11 +12,11 @@ import Dialog from '@/components/ui/Dialog'
 import FormActions from '@/components/forms/FormActions'
 import { RequirePermission } from '@/components/auth/RequirePermission'
 import { useDepartments } from '@/modules/organization/hooks/useDepartments'
+import type { Department } from '@/core/models/DepartmentStatus'
 import { useBranches } from '@/modules/organization/hooks/useBranches'
 import { useUsers } from '@/modules/organization/hooks/useUsers'
 import DepartmentForm from '@/modules/organization/forms/DepartmentForm'
-import type { Department } from '@/core/models/Department'
-import { DepartmentStatus } from '@/core/models/Department'
+import { DepartmentStatus } from '@/core/models/DepartmentStatus'
 
 export default function DepartmentsPage() {
   const { t } = useTranslation('organization')
@@ -49,14 +49,14 @@ export default function DepartmentsPage() {
     { key: 'name', header: t('department.name'), sortable: true },
     { key: 'nameAr', header: t('department.nameAr') },
     {
-      key: 'branch',
+      key: 'branchId',
       header: t('department.branch'),
-      render: (row) => row.branch?.name ?? '-',
+      render: (row) => branches.find((b) => b._id === row.branchId)?.name ?? '-',
     },
     {
-      key: 'manager',
+      key: 'managerId',
       header: t('department.manager'),
-      render: (row) => row.manager?.fullName ?? '-',
+      render: (row) => users.find((u) => u._id === row.managerId)?.fullName ?? '-',
     },
     {
       key: 'status',
