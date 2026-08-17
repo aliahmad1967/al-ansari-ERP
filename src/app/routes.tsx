@@ -9,6 +9,7 @@ import ProtectedRoute from '@/components/auth/ProtectedRoute'
 import LoginPage from '@/modules/auth/pages/LoginPage'
 import ChangePasswordPage from '@/modules/auth/pages/ChangePasswordPage'
 
+const DashboardPage = lazy(() => import('@/modules/dashboard/pages/Dashboard'))
 const OrganizationsPage = lazy(() => import('@/modules/organization/pages/Organizations'))
 const BranchesPage = lazy(() => import('@/modules/organization/pages/Branches'))
 const DepartmentsPage = lazy(() => import('@/modules/organization/pages/Departments'))
@@ -39,6 +40,7 @@ export const appRoutes: RouteObject[] = [
         element: <AppLayout />,
         children: [
           { index: true, element: <HomePage /> },
+          { path: 'dashboard', element: <DashboardPage /> },
           { path: 'components', element: <ComponentShowcase /> },
 
           // Organization Management

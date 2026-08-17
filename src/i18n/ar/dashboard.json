@@ -1,0 +1,83 @@
+{
+  "title": "لوحة التحكم التنفيذية",
+  "subtitle": "نظرة عامة على الأعمال والمؤشرات الرئيسية",
+  "error": {
+    "title": "فشل تحميل لوحة التحكم"
+  },
+  "header": {
+    "welcome": "مرحباً بعودتك، {{name}}",
+    "subtitle": "إليك نظرة عامة على أعمالك",
+    "refresh": "تحديث"
+  },
+  "kpi": {
+    "totalEmployees": "إجمالي الموظفين",
+    "monthlyRevenue": "الإيرادات الشهرية",
+    "monthlyExpenses": "المصروفات الشهرية",
+    "inventoryValue": "قيمة المخزون",
+    "pendingApprovals": "الموافقات المعلقة",
+    "outstandingReceivables": "المبالغ المستحقة",
+    "vsLastMonth": "مقارنة بالشهر الماضي",
+    "demoData": "بيانات تجريبية"
+  },
+  "charts": {
+    "revenueVsExpenses": {
+      "title": "الإيرادات مقابل المصروفات",
+      "description": "مقارنة شهرية للسنة الحالية",
+      "revenue": "الإيرادات",
+      "expenses": "المصروفات",
+      "empty": "لا توجد بيانات مالية بعد"
+    },
+    "salesTrend": {
+      "title": "اتجاه المبيعات",
+      "description": "أداء المبيعات الشهري",
+      "sales": "المبيعات",
+      "empty": "لا توجد بيانات مبيعات بعد"
+    },
+    "expenseTrend": {
+      "title": "اتجاه المصروفات",
+      "description": "تفصيل المصروفات الشهرية",
+      "expenses": "المصروفات",
+      "empty": "لا توجد بيانات مصروفات بعد"
+    },
+    "inventoryDistribution": {
+      "title": "توزيع المخزون",
+      "description": "القيمة حسب فئة المنتج",
+      "empty": "لا توجد بيانات مخزون بعد"
+    },
+    "employeeDistribution": {
+      "title": "توزيع الموظفين",
+      "description": "عدد الموظفين حسب القسم",
+      "empty": "لا توجد بيانات موظفين بعد"
+    }
+  },
+  "panels": {
+    "pendingApprovals": {
+      "title": "الموافقات المعلقة",
+      "empty": "لا توجد موافقات معلقة"
+    },
+    "recentTransactions": {
+      "title": "المعاملات الأخيرة",
+      "empty": "لا توجد معاملات حديثة"
+    },
+    "recentActivity": {
+      "title": "النشاط الأخير",
+      "empty": "لا يوجد نشاط حديث"
+    },
+    "notifications": {
+      "title": "الإشعارات",
+      "empty": "لا توجد إشعارات"
+    },
+    "quickActions": {
+      "title": "إجراءات سريعة",
+      "empty": "لا توجد إجراءات سريعة متاحة"
+    }
+  },
+  "actions": {
+    "newInvoice": "فاتورة جديدة",
+    "newOrder": "طلب مبيعات جديد",
+    "newPurchase": "طلب شراء جديد",
+    "manageInventory": "إدارة المخزون",
+    "viewReports": "عرض التقارير",
+    "settings": "الإعدادات"
+  }
+}

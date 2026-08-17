@@ -1,0 +1,83 @@
+{
+  "title": "Executive Dashboard",
+  "subtitle": "Business overview and key metrics",
+  "error": {
+    "title": "Failed to load dashboard"
+  },
+  "header": {
+    "welcome": "Welcome back, {{name}}",
+    "subtitle": "Here's your business overview",
+    "refresh": "Refresh"
+  },
+  "kpi": {
+    "totalEmployees": "Total Employees",
+    "monthlyRevenue": "Monthly Revenue",
+    "monthlyExpenses": "Monthly Expenses",
+    "inventoryValue": "Inventory Value",
+    "pendingApprovals": "Pending Approvals",
+    "outstandingReceivables": "Outstanding Receivables",
+    "vsLastMonth": "vs last month",
+    "demoData": "Demo Data"
+  },
+  "charts": {
+    "revenueVsExpenses": {
+      "title": "Revenue vs Expenses",
+      "description": "Monthly comparison for the current year",
+      "revenue": "Revenue",
+      "expenses": "Expenses",
+      "empty": "No financial data yet"
+    },
+    "salesTrend": {
+      "title": "Sales Trend",
+      "description": "Monthly sales performance",
+      "sales": "Sales",
+      "empty": "No sales data yet"
+    },
+    "expenseTrend": {
+      "title": "Expense Trend",
+      "description": "Monthly expense breakdown",
+      "expenses": "Expenses",
+      "empty": "No expense data yet"
+    },
+    "inventoryDistribution": {
+      "title": "Inventory Distribution",
+      "description": "Value by product category",
+      "empty": "No inventory data yet"
+    },
+    "employeeDistribution": {
+      "title": "Employee Distribution",
+      "description": "Headcount by department",
+      "empty": "No employee data yet"
+    }
+  },
+  "panels": {
+    "pendingApprovals": {
+      "title": "Pending Approvals",
+      "empty": "No pending approvals"
+    },
+    "recentTransactions": {
+      "title": "Recent Transactions",
+      "empty": "No recent transactions"
+    },
+    "recentActivity": {
+      "title": "Recent Activity",
+      "empty": "No recent activity"
+    },
+    "notifications": {
+      "title": "Notifications",
+      "empty": "No notifications"
+    },
+    "quickActions": {
+      "title": "Quick Actions",
+      "empty": "No quick actions available"
+    }
+  },
+  "actions": {
+    "newInvoice": "New Invoice",
+    "newOrder": "New Sales Order",
+    "newPurchase": "New Purchase Order",
+    "manageInventory": "Manage Inventory",
+    "viewReports": "View Reports",
+    "settings": "Settings"
+  }
+}

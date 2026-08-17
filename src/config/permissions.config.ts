@@ -20,6 +20,7 @@ export const PERMISSION_MODULES = [
   'settings',
   'reports',
   'notifications',
+  'dashboard',
 ] as const
 
 export type PermissionModule = (typeof PERMISSION_MODULES)[number]
@@ -36,6 +37,7 @@ export const MODULE_RESOURCES: Record<PermissionModule, readonly string[]> = {
   settings: ['system', 'security', 'backup'],
   reports: ['report'],
   notifications: ['notification'],
+  dashboard: ['dashboard'],
 }
 
 export const BASE_ACTIONS = ['view', 'create', 'update', 'delete'] as const

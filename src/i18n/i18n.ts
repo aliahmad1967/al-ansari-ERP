@@ -4,12 +4,14 @@ import { initReactI18next } from 'react-i18next'
 import { STORAGE_KEYS } from '@/config/app.config'
 import arAuth from '@/i18n/ar/auth.json'
 import arCommon from '@/i18n/ar/common.json'
+import arDashboard from '@/i18n/ar/dashboard.json'
 import arDatabase from '@/i18n/ar/database.json'
 import arOrganization from '@/i18n/ar/organization.json'
 import arShowcase from '@/i18n/ar/showcase.json'
 import arUi from '@/i18n/ar/ui.json'
 import enAuth from '@/i18n/en/auth.json'
 import enCommon from '@/i18n/en/common.json'
+import enDashboard from '@/i18n/en/dashboard.json'
 import enDatabase from '@/i18n/en/database.json'
 import enOrganization from '@/i18n/en/organization.json'
 import enShowcase from '@/i18n/en/showcase.json'
@@ -33,6 +35,7 @@ i18n.use(initReactI18next).init({
     ar: {
       auth: arAuth,
       common: arCommon,
+      dashboard: arDashboard,
       ui: arUi,
       showcase: arShowcase,
       database: arDatabase,
@@ -41,6 +44,7 @@ i18n.use(initReactI18next).init({
     en: {
       auth: enAuth,
       common: enCommon,
+      dashboard: enDashboard,
       ui: enUi,
       showcase: enShowcase,
       database: enDatabase,
