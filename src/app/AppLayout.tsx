@@ -23,6 +23,11 @@ import {
   BarChart3,
   Calculator,
   FileText,
+  Package,
+  Warehouse,
+  ArrowUpDown,
+  Truck,
+  Settings,
 } from 'lucide-react'
 
 import Button from '@/components/ui/Button'
@@ -43,6 +48,7 @@ export default function AppLayout() {
   const { t: tOrg } = useTranslation('organization')
   const { t: tHr } = useTranslation('hr')
   const { t: tAtt } = useTranslation('attendance')
+  const { t: tInv } = useTranslation('inventory')
   const { theme, toggleTheme } = useTheme()
   const { toggleLanguage } = useLanguage()
   const { sidebarCollapsed, mobileNavOpen } = useSyncExternalStore(subscribeAppUi, getAppUiState)
@@ -172,6 +178,60 @@ export default function AppLayout() {
           label: tHr('payslip.title'),
           icon: <FileText className="h-4 w-4" aria-hidden="true" />,
           to: '/payslips',
+        },
+      ],
+    },
+    {
+      id: 'inventory',
+      label: tInv('nav.inventoryManagement'),
+      items: [
+        {
+          id: 'products',
+          label: tInv('nav.products'),
+          icon: <Package className="h-4 w-4" aria-hidden="true" />,
+          to: '/products',
+        },
+        {
+          id: 'categories',
+          label: tInv('nav.categories'),
+          icon: <Layers className="h-4 w-4" aria-hidden="true" />,
+          to: '/categories',
+        },
+        {
+          id: 'warehouses',
+          label: tInv('nav.warehouses'),
+          icon: <Warehouse className="h-4 w-4" aria-hidden="true" />,
+          to: '/warehouses',
+        },
+        {
+          id: 'stock',
+          label: tInv('stockBalance.title'),
+          icon: <Boxes className="h-4 w-4" aria-hidden="true" />,
+          to: '/stock',
+        },
+        {
+          id: 'stock-movements',
+          label: tInv('nav.stockMovements'),
+          icon: <ArrowUpDown className="h-4 w-4" aria-hidden="true" />,
+          to: '/stock-movements',
+        },
+        {
+          id: 'stock-transfers',
+          label: tInv('nav.stockTransfers'),
+          icon: <Truck className="h-4 w-4" aria-hidden="true" />,
+          to: '/stock-transfers',
+        },
+        {
+          id: 'stock-adjustments',
+          label: tInv('nav.stockAdjustments'),
+          icon: <Settings className="h-4 w-4" aria-hidden="true" />,
+          to: '/stock-adjustments',
+        },
+        {
+          id: 'inventory-reports',
+          label: tInv('reports.title'),
+          icon: <BarChart3 className="h-4 w-4" aria-hidden="true" />,
+          to: '/inventory-reports',
         },
       ],
     },

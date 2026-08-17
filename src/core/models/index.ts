@@ -35,6 +35,16 @@ import type { Payslip } from './Payslip'
 import type { Shift } from './Shift'
 import type { Skill } from './Skill'
 import type { User } from './User'
+import type { Category } from './Category'
+import type { Unit } from './Unit'
+import type { Product } from './Product'
+import type { Warehouse } from './Warehouse'
+import type { WarehouseLocation } from './WarehouseLocation'
+import type { StockBalance } from './StockBalance'
+import type { StockMovement } from './StockMovement'
+import type { StockTransfer } from './StockTransfer'
+import type { StockAdjustment } from './StockAdjustment'
+import type { InventoryCount } from './InventoryCount'
 
 import { AuditLog as AuditLogModel } from './AuditLog'
 import { AttendanceRecord as AttendanceRecordModel } from './AttendanceRecord'
@@ -67,6 +77,16 @@ import { Payslip as PayslipModel } from './Payslip'
 import { Shift as ShiftModel } from './Shift'
 import { Skill as SkillModel } from './Skill'
 import { User as UserModel } from './User'
+import { Category as CategoryModel } from './Category'
+import { Unit as UnitModel } from './Unit'
+import { Product as ProductModel } from './Product'
+import { Warehouse as WarehouseModel } from './Warehouse'
+import { WarehouseLocation as WarehouseLocationModel } from './WarehouseLocation'
+import { StockBalance as StockBalanceModel } from './StockBalance'
+import { StockMovement as StockMovementModel } from './StockMovement'
+import { StockTransfer as StockTransferModel } from './StockTransfer'
+import { StockAdjustment as StockAdjustmentModel } from './StockAdjustment'
+import { InventoryCount as InventoryCountModel } from './InventoryCount'
 
 export {
   AuditLogModel,
@@ -100,6 +120,16 @@ export {
   ShiftModel,
   SkillModel,
   UserModel,
+  CategoryModel,
+  UnitModel,
+  ProductModel,
+  WarehouseModel,
+  WarehouseLocationModel,
+  StockBalanceModel,
+  StockMovementModel,
+  StockTransferModel,
+  StockAdjustmentModel,
+  InventoryCountModel,
 }
 
 export type {
@@ -134,6 +164,16 @@ export type {
   Shift,
   Skill,
   User,
+  Category,
+  Unit,
+  Product,
+  Warehouse,
+  WarehouseLocation,
+  StockBalance,
+  StockMovement,
+  StockTransfer,
+  StockAdjustment,
+  InventoryCount,
 }
 
 export { AuditAction, AuditOutcome } from './AuditLog'
@@ -198,6 +238,22 @@ export type { SalaryStructureInput, SalaryStructureEntity } from './SalaryStruct
 export type { ShiftInput, ShiftEntity } from './Shift'
 export { UserStatus } from './User'
 export type { UserInput, UserEntity, UserStatusValue } from './User'
+export type { CategoryInput, CategoryEntity } from './Category'
+export type { UnitInput, UnitEntity } from './Unit'
+export { ProductStatus } from './Product'
+export type { ProductInput, ProductEntity, ProductStatusValue } from './Product'
+export { WarehouseStatus } from './Warehouse'
+export type { WarehouseInput, WarehouseEntity, WarehouseStatusValue } from './Warehouse'
+export type { WarehouseLocationInput, WarehouseLocationEntity } from './WarehouseLocation'
+export type { StockBalanceInput, StockBalanceEntity, StockBalanceUpdate } from './StockBalance'
+export { StockMovementType } from './StockMovement'
+export type { StockMovementInput, StockMovementEntity, StockMovementTypeValue } from './StockMovement'
+export { StockTransferStatus } from './StockTransfer'
+export type { StockTransferInput, StockTransferEntity, StockTransferStatusValue, StockTransferUpdate } from './StockTransfer'
+export { StockAdjustmentStatus } from './StockAdjustment'
+export type { StockAdjustmentInput, StockAdjustmentEntity, StockAdjustmentStatusValue, StockAdjustmentUpdate } from './StockAdjustment'
+export { InventoryCountStatus } from './InventoryCount'
+export type { InventoryCountInput, InventoryCountEntity, InventoryCountStatusValue, InventoryCountUpdate } from './InventoryCount'
 export * from './base'
 
 /** The ordered list of Realm schemas installed in the database. */
@@ -233,6 +289,16 @@ export const MODEL_SCHEMAS: Realm.ObjectSchema[] = [
   PayrollItemModel.schema,
   PayrollLineItemModel.schema,
   PayslipModel.schema,
+  CategoryModel.schema,
+  UnitModel.schema,
+  ProductModel.schema,
+  WarehouseModel.schema,
+  WarehouseLocationModel.schema,
+  StockBalanceModel.schema,
+  StockMovementModel.schema,
+  StockTransferModel.schema,
+  StockAdjustmentModel.schema,
+  InventoryCountModel.schema,
 ]
 
 /**
@@ -272,4 +338,14 @@ export const MODEL_CLASSES: Realm.RealmObjectConstructor<Realm.AnyRealmObject>[]
   PayrollItemModel,
   PayrollLineItemModel,
   PayslipModel,
+  CategoryModel,
+  UnitModel,
+  ProductModel,
+  WarehouseModel,
+  WarehouseLocationModel,
+  StockBalanceModel,
+  StockMovementModel,
+  StockTransferModel,
+  StockAdjustmentModel,
+  InventoryCountModel,
 ]

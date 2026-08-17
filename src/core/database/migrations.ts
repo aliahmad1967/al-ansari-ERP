@@ -12,7 +12,7 @@ import type Realm from 'realm'
 import { DatabaseErrorCode, toDatabaseError } from './errors'
 
 /** The current schema version. Bump this when {@link MIGRATIONS} grows. */
-export const CURRENT_SCHEMA_VERSION = 5
+export const CURRENT_SCHEMA_VERSION = 6
 
 export interface MigrationStep {
   /** The schema version this step produces. */
@@ -59,6 +59,14 @@ export const MIGRATIONS: MigrationStep[] = [
       // v5 adds payroll models: SalaryStructure, SalaryComponent,
       // EmployeeSalary, EmployeeSalaryItem, PayrollPeriod, PayrollRun,
       // PayrollItem, PayrollLineItem, Payslip.
+    },
+  },
+  {
+    toVersion: 6,
+    migrate: () => {
+      // v6 adds inventory models: Category, Unit, Product, Warehouse,
+      // WarehouseLocation, StockBalance, StockMovement, StockTransfer,
+      // StockAdjustment, InventoryCount.
     },
   },
 ]

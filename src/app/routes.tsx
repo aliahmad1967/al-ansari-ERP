@@ -26,6 +26,14 @@ const SalaryStructuresPage = lazy(() => import('@/modules/hr/pages/SalaryStructu
 const PayrollPeriodsPage = lazy(() => import('@/modules/hr/pages/PayrollPeriods'))
 const PayrollRunsPage = lazy(() => import('@/modules/hr/pages/Payroll'))
 const PayslipsPage = lazy(() => import('@/modules/hr/pages/Payslips'))
+const ProductsPage = lazy(() => import('@/modules/inventory/pages/Products'))
+const WarehousesPage = lazy(() => import('@/modules/inventory/pages/Warehouses'))
+const CategoriesPage = lazy(() => import('@/modules/inventory/pages/Categories'))
+const StockPage = lazy(() => import('@/modules/inventory/pages/Stock'))
+const StockMovementsPage = lazy(() => import('@/modules/inventory/pages/StockMovements'))
+const TransfersPage = lazy(() => import('@/modules/inventory/pages/Transfers'))
+const AdjustmentsPage = lazy(() => import('@/modules/inventory/pages/Adjustments'))
+const InventoryReportsPage = lazy(() => import('@/modules/inventory/pages/Reports'))
 
 export const appRoutes: RouteObject[] = [
   // Public routes (guest only)
@@ -75,6 +83,16 @@ export const appRoutes: RouteObject[] = [
           { path: 'payroll-periods', element: <PayrollPeriodsPage /> },
           { path: 'payroll', element: <PayrollRunsPage /> },
           { path: 'payslips', element: <PayslipsPage /> },
+
+          // Inventory Management
+          { path: 'products', element: <ProductsPage /> },
+          { path: 'categories', element: <CategoriesPage /> },
+          { path: 'warehouses', element: <WarehousesPage /> },
+          { path: 'stock', element: <StockPage /> },
+          { path: 'stock-movements', element: <StockMovementsPage /> },
+          { path: 'stock-transfers', element: <TransfersPage /> },
+          { path: 'stock-adjustments', element: <AdjustmentsPage /> },
+          { path: 'inventory-reports', element: <InventoryReportsPage /> },
         ],
       },
     ],
