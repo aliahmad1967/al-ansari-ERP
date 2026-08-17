@@ -1,0 +1,18 @@
+{
+  "name": "AL-ANSARI ERP",
+  "short_name": "AL-ANSARI ERP",
+  "description": "Offline-first enterprise resource planning system",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "lang": "en",
+  "dir": "ltr",
+  "icons": [
+    {
+      "src": "/assets/logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
