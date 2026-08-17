@@ -1,0 +1,12 @@
+/*
+ * AL-ANSARI ERP — RTL overrides
+ *
+ * Components use logical CSS utilities (start/end, ms-/me-, ps-/pe-) and are
+ * therefore direction-agnostic. This file only contains adjustments that cannot
+ * be expressed with logical utilities.
+ */
+
+/* Arabic-first: use an Arabic-friendly font stack when the document is RTL. */
+[dir='rtl'] body {
+  font-family: var(--font-arabic);
+}

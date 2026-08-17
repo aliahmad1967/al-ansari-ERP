@@ -1,0 +1,282 @@
+@import 'tailwindcss';
+@import './variables.css';
+@import './dark.css';
+@import './rtl.css';
+@import './print.css';
+
+/*
+ * Theme mapping
+ * -------------
+ * `@theme inline` maps the semantic design tokens (defined at runtime in
+ * variables.css / dark.css) onto Tailwind utilities. Because values are inlined
+ * as var() references, changing the `.dark` class or a token value updates every
+ * consuming utility without a rebuild.
+ *
+ * The default Tailwind color palette is intentionally cleared: components must
+ * only use semantic tokens (bg-surface, text-content, border-border, ...).
+ */
+@theme inline {
+  --color-*: initial;
+
+  --color-surface: var(--surface);
+  --color-surface-raised: var(--surface-raised);
+  --color-surface-sunken: var(--surface-sunken);
+  --color-surface-overlay: var(--surface-overlay);
+  --color-surface-inverse: var(--surface-inverse);
+
+  --color-content: var(--content);
+  --color-content-muted: var(--content-muted);
+  --color-content-subtle: var(--content-subtle);
+  --color-content-inverse: var(--content-inverse);
+
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-border-input: var(--border-input);
+
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-active: var(--primary-active);
+  --color-primary-subtle: var(--primary-subtle);
+  --color-primary-content: var(--primary-content);
+  --color-primary-muted: var(--primary-muted);
+
+  --color-success: var(--success);
+  --color-success-subtle: var(--success-subtle);
+  --color-success-content: var(--success-content);
+  --color-success-muted: var(--success-muted);
+
+  --color-warning: var(--warning);
+  --color-warning-subtle: var(--warning-subtle);
+  --color-warning-content: var(--warning-content);
+  --color-warning-muted: var(--warning-muted);
+
+  --color-danger: var(--danger);
+  --color-danger-subtle: var(--danger-subtle);
+  --color-danger-content: var(--danger-content);
+  --color-danger-muted: var(--danger-muted);
+
+  --color-info: var(--info);
+  --color-info-subtle: var(--info-subtle);
+  --color-info-content: var(--info-content);
+  --color-info-muted: var(--info-muted);
+
+  --color-focus-ring: var(--focus-ring);
+  --color-overlay: var(--overlay);
+  --color-selection: var(--selection);
+  --color-thumb: var(--thumb);
+
+  /* Typography */
+  --font-sans: var(--font-sans);
+  --font-arabic: var(--font-arabic);
+  --font-mono: var(--font-mono);
+
+  --text-xs: var(--text-xs);
+  --text-xs--line-height: var(--text-xs--line-height);
+  --text-sm: var(--text-sm);
+  --text-sm--line-height: var(--text-sm--line-height);
+  --text-base: var(--text-base);
+  --text-base--line-height: var(--text-base--line-height);
+  --text-lg: var(--text-lg);
+  --text-lg--line-height: var(--text-lg--line-height);
+  --text-xl: var(--text-xl);
+  --text-xl--line-height: var(--text-xl--line-height);
+  --text-2xl: var(--text-2xl);
+  --text-2xl--line-height: var(--text-2xl--line-height);
+  --text-3xl: var(--text-3xl);
+  --text-3xl--line-height: var(--text-3xl--line-height);
+  --text-4xl: var(--text-4xl);
+  --text-4xl--line-height: var(--text-4xl--line-height);
+
+  /* Radius */
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+  --radius-xl: var(--radius-xl);
+  --radius-2xl: var(--radius-2xl);
+  --radius-full: var(--radius-full);
+
+  /* Shadows */
+  --shadow-xs: var(--shadow-xs);
+  --shadow-sm: var(--shadow-sm);
+  --shadow-md: var(--shadow-md);
+  --shadow-lg: var(--shadow-lg);
+  --shadow-xl: var(--shadow-xl);
+  --shadow-2xl: var(--shadow-2xl);
+
+  /* Transitions */
+  --duration-75: var(--duration-75);
+  --duration-100: var(--duration-100);
+  --duration-150: var(--duration-150);
+  --duration-200: var(--duration-200);
+  --duration-300: var(--duration-300);
+  --ease-in: var(--ease-in);
+  --ease-out: var(--ease-out);
+  --ease-standard: var(--ease-standard);
+
+  /* Z-index */
+  --z-dropdown: var(--z-dropdown);
+  --z-sticky: var(--z-sticky);
+  --z-drawer: var(--z-drawer);
+  --z-modal: var(--z-modal);
+  --z-tooltip: var(--z-tooltip);
+  --z-toast: var(--z-toast);
+  --z-skip: var(--z-skip);
+}
+
+/*
+ * Responsive breakpoints
+ * ----------------------
+ * sm 640 / md 768 / lg 1024 / xl 1280 / 2xl 1536. Mobile-first (min-width).
+ */
+@theme {
+  --breakpoint-sm: 40rem;
+  --breakpoint-md: 48rem;
+  --breakpoint-lg: 64rem;
+  --breakpoint-xl: 80rem;
+  --breakpoint-2xl: 96rem;
+}
+
+@layer base {
+  *,
+  ::before,
+  ::after {
+    border-color: var(--border);
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    margin: 0;
+    background-color: var(--surface);
+    color: var(--content);
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    line-height: var(--text-base--line-height);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background-color: var(--selection);
+  }
+
+  /* Keyboard accessibility: visible focus outline on every interactive element */
+  :focus-visible {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 2px;
+  }
+
+  /* Respect reduced-motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  /* Shimmer loading effect used by Skeleton */
+  .ds-shimmer {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .ds-shimmer::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    transform: translateX(-100%);
+    background: linear-gradient(90deg, transparent, rgba(148, 163, 184, 0.15), transparent);
+    animation: ds-shimmer 1.5s infinite;
+  }
+
+  @keyframes ds-shimmer {
+    100% {
+      transform: translateX(100%);
+    }
+  }
+
+  /*
+   * App shell sidebar
+   * -----------------
+   * The shell toggles `.sidebar-collapsed` to switch between the expanded and
+   * collapsed sidebar widths. Both the fixed sidebar and the content column
+   * read `--sidebar-current`, so a single width change animates them together.
+   */
+  :root {
+    --sidebar-current: var(--sidebar-width);
+  }
+
+  .sidebar-collapsed {
+    --sidebar-current: var(--sidebar-width-collapsed);
+  }
+}
+
+/* Overlay / panel entrance animations */
+@keyframes ds-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes ds-zoom-in {
+  from {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes ds-slide-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(0.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes ds-slide-in-left {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes ds-slide-in-right {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes ds-slide-in-down {
+  from {
+    opacity: 0;
+    transform: translateY(-0.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

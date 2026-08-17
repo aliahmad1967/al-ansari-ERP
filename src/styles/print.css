@@ -1,0 +1,22 @@
+/*
+ * AL-ANSARI ERP — Print styles
+ *
+ * Utility classes:
+ *   .print-hidden      hide decorative / navigation elements when printing
+ *   .print-full-width  remove max-width constraints so content fills the page
+ */
+
+@media print {
+  .print-hidden {
+    display: none !important;
+  }
+
+  .print-full-width {
+    max-width: none !important;
+  }
+
+  body {
+    background-color: #ffffff;
+    color: #000000;
+  }
+}

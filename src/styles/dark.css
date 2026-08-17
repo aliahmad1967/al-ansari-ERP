@@ -1,0 +1,68 @@
+/*
+ * AL-ANSARI ERP — Dark theme
+ *
+ * Overrides the semantic layer of the design tokens (see variables.css).
+ * The component layer never switches colors manually; it only responds to the
+ * `.dark` class, applied on <html> by the theme store.
+ */
+
+.dark {
+  color-scheme: dark;
+
+  /* Semantic colors (DARK theme) */
+  --surface: #0b0e13;
+  --surface-raised: #12161d;
+  --surface-sunken: #090c10;
+  --surface-overlay: #161b23;
+  --surface-inverse: var(--neutral-0);
+
+  --content: #e6e9ef;
+  --content-muted: #9aa3b2;
+  --content-subtle: #6b7484;
+  --content-inverse: var(--neutral-950);
+
+  --border: #262c36;
+  --border-strong: #343c49;
+  --border-input: #3a4350;
+
+  --primary: var(--primary-500);
+  --primary-hover: var(--primary-400);
+  --primary-active: var(--primary-600);
+  --primary-subtle: rgba(59, 130, 246, 0.14);
+  --primary-content: var(--neutral-950);
+  --primary-muted: var(--primary-300);
+
+  --success: var(--success-500);
+  --success-subtle: rgba(16, 185, 129, 0.15);
+  --success-content: var(--neutral-950);
+  --success-muted: var(--success-300);
+
+  --warning: var(--warning-500);
+  --warning-subtle: rgba(245, 158, 11, 0.15);
+  --warning-content: var(--neutral-950);
+  --warning-muted: var(--warning-300);
+
+  --danger: var(--danger-500);
+  --danger-subtle: rgba(239, 68, 68, 0.15);
+  --danger-content: var(--neutral-950);
+  --danger-muted: var(--danger-300);
+
+  --info: var(--info-500);
+  --info-subtle: rgba(14, 165, 233, 0.15);
+  --info-content: var(--neutral-950);
+  --info-muted: var(--info-300);
+
+  --focus-ring: var(--primary-400);
+  --overlay: rgba(2, 6, 12, 0.6);
+  --selection: rgba(96, 165, 250, 0.22);
+  /* Contrast element that stays light in both themes (e.g. switch thumb). */
+  --thumb: var(--neutral-0);
+
+  /* Shadows (DARK theme) */
+  --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.4);
+  --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.45), 0 1px 2px -1px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.45), 0 2px 4px -2px rgba(0, 0, 0, 0.35);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -4px rgba(0, 0, 0, 0.4);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.55), 0 8px 10px -6px rgba(0, 0, 0, 0.45);
+  --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.65);
+}
