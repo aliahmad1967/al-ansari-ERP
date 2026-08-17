@@ -1,0 +1,13 @@
+import { useEffect, useState } from 'react'
+
+/** Returns `value` after `delay` ms of stability (leading-edge is not emitted). */
+export function useDebounce<T>(value: T, delay = 250): T {
+  const [debouncedValue, setDebouncedValue] = useState(value)
+
+  useEffect(() => {
+    const timer = setTimeout(() => setDebouncedValue(value), delay)
+    return () => clearTimeout(timer)
+  }, [value, delay])
+
+  return debouncedValue
+}
