@@ -1,3 +1,4 @@
+import { lazy } from 'react'
 import type { RouteObject } from 'react-router-dom'
 
 import AppLayout from '@/app/AppLayout'
@@ -7,13 +8,14 @@ import NotFoundPage from '@/app/NotFoundPage'
 import ProtectedRoute from '@/components/auth/ProtectedRoute'
 import LoginPage from '@/modules/auth/pages/LoginPage'
 import ChangePasswordPage from '@/modules/auth/pages/ChangePasswordPage'
-import { OrganizationsPage } from '@/modules/organization'
-import { BranchesPage } from '@/modules/organization'
-import { DepartmentsPage } from '@/modules/organization'
-import { PositionsPage } from '@/modules/organization'
-import { UsersPage } from '@/modules/organization'
-import { RolesPage } from '@/modules/organization'
-import { PermissionsPage } from '@/modules/organization'
+
+const OrganizationsPage = lazy(() => import('@/modules/organization/pages/Organizations'))
+const BranchesPage = lazy(() => import('@/modules/organization/pages/Branches'))
+const DepartmentsPage = lazy(() => import('@/modules/organization/pages/Departments'))
+const PositionsPage = lazy(() => import('@/modules/organization/pages/Positions'))
+const UsersPage = lazy(() => import('@/modules/organization/pages/Users'))
+const RolesPage = lazy(() => import('@/modules/organization/pages/Roles'))
+const PermissionsPage = lazy(() => import('@/modules/organization/pages/Permissions'))
 
 export const appRoutes: RouteObject[] = [
   // Public routes (guest only)
