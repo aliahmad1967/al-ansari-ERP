@@ -24,8 +24,6 @@ import {
   Settings,
 } from 'lucide-react'
 
-const STORAGE_KEY = 'al-ansari:dashboard-demo'
-
 function generateMonthlyData(): MonthlyData[] {
   const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
   return months.map((month) => ({
@@ -108,28 +106,7 @@ function generateQuickActions(): QuickAction[] {
   ]
 }
 
-function getStoredData(): DashboardData | null {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY)
-    if (!raw) return null
-    return JSON.parse(raw) as DashboardData
-  } catch {
-    return null
-  }
-}
-
-function storeData(data: DashboardData): void {
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(data))
-  } catch {
-    // localStorage full or unavailable
-  }
-}
-
 export async function getDashboardData(userPermissions: string[]): Promise<DashboardData> {
-  const cached = getStoredData()
-  if (cached) return cached
-
   const hasFinance = userPermissions.some(p => p.startsWith('finance.'))
   const hasInventory = userPermissions.some(p => p.startsWith('inventory.'))
   const hasSales = userPermissions.some(p => p.startsWith('sales.'))
@@ -213,7 +190,7 @@ export async function getDashboardData(userPermissions: string[]): Promise<Dashb
     })
   }
 
-  const data: DashboardData = {
+  return {
     kpis,
     revenueVsExpenses: hasFinance ? monthlyData : [],
     salesTrend: hasSales ? monthlyData : [],
@@ -226,11 +203,4 @@ export async function getDashboardData(userPermissions: string[]): Promise<Dashb
     notifications: generateNotifications(),
     quickActions: generateQuickActions(),
   }
-
-  storeData(data)
-  return data
-}
-
-export function clearDashboardCache(): void {
-  localStorage.removeItem(STORAGE_KEY)
 }
