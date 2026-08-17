@@ -7,6 +7,13 @@ import NotFoundPage from '@/app/NotFoundPage'
 import ProtectedRoute from '@/components/auth/ProtectedRoute'
 import LoginPage from '@/modules/auth/pages/LoginPage'
 import ChangePasswordPage from '@/modules/auth/pages/ChangePasswordPage'
+import { OrganizationsPage } from '@/modules/organization'
+import { BranchesPage } from '@/modules/organization'
+import { DepartmentsPage } from '@/modules/organization'
+import { PositionsPage } from '@/modules/organization'
+import { UsersPage } from '@/modules/organization'
+import { RolesPage } from '@/modules/organization'
+import { PermissionsPage } from '@/modules/organization'
 
 export const appRoutes: RouteObject[] = [
   // Public routes (guest only)
@@ -31,6 +38,15 @@ export const appRoutes: RouteObject[] = [
         children: [
           { index: true, element: <HomePage /> },
           { path: 'components', element: <ComponentShowcase /> },
+
+          // Organization Management
+          { path: 'organizations', element: <OrganizationsPage /> },
+          { path: 'branches', element: <BranchesPage /> },
+          { path: 'departments', element: <DepartmentsPage /> },
+          { path: 'positions', element: <PositionsPage /> },
+          { path: 'users', element: <UsersPage /> },
+          { path: 'roles', element: <RolesPage /> },
+          { path: 'permissions', element: <PermissionsPage /> },
         ],
       },
     ],

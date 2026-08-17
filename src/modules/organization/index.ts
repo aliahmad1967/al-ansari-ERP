@@ -1,0 +1,7 @@
+export { default as OrganizationsPage } from './pages/Organizations'
+export { default as BranchesPage } from './pages/Branches'
+export { default as DepartmentsPage } from './pages/Departments'
+export { default as PositionsPage } from './pages/Positions'
+export { default as UsersPage } from './pages/Users'
+export { default as RolesPage } from './pages/Roles'
+export { default as PermissionsPage } from './pages/Permissions'

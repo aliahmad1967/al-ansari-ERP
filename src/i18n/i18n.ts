@@ -5,11 +5,13 @@ import { STORAGE_KEYS } from '@/config/app.config'
 import arAuth from '@/i18n/ar/auth.json'
 import arCommon from '@/i18n/ar/common.json'
 import arDatabase from '@/i18n/ar/database.json'
+import arOrganization from '@/i18n/ar/organization.json'
 import arShowcase from '@/i18n/ar/showcase.json'
 import arUi from '@/i18n/ar/ui.json'
 import enAuth from '@/i18n/en/auth.json'
 import enCommon from '@/i18n/en/common.json'
 import enDatabase from '@/i18n/en/database.json'
+import enOrganization from '@/i18n/en/organization.json'
 import enShowcase from '@/i18n/en/showcase.json'
 import enUi from '@/i18n/en/ui.json'
 
@@ -28,8 +30,22 @@ function getInitialLanguage(): SupportedLanguage {
 
 i18n.use(initReactI18next).init({
   resources: {
-    ar: { auth: arAuth, common: arCommon, ui: arUi, showcase: arShowcase, database: arDatabase },
-    en: { auth: enAuth, common: enCommon, ui: enUi, showcase: enShowcase, database: enDatabase },
+    ar: {
+      auth: arAuth,
+      common: arCommon,
+      ui: arUi,
+      showcase: arShowcase,
+      database: arDatabase,
+      organization: arOrganization,
+    },
+    en: {
+      auth: enAuth,
+      common: enCommon,
+      ui: enUi,
+      showcase: enShowcase,
+      database: enDatabase,
+      organization: enOrganization,
+    },
   },
   lng: getInitialLanguage(),
   fallbackLng: 'ar',

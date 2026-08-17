@@ -10,6 +10,7 @@ import type { Department } from './Department'
 import type { Notification } from './Notification'
 import type { Organization } from './Organization'
 import type { Permission } from './Permission'
+import type { Position } from './Position'
 import type { Role } from './Role'
 import type { User } from './User'
 
@@ -19,6 +20,7 @@ import { Department as DepartmentModel } from './Department'
 import { Notification as NotificationModel } from './Notification'
 import { Organization as OrganizationModel } from './Organization'
 import { Permission as PermissionModel } from './Permission'
+import { Position as PositionModel } from './Position'
 import { Role as RoleModel } from './Role'
 import { User as UserModel } from './User'
 
@@ -29,11 +31,22 @@ export {
   NotificationModel,
   OrganizationModel,
   PermissionModel,
+  PositionModel,
   RoleModel,
   UserModel,
 }
 
-export type { AuditLog, Branch, Department, Notification, Organization, Permission, Role, User }
+export type {
+  AuditLog,
+  Branch,
+  Department,
+  Notification,
+  Organization,
+  Permission,
+  Position,
+  Role,
+  User,
+}
 
 export { AuditAction, AuditOutcome } from './AuditLog'
 export type { AuditActionValue, AuditLogInput, AuditLogEntity, AuditOutcomeValue } from './AuditLog'
@@ -47,6 +60,8 @@ export { OrganizationStatus } from './Organization'
 export type { OrganizationInput, OrganizationEntity, OrganizationStatusValue } from './Organization'
 export { buildPermissionCode } from './Permission'
 export type { PermissionInput, PermissionEntity } from './Permission'
+export { PositionStatus } from './Position'
+export type { PositionInput, PositionEntity, PositionStatusValue } from './Position'
 export { SystemRoleCode } from './Role'
 export type { RoleInput, RoleEntity } from './Role'
 export { UserStatus } from './User'
@@ -58,6 +73,7 @@ export const MODEL_SCHEMAS: Realm.ObjectSchema[] = [
   OrganizationModel.schema,
   BranchModel.schema,
   DepartmentModel.schema,
+  PositionModel.schema,
   PermissionModel.schema,
   RoleModel.schema,
   UserModel.schema,
@@ -74,6 +90,7 @@ export const MODEL_CLASSES: Realm.RealmObjectConstructor<Realm.AnyRealmObject>[]
   OrganizationModel,
   BranchModel,
   DepartmentModel,
+  PositionModel,
   PermissionModel,
   RoleModel,
   UserModel,

@@ -12,7 +12,7 @@ import type Realm from 'realm'
 import { DatabaseErrorCode, toDatabaseError } from './errors'
 
 /** The current schema version. Bump this when {@link MIGRATIONS} grows. */
-export const CURRENT_SCHEMA_VERSION = 1
+export const CURRENT_SCHEMA_VERSION = 2
 
 export interface MigrationStep {
   /** The schema version this step produces. */
@@ -22,14 +22,21 @@ export interface MigrationStep {
 }
 
 /**
- * Ordered migration steps. v1 introduces the initial schema; later phases add
- * further steps for new models, columns and index changes.
+ * Ordered migration steps. v1 introduces the initial schema; v2 adds the
+ * Position model for organization management.
  */
 export const MIGRATIONS: MigrationStep[] = [
   {
     toVersion: 1,
     migrate: () => {
       // Initial schema — nothing to transform yet.
+    },
+  },
+  {
+    toVersion: 2,
+    migrate: () => {
+      // v2 adds the Position model. Realm handles schema additions
+      // automatically; no data transformation is required.
     },
   },
 ]

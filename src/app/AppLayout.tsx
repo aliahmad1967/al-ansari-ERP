@@ -4,16 +4,19 @@ import { useSyncExternalStore } from 'react'
 import { Outlet } from 'react-router-dom'
 import {
   Boxes,
+  Building2,
+  Briefcase,
+  GitBranch,
   Languages,
   LayoutDashboard,
+  Layers,
   LogOut,
   Moon,
-  Package,
   Palette,
-  ShoppingCart,
+  Shield,
   Sun,
   User,
-  Wallet,
+  Users,
 } from 'lucide-react'
 
 import Button from '@/components/ui/Button'
@@ -31,6 +34,7 @@ export default function AppLayout() {
   const { t } = useTranslation('common')
   const { t: tShowcase } = useTranslation('showcase')
   const { t: tAuth } = useTranslation('auth')
+  const { t: tOrg } = useTranslation('organization')
   const { theme, toggleTheme } = useTheme()
   const { toggleLanguage } = useLanguage()
   const { sidebarCollapsed, mobileNavOpen } = useSyncExternalStore(subscribeAppUi, getAppUiState)
@@ -56,26 +60,50 @@ export default function AppLayout() {
       ],
     },
     {
-      id: 'modules',
-      label: tShowcase('layout.sidebarModules'),
+      id: 'organization',
+      label: tOrg('nav.organizationManagement'),
       items: [
         {
-          id: 'finance',
-          label: tShowcase('layout.sidebarFinance'),
-          icon: <Wallet className="h-4 w-4" aria-hidden="true" />,
-          disabled: true,
+          id: 'organizations',
+          label: tOrg('nav.organizations'),
+          icon: <Building2 className="h-4 w-4" aria-hidden="true" />,
+          to: '/organizations',
         },
         {
-          id: 'inventory',
-          label: tShowcase('layout.sidebarInventory'),
-          icon: <Package className="h-4 w-4" aria-hidden="true" />,
-          disabled: true,
+          id: 'branches',
+          label: tOrg('nav.branches'),
+          icon: <GitBranch className="h-4 w-4" aria-hidden="true" />,
+          to: '/branches',
         },
         {
-          id: 'sales',
-          label: tShowcase('layout.sidebarSales'),
-          icon: <ShoppingCart className="h-4 w-4" aria-hidden="true" />,
-          disabled: true,
+          id: 'departments',
+          label: tOrg('nav.departments'),
+          icon: <Layers className="h-4 w-4" aria-hidden="true" />,
+          to: '/departments',
+        },
+        {
+          id: 'positions',
+          label: tOrg('nav.positions'),
+          icon: <Briefcase className="h-4 w-4" aria-hidden="true" />,
+          to: '/positions',
+        },
+        {
+          id: 'users',
+          label: tOrg('nav.users'),
+          icon: <Users className="h-4 w-4" aria-hidden="true" />,
+          to: '/users',
+        },
+        {
+          id: 'roles',
+          label: tOrg('nav.roles'),
+          icon: <Shield className="h-4 w-4" aria-hidden="true" />,
+          to: '/roles',
+        },
+        {
+          id: 'permissions',
+          label: tOrg('nav.permissions'),
+          icon: <Shield className="h-4 w-4" aria-hidden="true" />,
+          to: '/permissions',
         },
       ],
     },
@@ -216,10 +244,16 @@ export default function AppLayout() {
             icon: <LayoutDashboard className="h-5 w-5" aria-hidden="true" />,
           },
           {
-            id: 'components',
-            label: tShowcase('layout.mobileNavComponents'),
-            to: '/components',
-            icon: <Palette className="h-5 w-5" aria-hidden="true" />,
+            id: 'organizations',
+            label: tOrg('nav.organizations'),
+            to: '/organizations',
+            icon: <Building2 className="h-5 w-5" aria-hidden="true" />,
+          },
+          {
+            id: 'users',
+            label: tOrg('nav.users'),
+            to: '/users',
+            icon: <Users className="h-5 w-5" aria-hidden="true" />,
           },
         ]}
       />
