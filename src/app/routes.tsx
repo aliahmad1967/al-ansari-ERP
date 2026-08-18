@@ -47,6 +47,14 @@ const DeliveriesPage = lazy(() => import('@/modules/sales/pages/Deliveries'))
 const SalesInvoicesPage = lazy(() => import('@/modules/sales/pages/Invoices'))
 const CustomerPaymentsPage = lazy(() => import('@/modules/sales/pages/Payments'))
 const SalesReturnsPage = lazy(() => import('@/modules/sales/pages/SalesReturns'))
+const ChartOfAccountsPage = lazy(() => import('@/modules/accounting/pages/ChartOfAccounts'))
+const JournalEntriesPage = lazy(() => import('@/modules/accounting/pages/JournalEntries'))
+const FiscalYearsPage = lazy(() => import('@/modules/accounting/pages/FiscalYears'))
+const CostCentersPage = lazy(() => import('@/modules/accounting/pages/CostCenters'))
+const BudgetsPage = lazy(() => import('@/modules/accounting/pages/Budgets'))
+const TrialBalancePage = lazy(() => import('@/modules/accounting/pages/TrialBalance'))
+const ProfitAndLossPage = lazy(() => import('@/modules/accounting/pages/ProfitAndLoss'))
+const BalanceSheetPage = lazy(() => import('@/modules/accounting/pages/BalanceSheet'))
 
 export const appRoutes: RouteObject[] = [
   // Public routes (guest only)
@@ -123,6 +131,16 @@ export const appRoutes: RouteObject[] = [
           { path: 'sales-invoices', element: <SalesInvoicesPage /> },
           { path: 'customer-payments', element: <CustomerPaymentsPage /> },
           { path: 'sales-returns', element: <SalesReturnsPage /> },
+
+          // Accounting Management
+          { path: 'chart-of-accounts', element: <ChartOfAccountsPage /> },
+          { path: 'journal-entries', element: <JournalEntriesPage /> },
+          { path: 'fiscal-years', element: <FiscalYearsPage /> },
+          { path: 'cost-centers', element: <CostCentersPage /> },
+          { path: 'budgets', element: <BudgetsPage /> },
+          { path: 'trial-balance', element: <TrialBalancePage /> },
+          { path: 'profit-and-loss', element: <ProfitAndLossPage /> },
+          { path: 'balance-sheet', element: <BalanceSheetPage /> },
         ],
       },
     ],

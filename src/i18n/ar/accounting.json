@@ -1,0 +1,99 @@
+{
+  "nav": {
+    "accountingManagement": "المحاسبة",
+    "chartOfAccounts": "شجرة الحسابات",
+    "journalEntries": "القيود اليومية",
+    "fiscalYears": "السنوات المالية",
+    "costCenters": "مراكز التكلفة",
+    "budgets": "الميزانيات",
+    "trialBalance": "ميزان المراجعة",
+    "profitAndLoss": "قائمة الدخل",
+    "balanceSheet": "الميزانية العمومية"
+  },
+  "accounts": {
+    "title": "شجرة الحسابات",
+    "create": "حساب جديد",
+    "code": "الكود",
+    "name": "اسم الحساب",
+    "type": "النوع",
+    "balance": "الرصيد",
+    "status": "الحالة",
+    "active": "نشط",
+    "inactive": "غير نشط",
+    "archive": "أرشفة",
+    "confirmArchive": "هل أنت متأكد من أرشفة هذا الحساب؟",
+    "searchPlaceholder": "بحث في الحسابات...",
+    "types": {
+      "asset": "أصول",
+      "liability": "التزامات",
+      "equity": "حقوق الملكية",
+      "revenue": "إيرادات",
+      "expense": "مصروفات"
+    }
+  },
+  "journal": {
+    "title": "القيود اليومية",
+    "code": "رقم القيد",
+    "date": "التاريخ",
+    "description": "الوصف",
+    "debit": "مدين",
+    "credit": "دائن",
+    "status": "الحالة",
+    "reference": "المرجع",
+    "searchPlaceholder": "بحث في القيود اليومية...",
+    "statuses": {
+      "draft": "مسودة",
+      "reviewed": "تمت المراجعة",
+      "approved": "معتمد",
+      "posted": "مرحل",
+      "reversed": "معكوس"
+    }
+  },
+  "fiscal": {
+    "title": "السنوات المالية",
+    "create": "سنة مالية جديدة",
+    "code": "الكود",
+    "name": "الاسم",
+    "startDate": "تاريخ البداية",
+    "endDate": "تاريخ النهاية",
+    "status": "الحالة",
+    "closed": "مغلقة",
+    "yes": "نعم",
+    "no": "لا",
+    "searchPlaceholder": "بحث في السنوات المالية...",
+    "statuses": {
+      "draft": "مسودة",
+      "open": "مفتوحة",
+      "closed": "مغلقة"
+    }
+  },
+  "costCenter": {
+    "title": "مراكز التكلفة",
+    "create": "مركز تكلفة جديد",
+    "code": "الكود",
+    "name": "الاسم",
+    "description": "الوصف",
+    "status": "الحالة",
+    "active": "نشط",
+    "inactive": "غير نشط",
+    "archive": "أرشفة",
+    "confirmArchive": "هل أنت متأكد من أرشفة مركز التكلفة هذا؟",
+    "searchPlaceholder": "بحث في مراكز التكلفة..."
+  },
+  "budget": {
+    "title": "الميزانيات",
+    "accountCode": "الحساب",
+    "accountName": "اسم الحساب",
+    "type": "النوع",
+    "currentBalance": "الرصيد الحالي",
+    "searchPlaceholder": "بحث في الميزانيات..."
+  },
+  "reports": {
+    "trialBalance": "ميزان المراجعة",
+    "trialBalanceDescription": "سيعرض تقرير ميزان المراجعة جميع الحسابات مع أرصدتها المدينة والدائنة.",
+    "profitAndLoss": "قائمة الدخل",
+    "profitAndLossDescription": "ستعرض قائمة الدخل الإيرادات والمصروفات وصافي الدخل للفترة.",
+    "balanceSheet": "الميزانية العمومية",
+    "balanceSheetDescription": "ستعرض الميزانية العمومية الأصول والالتزامات وحقوق الملكية بتاريخ الإعداد."
+  }
+}

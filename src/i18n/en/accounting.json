@@ -1,0 +1,99 @@
+{
+  "nav": {
+    "accountingManagement": "Accounting",
+    "chartOfAccounts": "Chart of Accounts",
+    "journalEntries": "Journal Entries",
+    "fiscalYears": "Fiscal Years",
+    "costCenters": "Cost Centers",
+    "budgets": "Budgets",
+    "trialBalance": "Trial Balance",
+    "profitAndLoss": "Profit & Loss",
+    "balanceSheet": "Balance Sheet"
+  },
+  "accounts": {
+    "title": "Chart of Accounts",
+    "create": "New Account",
+    "code": "Code",
+    "name": "Account Name",
+    "type": "Type",
+    "balance": "Balance",
+    "status": "Status",
+    "active": "Active",
+    "inactive": "Inactive",
+    "archive": "Archive",
+    "confirmArchive": "Are you sure you want to archive this account?",
+    "searchPlaceholder": "Search accounts...",
+    "types": {
+      "asset": "Asset",
+      "liability": "Liability",
+      "equity": "Equity",
+      "revenue": "Revenue",
+      "expense": "Expense"
+    }
+  },
+  "journal": {
+    "title": "Journal Entries",
+    "code": "Entry #",
+    "date": "Date",
+    "description": "Description",
+    "debit": "Debit",
+    "credit": "Credit",
+    "status": "Status",
+    "reference": "Reference",
+    "searchPlaceholder": "Search journal entries...",
+    "statuses": {
+      "draft": "Draft",
+      "reviewed": "Reviewed",
+      "approved": "Approved",
+      "posted": "Posted",
+      "reversed": "Reversed"
+    }
+  },
+  "fiscal": {
+    "title": "Fiscal Years",
+    "create": "New Fiscal Year",
+    "code": "Code",
+    "name": "Name",
+    "startDate": "Start Date",
+    "endDate": "End Date",
+    "status": "Status",
+    "closed": "Closed",
+    "yes": "Yes",
+    "no": "No",
+    "searchPlaceholder": "Search fiscal years...",
+    "statuses": {
+      "draft": "Draft",
+      "open": "Open",
+      "closed": "Closed"
+    }
+  },
+  "costCenter": {
+    "title": "Cost Centers",
+    "create": "New Cost Center",
+    "code": "Code",
+    "name": "Name",
+    "description": "Description",
+    "status": "Status",
+    "active": "Active",
+    "inactive": "Inactive",
+    "archive": "Archive",
+    "confirmArchive": "Are you sure you want to archive this cost center?",
+    "searchPlaceholder": "Search cost centers..."
+  },
+  "budget": {
+    "title": "Budgets",
+    "accountCode": "Account",
+    "accountName": "Account Name",
+    "type": "Type",
+    "currentBalance": "Current Balance",
+    "searchPlaceholder": "Search budgets..."
+  },
+  "reports": {
+    "trialBalance": "Trial Balance",
+    "trialBalanceDescription": "Trial balance report will display all accounts with their debit and credit balances.",
+    "profitAndLoss": "Profit & Loss Statement",
+    "profitAndLossDescription": "Profit and loss statement will show revenues, expenses, and net income for the period.",
+    "balanceSheet": "Balance Sheet",
+    "balanceSheetDescription": "Balance sheet will display assets, liabilities, and equity as of the reporting date."
+  }
+}

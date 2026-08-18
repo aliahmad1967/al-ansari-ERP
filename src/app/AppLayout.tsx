@@ -34,6 +34,10 @@ import {
   Handshake,
   Banknote,
   RotateCcw,
+  BookOpen,
+  Scale,
+  TrendingUp,
+  LayoutGrid,
 } from 'lucide-react'
 
 import Button from '@/components/ui/Button'
@@ -57,6 +61,7 @@ export default function AppLayout() {
   const { t: tInv } = useTranslation('inventory')
   const { t: tProc } = useTranslation('procurement')
   const { t: tSales } = useTranslation('sales')
+  const { t: tAcct } = useTranslation('accounting')
   const { theme, toggleTheme } = useTheme()
   const { toggleLanguage } = useLanguage()
   const { sidebarCollapsed, mobileNavOpen } = useSyncExternalStore(subscribeAppUi, getAppUiState)
@@ -330,6 +335,60 @@ export default function AppLayout() {
           label: tSales('nav.salesReturns'),
           icon: <RotateCcw className="h-4 w-4" aria-hidden="true" />,
           to: '/sales-returns',
+        },
+      ],
+    },
+    {
+      id: 'accounting',
+      label: tAcct('nav.accountingManagement'),
+      items: [
+        {
+          id: 'chart-of-accounts',
+          label: tAcct('nav.chartOfAccounts'),
+          icon: <BookOpen className="h-4 w-4" aria-hidden="true" />,
+          to: '/chart-of-accounts',
+        },
+        {
+          id: 'journal-entries',
+          label: tAcct('nav.journalEntries'),
+          icon: <FileText className="h-4 w-4" aria-hidden="true" />,
+          to: '/journal-entries',
+        },
+        {
+          id: 'fiscal-years',
+          label: tAcct('nav.fiscalYears'),
+          icon: <Calendar className="h-4 w-4" aria-hidden="true" />,
+          to: '/fiscal-years',
+        },
+        {
+          id: 'cost-centers',
+          label: tAcct('nav.costCenters'),
+          icon: <LayoutGrid className="h-4 w-4" aria-hidden="true" />,
+          to: '/cost-centers',
+        },
+        {
+          id: 'budgets',
+          label: tAcct('nav.budgets'),
+          icon: <BarChart3 className="h-4 w-4" aria-hidden="true" />,
+          to: '/budgets',
+        },
+        {
+          id: 'trial-balance',
+          label: tAcct('nav.trialBalance'),
+          icon: <Calculator className="h-4 w-4" aria-hidden="true" />,
+          to: '/trial-balance',
+        },
+        {
+          id: 'profit-and-loss',
+          label: tAcct('nav.profitAndLoss'),
+          icon: <TrendingUp className="h-4 w-4" aria-hidden="true" />,
+          to: '/profit-and-loss',
+        },
+        {
+          id: 'balance-sheet',
+          label: tAcct('nav.balanceSheet'),
+          icon: <Scale className="h-4 w-4" aria-hidden="true" />,
+          to: '/balance-sheet',
         },
       ],
     },
