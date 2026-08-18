@@ -15,6 +15,8 @@ import { STORAGE_KEYS } from '@/config/app.config'
 
 const DEV_STORAGE_KEY = 'erp_dev_users'
 const DEV_SEEDED_KEY = 'erp_dev_seeded'
+const DEV_SEED_VERSION_KEY = 'erp_dev_seed_version'
+const DEV_SEED_VERSION = 2
 
 interface DevUser {
   id: string
@@ -165,11 +167,30 @@ const ADMIN_PERMISSIONS = [
 ]
 
 async function seedDevAdmin(): Promise<void> {
-  if (localStorage.getItem(DEV_SEEDED_KEY)) return
+  const currentVersion = parseInt(localStorage.getItem(DEV_SEED_VERSION_KEY) ?? '0', 10)
+  if (currentVersion === DEV_SEED_VERSION && localStorage.getItem(DEV_SEEDED_KEY)) return
 
   const users = loadUsers()
-  if (users.some((u) => u.username === 'admin')) {
-    localStorage.setItem(DEV_SEEDED_KEY, 'true')
+  const admin = users.find((u) => u.username === 'admin')
+
+  if (admin) {
+    if (currentVersion < DEV_SEED_VERSION) {
+      admin.roleCode = 'ADMINISTRATOR'
+  saveUsers(users)
+  localStorage.setItem(DEV_SEED_VERSION_KEY, String(DEV_SEED_VERSION))
+  localStorage.setItem(DEV_SEEDED_KEY, 'true')
+  // Invalidate stale session so new permissions are picked up on next login
+  try {
+    const raw = localStorage.getItem(STORAGE_KEYS.session)
+    if (raw) {
+      const session: Session = JSON.parse(raw)
+      session.expiresAt = 0
+      localStorage.setItem(STORAGE_KEYS.session, JSON.stringify(session))
+    }
+  } catch {
+    // ignore
+  }
+}
     return
   }
 
