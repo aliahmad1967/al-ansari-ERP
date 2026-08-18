@@ -45,7 +45,6 @@ import {
   FolderKanban,
   CheckSquare,
   Flag,
-  Clock,
   DollarSign,
 } from 'lucide-react'
 
