@@ -11,6 +11,11 @@ import arShowcase from '@/i18n/ar/showcase.json'
 import arHr from '@/i18n/ar/hr.json'
 import arAttendance from '@/i18n/ar/attendance.json'
 import arUi from '@/i18n/ar/ui.json'
+import arInventory from '@/i18n/ar/inventory.json'
+import arProcurement from '@/i18n/ar/procurement.json'
+import arFinance from '@/i18n/ar/finance.json'
+import arReports from '@/i18n/ar/reports.json'
+import arSales from '@/i18n/ar/sales.json'
 import enAuth from '@/i18n/en/auth.json'
 import enCommon from '@/i18n/en/common.json'
 import enDashboard from '@/i18n/en/dashboard.json'
@@ -20,6 +25,11 @@ import enShowcase from '@/i18n/en/showcase.json'
 import enHr from '@/i18n/en/hr.json'
 import enAttendance from '@/i18n/en/attendance.json'
 import enUi from '@/i18n/en/ui.json'
+import enInventory from '@/i18n/en/inventory.json'
+import enProcurement from '@/i18n/en/procurement.json'
+import enFinance from '@/i18n/en/finance.json'
+import enReports from '@/i18n/en/reports.json'
+import enSales from '@/i18n/en/sales.json'
 
 export const SUPPORTED_LANGUAGES = ['ar', 'en'] as const
 export type SupportedLanguage = (typeof SUPPORTED_LANGUAGES)[number]
@@ -46,6 +56,11 @@ i18n.use(initReactI18next).init({
       organization: arOrganization,
       hr: arHr,
       attendance: arAttendance,
+      inventory: arInventory,
+      procurement: arProcurement,
+      finance: arFinance,
+      reports: arReports,
+      sales: arSales,
     },
     en: {
       auth: enAuth,
@@ -57,6 +72,11 @@ i18n.use(initReactI18next).init({
       organization: enOrganization,
       hr: enHr,
       attendance: enAttendance,
+      inventory: enInventory,
+      procurement: enProcurement,
+      finance: enFinance,
+      reports: enReports,
+      sales: enSales,
     },
   },
   lng: getInitialLanguage(),

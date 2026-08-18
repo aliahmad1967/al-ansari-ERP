@@ -54,6 +54,18 @@ import type { GoodsReceipt } from './GoodsReceipt'
 import type { GoodsReceiptItem } from './GoodsReceiptItem'
 import type { SupplierInvoice } from './SupplierInvoice'
 import type { SupplierPayment } from './SupplierPayment'
+import type { Customer } from './Customer'
+import type { Quotation } from './Quotation'
+import type { QuotationItem } from './QuotationItem'
+import type { SalesOrder } from './SalesOrder'
+import type { SalesOrderItem } from './SalesOrderItem'
+import type { Delivery } from './Delivery'
+import type { DeliveryItem } from './DeliveryItem'
+import type { SalesInvoice } from './SalesInvoice'
+import type { SalesInvoiceItem } from './SalesInvoiceItem'
+import type { CustomerPayment } from './CustomerPayment'
+import type { SalesReturn } from './SalesReturn'
+import type { SalesReturnItem } from './SalesReturnItem'
 
 import { AuditLog as AuditLogModel } from './AuditLog'
 import { AttendanceRecord as AttendanceRecordModel } from './AttendanceRecord'
@@ -105,6 +117,18 @@ import { GoodsReceipt as GoodsReceiptModel } from './GoodsReceipt'
 import { GoodsReceiptItem as GoodsReceiptItemModel } from './GoodsReceiptItem'
 import { SupplierInvoice as SupplierInvoiceModel } from './SupplierInvoice'
 import { SupplierPayment as SupplierPaymentModel } from './SupplierPayment'
+import { Customer as CustomerModel } from './Customer'
+import { Quotation as QuotationModel } from './Quotation'
+import { QuotationItem as QuotationItemModel } from './QuotationItem'
+import { SalesOrder as SalesOrderModel } from './SalesOrder'
+import { SalesOrderItem as SalesOrderItemModel } from './SalesOrderItem'
+import { Delivery as DeliveryModel } from './Delivery'
+import { DeliveryItem as DeliveryItemModel } from './DeliveryItem'
+import { SalesInvoice as SalesInvoiceModel } from './SalesInvoice'
+import { SalesInvoiceItem as SalesInvoiceItemModel } from './SalesInvoiceItem'
+import { CustomerPayment as CustomerPaymentModel } from './CustomerPayment'
+import { SalesReturn as SalesReturnModel } from './SalesReturn'
+import { SalesReturnItem as SalesReturnItemModel } from './SalesReturnItem'
 
 export {
   AuditLogModel,
@@ -157,6 +181,18 @@ export {
   GoodsReceiptItemModel,
   SupplierInvoiceModel,
   SupplierPaymentModel,
+  CustomerModel,
+  QuotationModel,
+  QuotationItemModel,
+  SalesOrderModel,
+  SalesOrderItemModel,
+  DeliveryModel,
+  DeliveryItemModel,
+  SalesInvoiceModel,
+  SalesInvoiceItemModel,
+  CustomerPaymentModel,
+  SalesReturnModel,
+  SalesReturnItemModel,
 }
 
 export type {
@@ -210,6 +246,18 @@ export type {
   GoodsReceiptItem,
   SupplierInvoice,
   SupplierPayment,
+  Customer,
+  Quotation,
+  QuotationItem,
+  SalesOrder,
+  SalesOrderItem,
+  Delivery,
+  DeliveryItem,
+  SalesInvoice,
+  SalesInvoiceItem,
+  CustomerPayment,
+  SalesReturn,
+  SalesReturnItem,
 }
 
 export { AuditAction, AuditOutcome } from './AuditLog'
@@ -305,6 +353,25 @@ export { SupplierInvoiceStatus } from './SupplierInvoice'
 export type { SupplierInvoiceInput, SupplierInvoiceEntity, SupplierInvoiceStatusValue } from './SupplierInvoice'
 export { SupplierPaymentStatus, SupplierPaymentMethod } from './SupplierPayment'
 export type { SupplierPaymentInput, SupplierPaymentEntity, SupplierPaymentStatusValue, SupplierPaymentMethodValue } from './SupplierPayment'
+export { CustomerStatus } from './Customer'
+export type { CustomerInput, CustomerEntity, CustomerStatusValue } from './Customer'
+export { QuotationStatus } from './Quotation'
+export type { QuotationInput, QuotationEntity, QuotationStatusValue } from './Quotation'
+export type { QuotationItemInput, QuotationItemEntity } from './QuotationItem'
+export { SalesOrderStatus } from './SalesOrder'
+export type { SalesOrderInput, SalesOrderEntity, SalesOrderStatusValue } from './SalesOrder'
+export type { SalesOrderItemInput, SalesOrderItemEntity } from './SalesOrderItem'
+export { DeliveryStatus } from './Delivery'
+export type { DeliveryInput, DeliveryEntity, DeliveryStatusValue } from './Delivery'
+export type { DeliveryItemInput, DeliveryItemEntity } from './DeliveryItem'
+export { SalesInvoiceStatus } from './SalesInvoice'
+export type { SalesInvoiceInput, SalesInvoiceEntity, SalesInvoiceStatusValue } from './SalesInvoice'
+export type { SalesInvoiceItemInput, SalesInvoiceItemEntity } from './SalesInvoiceItem'
+export { CustomerPaymentStatus, CustomerPaymentMethod } from './CustomerPayment'
+export type { CustomerPaymentInput, CustomerPaymentEntity, CustomerPaymentStatusValue, CustomerPaymentMethodValue } from './CustomerPayment'
+export { SalesReturnStatus } from './SalesReturn'
+export type { SalesReturnInput, SalesReturnEntity, SalesReturnStatusValue } from './SalesReturn'
+export type { SalesReturnItemInput, SalesReturnItemEntity } from './SalesReturnItem'
 export * from './base'
 
 /** The ordered list of Realm schemas installed in the database. */
@@ -359,6 +426,18 @@ export const MODEL_SCHEMAS: Realm.ObjectSchema[] = [
   GoodsReceiptItemModel.schema,
   SupplierInvoiceModel.schema,
   SupplierPaymentModel.schema,
+  CustomerModel.schema,
+  QuotationModel.schema,
+  QuotationItemModel.schema,
+  SalesOrderModel.schema,
+  SalesOrderItemModel.schema,
+  DeliveryModel.schema,
+  DeliveryItemModel.schema,
+  SalesInvoiceModel.schema,
+  SalesInvoiceItemModel.schema,
+  CustomerPaymentModel.schema,
+  SalesReturnModel.schema,
+  SalesReturnItemModel.schema,
 ]
 
 /**
@@ -417,4 +496,16 @@ export const MODEL_CLASSES: Realm.RealmObjectConstructor<Realm.AnyRealmObject>[]
   GoodsReceiptItemModel,
   SupplierInvoiceModel,
   SupplierPaymentModel,
+  CustomerModel,
+  QuotationModel,
+  QuotationItemModel,
+  SalesOrderModel,
+  SalesOrderItemModel,
+  DeliveryModel,
+  DeliveryItemModel,
+  SalesInvoiceModel,
+  SalesInvoiceItemModel,
+  CustomerPaymentModel,
+  SalesReturnModel,
+  SalesReturnItemModel,
 ]

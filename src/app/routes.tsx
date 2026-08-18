@@ -40,6 +40,13 @@ const PurchaseOrdersPage = lazy(() => import('@/modules/procurement/pages/Purcha
 const GoodsReceiptsPage = lazy(() => import('@/modules/procurement/pages/GoodsReceipts'))
 const SupplierInvoicesPage = lazy(() => import('@/modules/procurement/pages/SupplierInvoices'))
 const ProcurementReportsPage = lazy(() => import('@/modules/procurement/pages/ProcurementReports'))
+const CustomersPage = lazy(() => import('@/modules/sales/pages/Customers'))
+const QuotationsPage = lazy(() => import('@/modules/sales/pages/Quotations'))
+const SalesOrdersPage = lazy(() => import('@/modules/sales/pages/SalesOrders'))
+const DeliveriesPage = lazy(() => import('@/modules/sales/pages/Deliveries'))
+const SalesInvoicesPage = lazy(() => import('@/modules/sales/pages/Invoices'))
+const CustomerPaymentsPage = lazy(() => import('@/modules/sales/pages/Payments'))
+const SalesReturnsPage = lazy(() => import('@/modules/sales/pages/SalesReturns'))
 
 export const appRoutes: RouteObject[] = [
   // Public routes (guest only)
@@ -107,6 +114,15 @@ export const appRoutes: RouteObject[] = [
           { path: 'goods-receipts', element: <GoodsReceiptsPage /> },
           { path: 'supplier-invoices', element: <SupplierInvoicesPage /> },
           { path: 'procurement-reports', element: <ProcurementReportsPage /> },
+
+          // Sales Management
+          { path: 'customers', element: <CustomersPage /> },
+          { path: 'quotations', element: <QuotationsPage /> },
+          { path: 'sales-orders', element: <SalesOrdersPage /> },
+          { path: 'deliveries', element: <DeliveriesPage /> },
+          { path: 'sales-invoices', element: <SalesInvoicesPage /> },
+          { path: 'customer-payments', element: <CustomerPaymentsPage /> },
+          { path: 'sales-returns', element: <SalesReturnsPage /> },
         ],
       },
     ],

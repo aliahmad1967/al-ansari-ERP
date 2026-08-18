@@ -30,6 +30,10 @@ import {
   Settings,
   ShoppingCart,
   FileCheck,
+  FileSignature,
+  Handshake,
+  Banknote,
+  RotateCcw,
 } from 'lucide-react'
 
 import Button from '@/components/ui/Button'
@@ -52,6 +56,7 @@ export default function AppLayout() {
   const { t: tAtt } = useTranslation('attendance')
   const { t: tInv } = useTranslation('inventory')
   const { t: tProc } = useTranslation('procurement')
+  const { t: tSales } = useTranslation('sales')
   const { theme, toggleTheme } = useTheme()
   const { toggleLanguage } = useLanguage()
   const { sidebarCollapsed, mobileNavOpen } = useSyncExternalStore(subscribeAppUi, getAppUiState)
@@ -277,6 +282,54 @@ export default function AppLayout() {
           label: tProc('nav.procurementReports'),
           icon: <BarChart3 className="h-4 w-4" aria-hidden="true" />,
           to: '/procurement-reports',
+        },
+      ],
+    },
+    {
+      id: 'sales',
+      label: tSales('nav.salesManagement'),
+      items: [
+        {
+          id: 'customers',
+          label: tSales('nav.customers'),
+          icon: <Users className="h-4 w-4" aria-hidden="true" />,
+          to: '/customers',
+        },
+        {
+          id: 'quotations',
+          label: tSales('nav.quotations'),
+          icon: <FileSignature className="h-4 w-4" aria-hidden="true" />,
+          to: '/quotations',
+        },
+        {
+          id: 'sales-orders',
+          label: tSales('nav.salesOrders'),
+          icon: <Handshake className="h-4 w-4" aria-hidden="true" />,
+          to: '/sales-orders',
+        },
+        {
+          id: 'deliveries',
+          label: tSales('nav.deliveries'),
+          icon: <Truck className="h-4 w-4" aria-hidden="true" />,
+          to: '/deliveries',
+        },
+        {
+          id: 'sales-invoices',
+          label: tSales('nav.salesInvoices'),
+          icon: <FileCheck className="h-4 w-4" aria-hidden="true" />,
+          to: '/sales-invoices',
+        },
+        {
+          id: 'customer-payments',
+          label: tSales('nav.customerPayments'),
+          icon: <Banknote className="h-4 w-4" aria-hidden="true" />,
+          to: '/customer-payments',
+        },
+        {
+          id: 'sales-returns',
+          label: tSales('nav.salesReturns'),
+          icon: <RotateCcw className="h-4 w-4" aria-hidden="true" />,
+          to: '/sales-returns',
         },
       ],
     },
