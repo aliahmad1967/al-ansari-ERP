@@ -86,6 +86,14 @@ import type { DepreciationSchedule } from './DepreciationSchedule'
 import type { AssetMaintenance } from './AssetMaintenance'
 import type { AssetTransfer } from './AssetTransfer'
 import type { AssetDisposal } from './AssetDisposal'
+import type { Project } from './Project'
+import type { ProjectMember } from './ProjectMember'
+import type { Task } from './Task'
+import type { TaskComment } from './TaskComment'
+import type { Milestone } from './Milestone'
+import type { Timesheet } from './Timesheet'
+import type { ProjectExpense } from './ProjectExpense'
+import type { ProjectBudget } from './ProjectBudget'
 
 import { AuditLog as AuditLogModel } from './AuditLog'
 import { AttendanceRecord as AttendanceRecordModel } from './AttendanceRecord'
@@ -169,6 +177,14 @@ import { DepreciationSchedule as DepreciationScheduleModel } from './Depreciatio
 import { AssetMaintenance as AssetMaintenanceModel } from './AssetMaintenance'
 import { AssetTransfer as AssetTransferModel } from './AssetTransfer'
 import { AssetDisposal as AssetDisposalModel } from './AssetDisposal'
+import { Project as ProjectModel } from './Project'
+import { ProjectMember as ProjectMemberModel } from './ProjectMember'
+import { Task as TaskModel } from './Task'
+import { TaskComment as TaskCommentModel } from './TaskComment'
+import { Milestone as MilestoneModel } from './Milestone'
+import { Timesheet as TimesheetModel } from './Timesheet'
+import { ProjectExpense as ProjectExpenseModel } from './ProjectExpense'
+import { ProjectBudget as ProjectBudgetModel } from './ProjectBudget'
 
 export {
   AuditLogModel,
@@ -253,6 +269,14 @@ export {
   AssetMaintenanceModel,
   AssetTransferModel,
   AssetDisposalModel,
+  ProjectModel,
+  ProjectMemberModel,
+  TaskModel,
+  TaskCommentModel,
+  MilestoneModel,
+  TimesheetModel,
+  ProjectExpenseModel,
+  ProjectBudgetModel,
 }
 
 export type {
@@ -338,6 +362,14 @@ export type {
   AssetMaintenance,
   AssetTransfer,
   AssetDisposal,
+  Project,
+  ProjectMember,
+  Task,
+  TaskComment,
+  Milestone,
+  Timesheet,
+  ProjectExpense,
+  ProjectBudget,
 }
 
 export { AuditAction, AuditOutcome } from './AuditLog'
@@ -479,6 +511,26 @@ export type {
   AssetDisposalStatusValue,
   AssetDisposalMethodValue,
 } from './AssetDisposal'
+export { ProjectStatus, ProjectPriority } from './Project'
+export type { ProjectInput, ProjectEntity, ProjectStatusValue, ProjectPriorityValue } from './Project'
+export { ProjectMemberRole } from './ProjectMember'
+export type { ProjectMemberInput, ProjectMemberEntity, ProjectMemberRoleValue } from './ProjectMember'
+export { TaskStatus, TaskPriority } from './Task'
+export type { TaskInput, TaskEntity, TaskStatusValue, TaskPriorityValue } from './Task'
+export type { TaskCommentInput, TaskCommentEntity } from './TaskComment'
+export { MilestoneStatus } from './Milestone'
+export type { MilestoneInput, MilestoneEntity, MilestoneStatusValue } from './Milestone'
+export { TimesheetStatus } from './Timesheet'
+export type { TimesheetInput, TimesheetEntity, TimesheetStatusValue } from './Timesheet'
+export { ProjectExpenseStatus, ProjectExpenseCategory } from './ProjectExpense'
+export type {
+  ProjectExpenseInput,
+  ProjectExpenseEntity,
+  ProjectExpenseStatusValue,
+  ProjectExpenseCategoryValue,
+} from './ProjectExpense'
+export { ProjectBudgetStatus } from './ProjectBudget'
+export type { ProjectBudgetInput, ProjectBudgetEntity, ProjectBudgetStatusValue } from './ProjectBudget'
 export { AccountType } from './Account'
 export type { AccountInput, AccountEntity, AccountTypeValue } from './Account'
 export type { AccountGroupInput, AccountGroupEntity } from './AccountGroup'
@@ -584,6 +636,14 @@ export const MODEL_SCHEMAS: Realm.ObjectSchema[] = [
   AssetMaintenanceModel.schema,
   AssetTransferModel.schema,
   AssetDisposalModel.schema,
+  ProjectModel.schema,
+  ProjectMemberModel.schema,
+  TaskModel.schema,
+  TaskCommentModel.schema,
+  MilestoneModel.schema,
+  TimesheetModel.schema,
+  ProjectExpenseModel.schema,
+  ProjectBudgetModel.schema,
 ]
 
 /**
@@ -674,4 +734,12 @@ export const MODEL_CLASSES: Realm.RealmObjectConstructor<Realm.AnyRealmObject>[]
   AssetMaintenanceModel,
   AssetTransferModel,
   AssetDisposalModel,
+  ProjectModel,
+  ProjectMemberModel,
+  TaskModel,
+  TaskCommentModel,
+  MilestoneModel,
+  TimesheetModel,
+  ProjectExpenseModel,
+  ProjectBudgetModel,
 ]

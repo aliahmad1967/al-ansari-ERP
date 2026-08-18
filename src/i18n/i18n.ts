@@ -17,6 +17,7 @@ import arFinance from '@/i18n/ar/finance.json'
 import arReports from '@/i18n/ar/reports.json'
 import arSales from '@/i18n/ar/sales.json'
 import arAccounting from '@/i18n/ar/accounting.json'
+import arProjects from '@/i18n/ar/projects.json'
 import enAuth from '@/i18n/en/auth.json'
 import enCommon from '@/i18n/en/common.json'
 import enDashboard from '@/i18n/en/dashboard.json'
@@ -32,6 +33,7 @@ import enFinance from '@/i18n/en/finance.json'
 import enReports from '@/i18n/en/reports.json'
 import enSales from '@/i18n/en/sales.json'
 import enAccounting from '@/i18n/en/accounting.json'
+import enProjects from '@/i18n/en/projects.json'
 
 export const SUPPORTED_LANGUAGES = ['ar', 'en'] as const
 export type SupportedLanguage = (typeof SUPPORTED_LANGUAGES)[number]
@@ -64,6 +66,7 @@ i18n.use(initReactI18next).init({
       reports: arReports,
       sales: arSales,
       accounting: arAccounting,
+      projects: arProjects,
     },
     en: {
       auth: enAuth,
@@ -81,6 +84,7 @@ i18n.use(initReactI18next).init({
       reports: enReports,
       sales: enSales,
       accounting: enAccounting,
+      projects: enProjects,
     },
   },
   lng: getInitialLanguage(),

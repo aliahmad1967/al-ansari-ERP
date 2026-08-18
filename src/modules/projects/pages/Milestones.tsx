@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
-import { FolderKanban, Plus } from 'lucide-react'
+import { Flag, Plus } from 'lucide-react'
 
 import Button from '@/components/ui/Button'
 import PageLayout from '@/components/layout/PageLayout'
@@ -11,52 +11,43 @@ import Pagination from '@/components/ui/Pagination'
 import Dialog from '@/components/ui/Dialog'
 import FormActions from '@/components/forms/FormActions'
 import { RequirePermission } from '@/components/auth/RequirePermission'
-import { useProjects } from '@/modules/projects/hooks/useProjects'
-import { ProjectStatus } from '@/core/models/Project'
+import { useMilestones } from '@/modules/projects/hooks/useMilestones'
+import { MilestoneStatus } from '@/core/models/Milestone'
 
-export default function Projects() {
+export default function Milestones() {
   const { t } = useTranslation('projects')
-  const { items: projects, loading, create, archive } = useProjects()
+  const { items: milestones, loading, create, archive } = useMilestones()
 
   const [search, setSearch] = useState('')
   const [page, setPage] = useState(1)
   const [pageSize, setPageSize] = useState(10)
-  const [archiveTarget, setArchiveTarget] = useState<(typeof projects)[0] | null>(null)
+  const [archiveTarget, setArchiveTarget] = useState<(typeof milestones)[0] | null>(null)
 
   const filtered = useMemo(() => {
-    if (!search.trim()) return projects
+    if (!search.trim()) return milestones
     const q = search.toLowerCase()
-    return projects.filter(
+    return milestones.filter(
       (item) =>
         item.name.toLowerCase().includes(q) ||
-        item.projectCode.toLowerCase().includes(q) ||
-        (item.nameAr ?? '').includes(search) ||
-        (item.description ?? '').toLowerCase().includes(q),
+        (item.nameAr ?? '').includes(search),
     )
-  }, [projects, search])
+  }, [milestones, search])
 
   const paginated = filtered.slice((page - 1) * pageSize, page * pageSize)
 
   const statusTone = (status: string) => {
     switch (status) {
-      case ProjectStatus.Active:
-        return 'success'
-      case ProjectStatus.OnHold:
-        return 'warning'
-      case ProjectStatus.Completed:
-        return 'info'
-      case ProjectStatus.Cancelled:
-        return 'danger'
-      default:
-        return 'neutral'
+      case MilestoneStatus.Achieved: return 'success'
+      case MilestoneStatus.InProgress: return 'primary'
+      case MilestoneStatus.Missed: return 'danger'
+      default: return 'neutral'
     }
   }
 
-  const columns: DataTableColumn<(typeof projects)[0]>[] = [
-    { key: 'projectCode', header: t('project.code'), sortable: true, width: '120px' },
+  const columns: DataTableColumn<(typeof milestones)[0]>[] = [
     {
       key: 'name',
-      header: t('project.name'),
+      header: t('milestone.name'),
       sortable: true,
       render: (row) => (
         <div>
@@ -67,71 +58,56 @@ export default function Projects() {
     },
     {
       key: 'status',
-      header: t('project.status'),
+      header: t('milestone.status'),
       sortable: true,
       render: (row) => (
         <StatusBadge
-          tone={statusTone(row.status) as 'success' | 'warning' | 'info' | 'danger' | 'neutral'}
-          label={t(`project.statuses.${row.status}`)}
+          tone={statusTone(row.status) as 'success' | 'primary' | 'danger' | 'neutral'}
+          label={t(`milestone.statuses.${row.status}`)}
         />
       ),
     },
     {
-      key: 'priority',
-      header: t('project.priority'),
+      key: 'dueDate',
+      header: t('milestone.dueDate'),
       sortable: true,
       render: (row) => (
-        <span className="text-sm text-content-muted">{t(`project.priorities.${row.priority}`)}</span>
-      ),
-    },
-    {
-      key: 'progress',
-      header: t('project.progress'),
-      sortable: true,
-      render: (row) => (
-        <div className="flex items-center gap-2">
-          <div className="h-2 w-24 overflow-hidden rounded-full bg-border">
-            <div className="h-full bg-primary rounded-full" style={{ width: `${Math.min(100, row.progress)}%` }} />
-          </div>
-          <span className="text-sm text-content-muted">{Math.round(row.progress)}%</span>
+        <div>
+          <span>{new Date(row.dueDate).toLocaleDateString()}</span>
+          {row.status !== 'achieved' && new Date() > new Date(row.dueDate) && (
+            <span className="ms-2 text-xs text-danger">{t('filters.overdue')}</span>
+          )}
         </div>
       ),
     },
     {
-      key: 'budget',
-      header: t('project.budget'),
-      sortable: true,
-      render: (row) => (
-        <span className="text-sm text-content-muted">
-          {row.budget > 0 ? `${row.spentBudget.toLocaleString()} / ${row.budget.toLocaleString()}` : '-'}
-        </span>
-      ),
+      key: 'completedAt',
+      header: t('milestone.completedAt'),
+      render: (row) => row.completedAt ? new Date(row.completedAt).toLocaleDateString() : '-',
     },
     {
       key: 'actions',
       header: '',
-      width: '120px',
+      width: '100px',
       render: (row) => (
-        <div className="flex gap-1">
-          <Button variant="ghost" size="sm" onClick={(e) => { e.stopPropagation(); setArchiveTarget(row) }}>
-            {t('project.archive')}
-          </Button>
-        </div>
+        <Button variant="ghost" size="sm" onClick={(e) => { e.stopPropagation(); setArchiveTarget(row) }}>
+          {t('milestone.archive')}
+        </Button>
       ),
     },
   ]
 
   return (
-    <RequirePermission permission="projects.project.view">
+    <RequirePermission permission="projects.milestone.view">
       <PageLayout
-        title={t('project.title')}
-        description={t('project.description')}
-        icon={<FolderKanban className="h-5 w-5" />}
+        title={t('milestone.title')}
+        description={t('milestone.description')}
+        icon={<Flag className="h-5 w-5" />}
         actions={
-          <RequirePermission permission="projects.project.create">
-            <Button onClick={() => create({ projectCode: `PRJ-${Date.now()}`, name: 'New Project' })}>
+          <RequirePermission permission="projects.milestone.create">
+            <Button onClick={() => create({ projectId: '', name: 'New Milestone', dueDate: new Date() })}>
               <Plus className="h-4 w-4 me-1" aria-hidden="true" />
-              {t('project.create')}
+              {t('milestone.create')}
             </Button>
           </RequirePermission>
         }
@@ -150,7 +126,6 @@ export default function Projects() {
           data={paginated}
           rowKey={(row) => row._id}
           loading={loading}
-          onRowClick={(row) => { window.location.href = `/projects/${row._id}` }}
           footer={
             <Pagination
               page={page}
@@ -166,10 +141,10 @@ export default function Projects() {
         <Dialog
           open={!!archiveTarget}
           onOpenChange={(open) => { if (!open) setArchiveTarget(null) }}
-          title={t('project.archive')}
+          title={t('milestone.archive')}
           footer={
             <FormActions
-              submitLabel={t('project.archive')}
+              submitLabel={t('milestone.archive')}
               cancelLabel="Cancel"
               onCancel={() => setArchiveTarget(null)}
               onSubmit={() => {
@@ -181,7 +156,7 @@ export default function Projects() {
             />
           }
         >
-          <p className="text-sm text-content-muted">{t('project.confirmArchive')}</p>
+          <p className="text-sm text-content-muted">{t('milestone.confirmArchive')}</p>
         </Dialog>
       </PageLayout>
     </RequirePermission>

@@ -67,6 +67,9 @@ export const ADMIN_PERMISSIONS = [
   'projects.task.view', 'projects.task.create', 'projects.task.update', 'projects.task.delete',
   'projects.milestone.view', 'projects.milestone.create', 'projects.milestone.update',
   'projects.timesheet.view', 'projects.timesheet.create', 'projects.timesheet.update',
+  'projects.expense.view', 'projects.expense.create', 'projects.expense.update', 'projects.expense.delete',
+  'projects.budget.view', 'projects.budget.create', 'projects.budget.update', 'projects.budget.delete',
+  'projects.member.view', 'projects.member.create', 'projects.member.update', 'projects.member.delete',
   // Finance (legacy)
   'finance.invoice.view', 'finance.invoice.create', 'finance.invoice.update', 'finance.invoice.delete',
   'finance.payment.view', 'finance.payment.create', 'finance.payment.update', 'finance.payment.delete',

@@ -34,7 +34,7 @@ export const MODULE_RESOURCES: Record<PermissionModule, readonly string[]> = {
   procurement: ['suppliers', 'orders', 'receipts', 'requests', 'invoices', 'reports'],
   sales: ['customers', 'quotations', 'orders', 'deliveries', 'invoices', 'payments', 'returns'],
   assets: ['asset', 'asset-category', 'asset-location', 'asset-custodian', 'depreciation', 'maintenance', 'transfer', 'disposal'],
-  projects: ['project', 'task', 'milestone', 'timesheet'],
+  projects: ['project', 'task', 'milestone', 'timesheet', 'expense', 'budget', 'member'],
   organization: ['organization', 'branch', 'department', 'user', 'role', 'permission'],
   settings: ['system', 'security', 'backup'],
   reports: ['report'],
@@ -144,6 +144,19 @@ export const SYSTEM_ROLES: SystemRoleConfig[] = [
     permissionFilter: (module, _resource, action) => {
       if (module === 'sales') return true
       if (action === 'view' && ['inventory', 'reports', 'notifications'].includes(module))
+        return true
+      return false
+    },
+  },
+  {
+    code: 'PROJECT_MANAGER',
+    name: 'Project Manager',
+    nameAr: 'مدير المشاريع',
+    description: 'Full projects module access plus read access to related modules.',
+    descriptionAr: 'وصول كامل لوحدة المشاريع مع وصول للقراءة للوحدات ذات الصلة.',
+    permissionFilter: (module, _resource, action) => {
+      if (module === 'projects') return true
+      if (action === 'view' && ['hr', 'reports', 'notifications'].includes(module))
         return true
       return false
     },

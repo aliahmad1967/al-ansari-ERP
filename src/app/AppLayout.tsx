@@ -42,6 +42,11 @@ import {
   ArrowRightLeft,
   Trash2,
   FolderTree,
+  FolderKanban,
+  CheckSquare,
+  Flag,
+  Clock,
+  DollarSign,
 } from 'lucide-react'
 
 import Button from '@/components/ui/Button'
@@ -67,6 +72,7 @@ export default function AppLayout() {
   const { t: tSales } = useTranslation('sales')
   const { t: tAcct } = useTranslation('accounting')
   const { t: tAssets } = useTranslation('assets')
+  const { t: tProjects } = useTranslation('projects')
   const { theme, toggleTheme } = useTheme()
   const { toggleLanguage } = useLanguage()
   const { sidebarCollapsed, mobileNavOpen } = useSyncExternalStore(subscribeAppUi, getAppUiState)
@@ -436,6 +442,42 @@ export default function AppLayout() {
           label: tAssets('nav.disposals'),
           icon: <Trash2 className="h-4 w-4" aria-hidden="true" />,
           to: '/asset-disposals',
+        },
+      ],
+    },
+    {
+      id: 'projects',
+      label: tProjects('nav.projectManagement'),
+      items: [
+        {
+          id: 'projects-list',
+          label: tProjects('nav.projects'),
+          icon: <FolderKanban className="h-4 w-4" aria-hidden="true" />,
+          to: '/projects',
+        },
+        {
+          id: 'project-tasks',
+          label: tProjects('nav.tasks'),
+          icon: <CheckSquare className="h-4 w-4" aria-hidden="true" />,
+          to: '/project-tasks',
+        },
+        {
+          id: 'project-milestones',
+          label: tProjects('nav.milestones'),
+          icon: <Flag className="h-4 w-4" aria-hidden="true" />,
+          to: '/project-milestones',
+        },
+        {
+          id: 'project-timesheets',
+          label: tProjects('nav.timesheets'),
+          icon: <Clock className="h-4 w-4" aria-hidden="true" />,
+          to: '/project-timesheets',
+        },
+        {
+          id: 'project-costs',
+          label: tProjects('nav.projectCosts'),
+          icon: <DollarSign className="h-4 w-4" aria-hidden="true" />,
+          to: '/project-costs',
         },
       ],
     },

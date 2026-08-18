@@ -63,6 +63,12 @@ const DepreciationSchedulesPage = lazy(() => import('@/modules/assets/pages/Depr
 const AssetMaintenancePage = lazy(() => import('@/modules/assets/pages/AssetMaintenanceList'))
 const AssetTransfersPage = lazy(() => import('@/modules/assets/pages/AssetTransfers'))
 const AssetDisposalsPage = lazy(() => import('@/modules/assets/pages/AssetDisposals'))
+const ProjectsPage = lazy(() => import('@/modules/projects/pages/Projects'))
+const ProjectDetailsPage = lazy(() => import('@/modules/projects/pages/ProjectDetails'))
+const TasksPage = lazy(() => import('@/modules/projects/pages/Tasks'))
+const MilestonesPage = lazy(() => import('@/modules/projects/pages/Milestones'))
+const TimesheetsPage = lazy(() => import('@/modules/projects/pages/Timesheets'))
+const ProjectCostsPage = lazy(() => import('@/modules/projects/pages/ProjectCosts'))
 
 export const appRoutes: RouteObject[] = [
   // Public routes (guest only)
@@ -159,6 +165,14 @@ export const appRoutes: RouteObject[] = [
           { path: 'asset-maintenance', element: <AssetMaintenancePage /> },
           { path: 'asset-transfers', element: <AssetTransfersPage /> },
           { path: 'asset-disposals', element: <AssetDisposalsPage /> },
+
+          // Project Management
+          { path: 'projects', element: <ProjectsPage /> },
+          { path: 'projects/:id', element: <ProjectDetailsPage /> },
+          { path: 'project-tasks', element: <TasksPage /> },
+          { path: 'project-milestones', element: <MilestonesPage /> },
+          { path: 'project-timesheets', element: <TimesheetsPage /> },
+          { path: 'project-costs', element: <ProjectCostsPage /> },
         ],
       },
     ],
