@@ -12,7 +12,7 @@ import Dialog from '@/components/ui/Dialog'
 import FormActions from '@/components/forms/FormActions'
 import { RequirePermission } from '@/components/auth/RequirePermission'
 import { useTimesheets } from '@/modules/projects/hooks/useTimesheets'
-import { TimesheetStatus } from '@/core/models/Timesheet'
+import { TimesheetStatus } from '@/core/models/TimesheetStatus'
 
 export default function Timesheets() {
   const { t } = useTranslation('projects')

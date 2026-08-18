@@ -12,7 +12,7 @@ import Dialog from '@/components/ui/Dialog'
 import FormActions from '@/components/forms/FormActions'
 import { RequirePermission } from '@/components/auth/RequirePermission'
 import { useMilestones } from '@/modules/projects/hooks/useMilestones'
-import { MilestoneStatus } from '@/core/models/Milestone'
+import { MilestoneStatus } from '@/core/models/MilestoneStatus'
 
 export default function Milestones() {
   const { t } = useTranslation('projects')

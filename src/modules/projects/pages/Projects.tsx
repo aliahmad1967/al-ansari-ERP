@@ -12,7 +12,7 @@ import Dialog from '@/components/ui/Dialog'
 import FormActions from '@/components/forms/FormActions'
 import { RequirePermission } from '@/components/auth/RequirePermission'
 import { useProjects } from '@/modules/projects/hooks/useProjects'
-import { ProjectStatus } from '@/core/models/Project'
+import { ProjectStatus } from '@/core/models/ProjectStatus'
 
 export default function Projects() {
   const { t } = useTranslation('projects')

@@ -1,15 +1,9 @@
 import Realm from 'realm'
 
 import { BASE_PROPERTIES, SOFT_DELETE_PROPERTIES, type SoftDeletableEntityFields } from './base'
+import { MilestoneStatus, type MilestoneStatusValue } from './MilestoneStatus'
 
-export const MilestoneStatus = {
-  Pending: 'pending',
-  InProgress: 'in_progress',
-  Achieved: 'achieved',
-  Missed: 'missed',
-} as const
-
-export type MilestoneStatusValue = (typeof MilestoneStatus)[keyof typeof MilestoneStatus]
+export { MilestoneStatus, type MilestoneStatusValue } from './MilestoneStatus'
 
 export interface MilestoneInput {
   projectId: string

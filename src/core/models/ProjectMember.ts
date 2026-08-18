@@ -1,15 +1,9 @@
 import Realm from 'realm'
 
 import { BASE_PROPERTIES, SOFT_DELETE_PROPERTIES, type SoftDeletableEntityFields } from './base'
+import { ProjectMemberRole, type ProjectMemberRoleValue } from './ProjectMemberRole'
 
-export const ProjectMemberRole = {
-  Manager: 'manager',
-  Lead: 'lead',
-  Member: 'member',
-  Viewer: 'viewer',
-} as const
-
-export type ProjectMemberRoleValue = (typeof ProjectMemberRole)[keyof typeof ProjectMemberRole]
+export { ProjectMemberRole, type ProjectMemberRoleValue } from './ProjectMemberRole'
 
 export interface ProjectMemberInput {
   projectId: string

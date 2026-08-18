@@ -1,27 +1,9 @@
 import Realm from 'realm'
 
 import { BASE_PROPERTIES, SOFT_DELETE_PROPERTIES, type SoftDeletableEntityFields } from './base'
+import { ProjectExpenseStatus, type ProjectExpenseStatusValue, type ProjectExpenseCategoryValue } from './ProjectExpenseStatus'
 
-export const ProjectExpenseStatus = {
-  Pending: 'pending',
-  Approved: 'approved',
-  Rejected: 'rejected',
-  Reimbursed: 'reimbursed',
-} as const
-
-export type ProjectExpenseStatusValue = (typeof ProjectExpenseStatus)[keyof typeof ProjectExpenseStatus]
-
-export const ProjectExpenseCategory = {
-  Labor: 'labor',
-  Materials: 'materials',
-  Travel: 'travel',
-  Equipment: 'equipment',
-  Subcontractor: 'subcontractor',
-  Software: 'software',
-  Other: 'other',
-} as const
-
-export type ProjectExpenseCategoryValue = (typeof ProjectExpenseCategory)[keyof typeof ProjectExpenseCategory]
+export { ProjectExpenseStatus, type ProjectExpenseStatusValue, ProjectExpenseCategory, type ProjectExpenseCategoryValue } from './ProjectExpenseStatus'
 
 export interface ProjectExpenseInput {
   projectId: string

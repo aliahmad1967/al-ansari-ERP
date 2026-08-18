@@ -1,15 +1,9 @@
 import Realm from 'realm'
 
 import { BASE_PROPERTIES, SOFT_DELETE_PROPERTIES, type SoftDeletableEntityFields } from './base'
+import { TimesheetStatus, type TimesheetStatusValue } from './TimesheetStatus'
 
-export const TimesheetStatus = {
-  Draft: 'draft',
-  Submitted: 'submitted',
-  Approved: 'approved',
-  Rejected: 'rejected',
-} as const
-
-export type TimesheetStatusValue = (typeof TimesheetStatus)[keyof typeof TimesheetStatus]
+export { TimesheetStatus, type TimesheetStatusValue } from './TimesheetStatus'
 
 export interface TimesheetInput {
   projectId: string

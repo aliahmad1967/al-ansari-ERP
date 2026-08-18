@@ -15,8 +15,8 @@ import { RequirePermission } from '@/components/auth/RequirePermission'
 import { useProjects } from '@/modules/projects/hooks/useProjects'
 import { useTasks } from '@/modules/projects/hooks/useTasks'
 import { useMilestones } from '@/modules/projects/hooks/useMilestones'
-import { TaskStatus } from '@/core/models/Task'
-import { MilestoneStatus } from '@/core/models/Milestone'
+import { TaskStatus } from '@/core/models/TaskStatus'
+import { MilestoneStatus } from '@/core/models/MilestoneStatus'
 
 export default function ProjectDetails() {
   const { id } = useParams<{ id: string }>()

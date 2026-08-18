@@ -1,14 +1,9 @@
 import Realm from 'realm'
 
 import { BASE_PROPERTIES, SOFT_DELETE_PROPERTIES, type SoftDeletableEntityFields } from './base'
+import { ProjectBudgetStatus, type ProjectBudgetStatusValue } from './ProjectBudgetStatus'
 
-export const ProjectBudgetStatus = {
-  Active: 'active',
-  Exhausted: 'exhausted',
-  Closed: 'closed',
-} as const
-
-export type ProjectBudgetStatusValue = (typeof ProjectBudgetStatus)[keyof typeof ProjectBudgetStatus]
+export { ProjectBudgetStatus, type ProjectBudgetStatusValue } from './ProjectBudgetStatus'
 
 export interface ProjectBudgetInput {
   projectId: string

@@ -13,7 +13,7 @@ import FormActions from '@/components/forms/FormActions'
 import { RequirePermission } from '@/components/auth/RequirePermission'
 import { useProjectExpenses } from '@/modules/projects/hooks/useProjectExpenses'
 import { useProjectBudgets } from '@/modules/projects/hooks/useProjectBudgets'
-import { ProjectExpenseStatus } from '@/core/models/ProjectExpense'
+import { ProjectExpenseStatus } from '@/core/models/ProjectExpenseStatus'
 
 export default function ProjectCosts() {
   const { t } = useTranslation('projects')

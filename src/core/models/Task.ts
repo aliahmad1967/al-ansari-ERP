@@ -1,25 +1,9 @@
 import Realm from 'realm'
 
 import { BASE_PROPERTIES, SOFT_DELETE_PROPERTIES, type SoftDeletableEntityFields } from './base'
+import { TaskStatus, type TaskStatusValue, TaskPriority, type TaskPriorityValue } from './TaskStatus'
 
-export const TaskStatus = {
-  Todo: 'todo',
-  InProgress: 'in_progress',
-  InReview: 'in_review',
-  Done: 'done',
-  Cancelled: 'cancelled',
-} as const
-
-export type TaskStatusValue = (typeof TaskStatus)[keyof typeof TaskStatus]
-
-export const TaskPriority = {
-  Low: 'low',
-  Medium: 'medium',
-  High: 'high',
-  Critical: 'critical',
-} as const
-
-export type TaskPriorityValue = (typeof TaskPriority)[keyof typeof TaskPriority]
+export { TaskStatus, type TaskStatusValue, TaskPriority, type TaskPriorityValue } from './TaskStatus'
 
 export interface TaskInput {
   projectId: string

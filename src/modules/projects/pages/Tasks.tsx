@@ -12,7 +12,7 @@ import Dialog from '@/components/ui/Dialog'
 import FormActions from '@/components/forms/FormActions'
 import { RequirePermission } from '@/components/auth/RequirePermission'
 import { useTasks } from '@/modules/projects/hooks/useTasks'
-import { TaskStatus } from '@/core/models/Task'
+import { TaskStatus } from '@/core/models/TaskStatus'
 
 export default function Tasks() {
   const { t } = useTranslation('projects')
