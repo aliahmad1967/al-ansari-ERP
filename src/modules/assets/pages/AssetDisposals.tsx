@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Package } from 'lucide-react'
+import { Trash2 } from 'lucide-react'
 
 import PageLayout from '@/components/layout/PageLayout'
 import { DataTable, type DataTableColumn } from '@/components/data-display/DataTable'
@@ -8,69 +8,83 @@ import StatusBadge from '@/components/data-display/StatusBadge'
 import SearchInput from '@/components/forms/SearchInput'
 import Pagination from '@/components/ui/Pagination'
 import { RequirePermission } from '@/components/auth/RequirePermission'
-import { useAssets } from '@/modules/assets/hooks/useAssets'
+import { useAssetDisposals } from '@/modules/assets/hooks/useAssetDisposals'
 import { formatMoney } from '@/core/utils/currency'
 
-export default function Assets() {
+export default function AssetDisposals() {
   const { t } = useTranslation('assets')
-  const { assets, loading } = useAssets()
+  const { disposals, loading } = useAssetDisposals()
 
   const [search, setSearch] = useState('')
   const [page, setPage] = useState(1)
   const [pageSize, setPageSize] = useState(10)
 
   const filtered = useMemo(() => {
-    if (!search.trim()) return assets
+    if (!search.trim()) return disposals
     const q = search.toLowerCase()
-    return assets.filter(
+    return disposals.filter(
       (item) =>
-        item.code.toLowerCase().includes(q) ||
-        item.name.toLowerCase().includes(q),
+        item.asset.toLowerCase().includes(q) ||
+        item.disposalMethod.toLowerCase().includes(q),
     )
-  }, [assets, search])
+  }, [disposals, search])
 
   const paginated = filtered.slice((page - 1) * pageSize, page * pageSize)
 
   const statusTone = (status: string) => {
     switch (status) {
-      case 'active': return 'success' as const
-      case 'inactive': return 'neutral' as const
-      case 'disposed': return 'warning' as const
-      case 'transferred': return 'info' as const
-      case 'under_maintenance': return 'warning' as const
+      case 'pending': return 'info' as const
+      case 'approved': return 'success' as const
+      case 'completed': return 'success' as const
+      case 'rejected': return 'danger' as const
       default: return 'neutral' as const
     }
   }
 
-  const columns: DataTableColumn<typeof assets[0]>[] = [
-    { key: 'code', header: t('assets.code'), sortable: true, width: '120px' },
-    { key: 'name', header: t('assets.name'), sortable: true },
-    { key: 'category', header: t('assets.category'), sortable: true },
+  const columns: DataTableColumn<typeof disposals[0]>[] = [
+    { key: 'asset', header: t('disposals.asset'), sortable: true },
     {
-      key: 'purchaseValue',
-      header: t('assets.purchaseValue'),
+      key: 'disposalDate',
+      header: t('disposals.disposalDate'),
       sortable: true,
       render: (row) => (
-        <span className="text-sm font-medium">{formatMoney(row.purchaseValue, row.currency)}</span>
+        <span className="text-sm">{new Date(row.disposalDate).toLocaleDateString()}</span>
+      ),
+    },
+    { key: 'disposalMethod', header: t('disposals.disposalMethod'), sortable: true },
+    {
+      key: 'disposalValue',
+      header: t('disposals.disposalValue'),
+      sortable: true,
+      render: (row) => (
+        <span className="text-sm font-medium">{formatMoney(row.disposalValue, row.currency)}</span>
+      ),
+    },
+    {
+      key: 'bookValue',
+      header: t('disposals.bookValue'),
+      sortable: true,
+      render: (row) => (
+        <span className="text-sm font-medium">{formatMoney(row.bookValue, row.currency)}</span>
+      ),
+    },
+    {
+      key: 'gainLoss',
+      header: t('disposals.gainLoss'),
+      sortable: true,
+      render: (row) => (
+        <span className="text-sm font-medium">{formatMoney(row.gainLoss, row.currency)}</span>
       ),
     },
     {
       key: 'status',
-      header: t('assets.status'),
+      header: t('disposals.status'),
       sortable: true,
       render: (row) => (
         <StatusBadge
           tone={statusTone(row.status)}
-          label={t(`assets.statuses.${row.status}`)}
+          label={t(`disposals.statuses.${row.status}`)}
         />
-      ),
-    },
-    {
-      key: 'acquisitionDate',
-      header: t('assets.acquisitionDate'),
-      sortable: true,
-      render: (row) => (
-        <span className="text-sm">{new Date(row.acquisitionDate).toLocaleDateString()}</span>
       ),
     },
   ]
@@ -78,15 +92,15 @@ export default function Assets() {
   return (
     <RequirePermission permission="assets.asset.view">
       <PageLayout
-        title={t('assets.title')}
-        icon={<Package className="h-5 w-5" />}
+        title={t('disposals.title')}
+        icon={<Trash2 className="h-5 w-5" />}
       >
         <div className="mb-4">
           <SearchInput
             value={search}
             onChange={(e) => { setSearch(e.target.value); setPage(1) }}
             onClear={() => { setSearch(''); setPage(1) }}
-            placeholder={t('assets.searchPlaceholder')}
+            placeholder={t('disposals.searchPlaceholder')}
           />
         </div>
 

@@ -33,7 +33,7 @@ export const MODULE_RESOURCES: Record<PermissionModule, readonly string[]> = {
   inventory: ['products', 'categories', 'warehouses', 'stock', 'movements', 'transfers', 'adjustments', 'reports'],
   procurement: ['suppliers', 'orders', 'receipts', 'requests', 'invoices', 'reports'],
   sales: ['customers', 'quotations', 'orders', 'deliveries', 'invoices', 'payments', 'returns'],
-  assets: ['asset', 'asset-category', 'maintenance'],
+  assets: ['asset', 'asset-category', 'asset-location', 'asset-custodian', 'depreciation', 'maintenance', 'transfer', 'disposal'],
   projects: ['project', 'task', 'milestone', 'timesheet'],
   organization: ['organization', 'branch', 'department', 'user', 'role', 'permission'],
   settings: ['system', 'security', 'backup'],

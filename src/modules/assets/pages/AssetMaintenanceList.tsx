@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Package } from 'lucide-react'
+import { Wrench } from 'lucide-react'
 
 import PageLayout from '@/components/layout/PageLayout'
 import { DataTable, type DataTableColumn } from '@/components/data-display/DataTable'
@@ -8,85 +8,91 @@ import StatusBadge from '@/components/data-display/StatusBadge'
 import SearchInput from '@/components/forms/SearchInput'
 import Pagination from '@/components/ui/Pagination'
 import { RequirePermission } from '@/components/auth/RequirePermission'
-import { useAssets } from '@/modules/assets/hooks/useAssets'
+import { useAssetMaintenance } from '@/modules/assets/hooks/useAssetMaintenance'
 import { formatMoney } from '@/core/utils/currency'
 
-export default function Assets() {
+export default function AssetMaintenanceList() {
   const { t } = useTranslation('assets')
-  const { assets, loading } = useAssets()
+  const { maintenanceRecords, loading } = useAssetMaintenance()
 
   const [search, setSearch] = useState('')
   const [page, setPage] = useState(1)
   const [pageSize, setPageSize] = useState(10)
 
   const filtered = useMemo(() => {
-    if (!search.trim()) return assets
+    if (!search.trim()) return maintenanceRecords
     const q = search.toLowerCase()
-    return assets.filter(
+    return maintenanceRecords.filter(
       (item) =>
-        item.code.toLowerCase().includes(q) ||
-        item.name.toLowerCase().includes(q),
+        (item.asset && item.asset.toLowerCase().includes(q)) ||
+        item.description.toLowerCase().includes(q),
     )
-  }, [assets, search])
+  }, [maintenanceRecords, search])
 
   const paginated = filtered.slice((page - 1) * pageSize, page * pageSize)
 
   const statusTone = (status: string) => {
     switch (status) {
-      case 'active': return 'success' as const
-      case 'inactive': return 'neutral' as const
-      case 'disposed': return 'warning' as const
-      case 'transferred': return 'info' as const
-      case 'under_maintenance': return 'warning' as const
+      case 'scheduled': return 'info' as const
+      case 'in_progress': return 'warning' as const
+      case 'completed': return 'success' as const
+      case 'cancelled': return 'neutral' as const
       default: return 'neutral' as const
     }
   }
 
-  const columns: DataTableColumn<typeof assets[0]>[] = [
-    { key: 'code', header: t('assets.code'), sortable: true, width: '120px' },
-    { key: 'name', header: t('assets.name'), sortable: true },
-    { key: 'category', header: t('assets.category'), sortable: true },
+  const columns: DataTableColumn<typeof maintenanceRecords[0]>[] = [
+    { key: 'asset', header: t('maintenance.asset'), sortable: true },
+    { key: 'type', header: t('maintenance.type'), sortable: true },
+    { key: 'description', header: t('maintenance.description'), sortable: true },
     {
-      key: 'purchaseValue',
-      header: t('assets.purchaseValue'),
+      key: 'scheduledDate',
+      header: t('maintenance.scheduledDate'),
       sortable: true,
       render: (row) => (
-        <span className="text-sm font-medium">{formatMoney(row.purchaseValue, row.currency)}</span>
+        <span className="text-sm">{new Date(row.scheduledDate).toLocaleDateString()}</span>
+      ),
+    },
+    {
+      key: 'completedDate',
+      header: t('maintenance.completedDate'),
+      render: (row) => (
+        <span className="text-sm">{row.completedDate ? new Date(row.completedDate).toLocaleDateString() : '-'}</span>
+      ),
+    },
+    {
+      key: 'cost',
+      header: t('maintenance.cost'),
+      sortable: true,
+      render: (row) => (
+        <span className="text-sm font-medium">{formatMoney(row.cost, row.currency)}</span>
       ),
     },
     {
       key: 'status',
-      header: t('assets.status'),
+      header: t('maintenance.status'),
       sortable: true,
       render: (row) => (
         <StatusBadge
           tone={statusTone(row.status)}
-          label={t(`assets.statuses.${row.status}`)}
+          label={t(`maintenance.statuses.${row.status}`)}
         />
-      ),
-    },
-    {
-      key: 'acquisitionDate',
-      header: t('assets.acquisitionDate'),
-      sortable: true,
-      render: (row) => (
-        <span className="text-sm">{new Date(row.acquisitionDate).toLocaleDateString()}</span>
       ),
     },
   ]
 
   return (
-    <RequirePermission permission="assets.asset.view">
+    <RequirePermission permission="assets.maintenance.view">
       <PageLayout
-        title={t('assets.title')}
-        icon={<Package className="h-5 w-5" />}
+        title={t('maintenance.title')}
+        icon={<Wrench className="h-5 w-5" />}
       >
         <div className="mb-4">
           <SearchInput
             value={search}
             onChange={(e) => { setSearch(e.target.value); setPage(1) }}
             onClear={() => { setSearch(''); setPage(1) }}
-            placeholder={t('assets.searchPlaceholder')}
+            placeholder={t('maintenance.searchPlaceholder')}
           />
         </div>
 

@@ -78,6 +78,14 @@ import type { SalesInvoiceItem } from './SalesInvoiceItem'
 import type { CustomerPayment } from './CustomerPayment'
 import type { SalesReturn } from './SalesReturn'
 import type { SalesReturnItem } from './SalesReturnItem'
+import type { AssetCategory } from './AssetCategory'
+import type { AssetLocation } from './AssetLocation'
+import type { AssetCustodian } from './AssetCustodian'
+import type { Asset } from './Asset'
+import type { DepreciationSchedule } from './DepreciationSchedule'
+import type { AssetMaintenance } from './AssetMaintenance'
+import type { AssetTransfer } from './AssetTransfer'
+import type { AssetDisposal } from './AssetDisposal'
 
 import { AuditLog as AuditLogModel } from './AuditLog'
 import { AttendanceRecord as AttendanceRecordModel } from './AttendanceRecord'
@@ -153,6 +161,14 @@ import { SalesInvoiceItem as SalesInvoiceItemModel } from './SalesInvoiceItem'
 import { CustomerPayment as CustomerPaymentModel } from './CustomerPayment'
 import { SalesReturn as SalesReturnModel } from './SalesReturn'
 import { SalesReturnItem as SalesReturnItemModel } from './SalesReturnItem'
+import { AssetCategory as AssetCategoryModel } from './AssetCategory'
+import { AssetLocation as AssetLocationModel } from './AssetLocation'
+import { AssetCustodian as AssetCustodianModel } from './AssetCustodian'
+import { Asset as AssetModel } from './Asset'
+import { DepreciationSchedule as DepreciationScheduleModel } from './DepreciationSchedule'
+import { AssetMaintenance as AssetMaintenanceModel } from './AssetMaintenance'
+import { AssetTransfer as AssetTransferModel } from './AssetTransfer'
+import { AssetDisposal as AssetDisposalModel } from './AssetDisposal'
 
 export {
   AuditLogModel,
@@ -229,6 +245,14 @@ export {
   CustomerPaymentModel,
   SalesReturnModel,
   SalesReturnItemModel,
+  AssetCategoryModel,
+  AssetLocationModel,
+  AssetCustodianModel,
+  AssetModel,
+  DepreciationScheduleModel,
+  AssetMaintenanceModel,
+  AssetTransferModel,
+  AssetDisposalModel,
 }
 
 export type {
@@ -306,6 +330,14 @@ export type {
   CustomerPayment,
   SalesReturn,
   SalesReturnItem,
+  AssetCategory,
+  AssetLocation,
+  AssetCustodian,
+  Asset,
+  DepreciationSchedule,
+  AssetMaintenance,
+  AssetTransfer,
+  AssetDisposal,
 }
 
 export { AuditAction, AuditOutcome } from './AuditLog'
@@ -420,6 +452,33 @@ export type { CustomerPaymentInput, CustomerPaymentEntity, CustomerPaymentStatus
 export { SalesReturnStatus } from './SalesReturn'
 export type { SalesReturnInput, SalesReturnEntity, SalesReturnStatusValue } from './SalesReturn'
 export type { SalesReturnItemInput, SalesReturnItemEntity } from './SalesReturnItem'
+export type { AssetCategoryInput, AssetCategoryEntity } from './AssetCategory'
+export type { AssetLocationInput, AssetLocationEntity } from './AssetLocation'
+export type { AssetCustodianInput, AssetCustodianEntity } from './AssetCustodian'
+export { AssetStatus, DepreciationMethod } from './Asset'
+export type { AssetInput, AssetEntity, AssetStatusValue, DepreciationMethodValue } from './Asset'
+export { DepreciationScheduleStatus } from './DepreciationSchedule'
+export type {
+  DepreciationScheduleInput,
+  DepreciationScheduleEntity,
+  DepreciationScheduleStatusValue,
+} from './DepreciationSchedule'
+export { AssetMaintenanceStatus, AssetMaintenanceType } from './AssetMaintenance'
+export type {
+  AssetMaintenanceInput,
+  AssetMaintenanceEntity,
+  AssetMaintenanceStatusValue,
+  AssetMaintenanceTypeValue,
+} from './AssetMaintenance'
+export { AssetTransferStatus } from './AssetTransfer'
+export type { AssetTransferInput, AssetTransferEntity, AssetTransferStatusValue } from './AssetTransfer'
+export { AssetDisposalStatus, AssetDisposalMethod } from './AssetDisposal'
+export type {
+  AssetDisposalInput,
+  AssetDisposalEntity,
+  AssetDisposalStatusValue,
+  AssetDisposalMethodValue,
+} from './AssetDisposal'
 export { AccountType } from './Account'
 export type { AccountInput, AccountEntity, AccountTypeValue } from './Account'
 export type { AccountGroupInput, AccountGroupEntity } from './AccountGroup'
@@ -517,6 +576,14 @@ export const MODEL_SCHEMAS: Realm.ObjectSchema[] = [
   CustomerPaymentModel.schema,
   SalesReturnModel.schema,
   SalesReturnItemModel.schema,
+  AssetCategoryModel.schema,
+  AssetLocationModel.schema,
+  AssetCustodianModel.schema,
+  AssetModel.schema,
+  DepreciationScheduleModel.schema,
+  AssetMaintenanceModel.schema,
+  AssetTransferModel.schema,
+  AssetDisposalModel.schema,
 ]
 
 /**
@@ -599,4 +666,12 @@ export const MODEL_CLASSES: Realm.RealmObjectConstructor<Realm.AnyRealmObject>[]
   CustomerPaymentModel,
   SalesReturnModel,
   SalesReturnItemModel,
+  AssetCategoryModel,
+  AssetLocationModel,
+  AssetCustodianModel,
+  AssetModel,
+  DepreciationScheduleModel,
+  AssetMaintenanceModel,
+  AssetTransferModel,
+  AssetDisposalModel,
 ]

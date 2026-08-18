@@ -1,0 +1,191 @@
+{
+  "nav": {
+    "assets": "الأصول الثابتة",
+    "assetCategories": "فئات الأصول",
+    "assetLocations": "مواقع الأصول",
+    "assetCustodians": "المسؤلون عن الأصول",
+    "depreciation": "الإهلاك",
+    "maintenance": "الصيانة",
+    "transfers": "نقل الأصول",
+    "disposals": "التخلص من الأصول"
+  },
+  "assets": {
+    "title": "الأصول الثابتة",
+    "create": "إضافة أصل",
+    "edit": "تعديل الأصل",
+    "searchPlaceholder": "البحث في الأصول...",
+    "code": "رمز الأصل",
+    "name": "اسم الأصل",
+    "nameAr": "اسم الأصل (عربي)",
+    "description": "الوصف",
+    "category": "الفئة",
+    "location": "الموقع",
+    "custodian": "المسئول",
+    "purchaseValue": "قيمة الشراء",
+    "salvageValue": "قيمة التخريد",
+    "usefulLife": "العمر الإنتاجي (أشهر)",
+    "depreciationMethod": "طريقة الإهلاك",
+    "acquisitionDate": "تاريخ الاستحواذ",
+    "disposalDate": "تاريخ التخلص",
+    "status": "الحالة",
+    "serialNumber": "الرقم التسلسلي",
+    "model": "الطراز",
+    "manufacturer": "ال manufacturer",
+    "bookValue": "القيمة الدفترية",
+    "statuses": {
+      "active": "نشط",
+      "inactive": "غير نشط",
+      "disposed": "متخلص منه",
+      "transferred": "منقول",
+      "under_maintenance": "تحت الصيانة"
+    },
+    "depreciationMethods": {
+      "straight_line": "القسط الثابت",
+      "declining_balance": "القيمة المتراجحة",
+      "sum_of_years_digits": "مجموع أرقام السنوات",
+      "units_of_production": "وحدات الإنتاج"
+    },
+    "emptyState": "لا توجد أصول",
+    "confirmArchive": "هل أنت متأكد من أرشفة هذا الأصل؟"
+  },
+  "categories": {
+    "title": "فئات الأصول",
+    "create": "إضافة فئة",
+    "edit": "تعديل الفئة",
+    "searchPlaceholder": "البحث في الفئات...",
+    "code": "رمز الفئة",
+    "name": "اسم الفئة",
+    "nameAr": "اسم الفئة (عربي)",
+    "defaultUsefulLife": "العمر الإنتاجي الافتراضي (أشهر)",
+    "defaultDepreciationMethod": "طريقة الإهلاك الافتراضية",
+    "expenseAccount": "حساب مصروف الإهلاك",
+    "accumulatedDepreciationAccount": "حساب الإهلاك المتراكم",
+    "emptyState": "لا توجد فئات"
+  },
+  "locations": {
+    "title": "مواقع الأصول",
+    "create": "إضافة موقع",
+    "edit": "تعديل الموقع",
+    "searchPlaceholder": "البحث في المواقع...",
+    "code": "رمز الموقع",
+    "name": "اسم الموقع",
+    "nameAr": "اسم الموقع (عربي)",
+    "address": "العنوان",
+    "branch": "الفرع",
+    "emptyState": "لا توجد مواقع"
+  },
+  "custodians": {
+    "title": "المسؤلون عن الأصول",
+    "create": "إضافة مسؤول",
+    "edit": "تعديل المسؤول",
+    "searchPlaceholder": "البحث في المسؤولين...",
+    "name": "اسم المسؤول",
+    "nameAr": "اسم المسؤول (عربي)",
+    "department": "القسم",
+    "email": "البريد الإلكتروني",
+    "phone": "الهاتف",
+    "emptyState": "لا يوجد مسؤولون"
+  },
+  "depreciation": {
+    "title": "جداول الإهلاك",
+    "generate": "إنشاء جدول",
+    "searchPlaceholder": "البحث في جداول الإهلاك...",
+    "asset": "الأصل",
+    "periodStart": "بداية الفترة",
+    "periodEnd": "نهاية الفترة",
+    "depreciationAmount": "مبلغ الإهلاك",
+    "accumulatedDepreciation": "الإهلاك المتراكم",
+    "bookValue": "القيمة الدفترية",
+    "status": "الحالة",
+    "journalEntry": "القيد اليومية",
+    "finalize": "اعتماد",
+    "reverse": "إلغاء",
+    "statuses": {
+      "draft": "مسودة",
+      "finalized": "معتمد",
+      "reversed": "ملغى"
+    },
+    "emptyState": "لا توجد جداول إهلاك"
+  },
+  "maintenance": {
+    "title": "صيانة الأصول",
+    "create": "إضافة صيانة",
+    "edit": "تعديل الصيانة",
+    "searchPlaceholder": "البحث في سجلات الصيانة...",
+    "asset": "الأصل",
+    "type": "النوع",
+    "description": "الوصف",
+    "scheduledDate": "التاريخ المجدول",
+    "completedDate": "تاريخ الإكمال",
+    "cost": "التكلفة",
+    "status": "الحالة",
+    "vendor": "المورد",
+    "notes": "ملاحظات",
+    "types": {
+      "preventive": "وقائية",
+      "corrective": "تصحيحية",
+      "emergency": "طارئة"
+    },
+    "statuses": {
+      "scheduled": "مجدول",
+      "in_progress": "قيد التنفيذ",
+      "completed": "مكتمل",
+      "cancelled": "ملغى"
+    },
+    "emptyState": "لا توجد سجلات صيانة"
+  },
+  "transfers": {
+    "title": "نقل الأصول",
+    "create": "إضافة نقل",
+    "searchPlaceholder": "البحث في عمليات النقل...",
+    "asset": "الأصل",
+    "fromLocation": "من الموقع",
+    "toLocation": "إلى الموقع",
+    "fromCustodian": "من المسؤول",
+    "toCustodian": "إلى المسؤول",
+    "transferDate": "تاريخ النقل",
+    "reason": "السبب",
+    "status": "الحالة",
+    "approvedBy": "اعتمد بواسطة",
+    "approvedAt": "تاريخ الاعتماد",
+    "approve": "اعتماد",
+    "reject": "رفض",
+    "complete": "إتمام",
+    "statuses": {
+      "pending": "قيد الانتظار",
+      "approved": "معتمد",
+      "rejected": "مرفوض",
+      "completed": "مكتمل"
+    },
+    "emptyState": "لا توجد عمليات نقل"
+  },
+  "disposals": {
+    "title": "التخلص من الأصول",
+    "create": "إضافة تخلص",
+    "searchPlaceholder": "البحث في عمليات التخلص...",
+    "asset": "الأصل",
+    "disposalDate": "تاريخ التخلص",
+    "disposalMethod": "طريقة التخلص",
+    "disposalValue": "قيمة التخلص",
+    "bookValue": "القيمة الدفترية",
+    "gainLoss": "الربح/الخسارة",
+    "reason": "السبب",
+    "status": "الحالة",
+    "approve": "اعتماد",
+    "reject": "رفض",
+    "complete": "إتمام",
+    "methods": {
+      "sale": "بيع",
+      "scrapping": "تالف",
+      "donation": "تبرع",
+      "write_off": "شطب"
+    },
+    "statuses": {
+      "pending": "قيد الانتظار",
+      "approved": "معتمد",
+      "completed": "مكتمل",
+      "rejected": "مرفوض"
+    },
+    "emptyState": "لا توجد عمليات تخلص"
+  }
+}

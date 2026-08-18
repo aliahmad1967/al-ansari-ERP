@@ -12,7 +12,7 @@ import type Realm from 'realm'
 import { DatabaseErrorCode, toDatabaseError } from './errors'
 
 /** The current schema version. Bump this when {@link MIGRATIONS} grows. */
-export const CURRENT_SCHEMA_VERSION = 7
+export const CURRENT_SCHEMA_VERSION = 8
 
 export interface MigrationStep {
   /** The schema version this step produces. */
@@ -75,6 +75,14 @@ export const MIGRATIONS: MigrationStep[] = [
       // v7 adds procurement models: Supplier, PurchaseRequest,
       // PurchaseRequestItem, PurchaseOrder, PurchaseOrderItem,
       // GoodsReceipt, GoodsReceiptItem, SupplierInvoice, SupplierPayment.
+    },
+  },
+  {
+    toVersion: 8,
+    migrate: () => {
+      // v8 adds fixed asset management models: Asset, AssetCategory,
+      // AssetLocation, AssetCustodian, DepreciationSchedule,
+      // AssetMaintenance, AssetTransfer, AssetDisposal.
     },
   },
 ]

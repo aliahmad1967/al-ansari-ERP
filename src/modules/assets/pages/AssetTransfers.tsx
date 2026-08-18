@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Package } from 'lucide-react'
+import { ArrowRightLeft } from 'lucide-react'
 
 import PageLayout from '@/components/layout/PageLayout'
 import { DataTable, type DataTableColumn } from '@/components/data-display/DataTable'
@@ -8,69 +8,60 @@ import StatusBadge from '@/components/data-display/StatusBadge'
 import SearchInput from '@/components/forms/SearchInput'
 import Pagination from '@/components/ui/Pagination'
 import { RequirePermission } from '@/components/auth/RequirePermission'
-import { useAssets } from '@/modules/assets/hooks/useAssets'
-import { formatMoney } from '@/core/utils/currency'
+import { useAssetTransfers } from '@/modules/assets/hooks/useAssetTransfers'
 
-export default function Assets() {
+export default function AssetTransfers() {
   const { t } = useTranslation('assets')
-  const { assets, loading } = useAssets()
+  const { transfers, loading } = useAssetTransfers()
 
   const [search, setSearch] = useState('')
   const [page, setPage] = useState(1)
   const [pageSize, setPageSize] = useState(10)
 
   const filtered = useMemo(() => {
-    if (!search.trim()) return assets
+    if (!search.trim()) return transfers
     const q = search.toLowerCase()
-    return assets.filter(
+    return transfers.filter(
       (item) =>
-        item.code.toLowerCase().includes(q) ||
-        item.name.toLowerCase().includes(q),
+        item.asset.toLowerCase().includes(q) ||
+        item.reason.toLowerCase().includes(q),
     )
-  }, [assets, search])
+  }, [transfers, search])
 
   const paginated = filtered.slice((page - 1) * pageSize, page * pageSize)
 
   const statusTone = (status: string) => {
     switch (status) {
-      case 'active': return 'success' as const
-      case 'inactive': return 'neutral' as const
-      case 'disposed': return 'warning' as const
-      case 'transferred': return 'info' as const
-      case 'under_maintenance': return 'warning' as const
+      case 'pending': return 'info' as const
+      case 'approved': return 'success' as const
+      case 'rejected': return 'danger' as const
+      case 'completed': return 'success' as const
       default: return 'neutral' as const
     }
   }
 
-  const columns: DataTableColumn<typeof assets[0]>[] = [
-    { key: 'code', header: t('assets.code'), sortable: true, width: '120px' },
-    { key: 'name', header: t('assets.name'), sortable: true },
-    { key: 'category', header: t('assets.category'), sortable: true },
+  const columns: DataTableColumn<typeof transfers[0]>[] = [
+    { key: 'asset', header: t('transfers.asset'), sortable: true },
+    { key: 'fromLocation', header: t('transfers.fromLocation'), sortable: true },
+    { key: 'toLocation', header: t('transfers.toLocation'), sortable: true },
     {
-      key: 'purchaseValue',
-      header: t('assets.purchaseValue'),
+      key: 'transferDate',
+      header: t('transfers.transferDate'),
       sortable: true,
       render: (row) => (
-        <span className="text-sm font-medium">{formatMoney(row.purchaseValue, row.currency)}</span>
+        <span className="text-sm">{new Date(row.transferDate).toLocaleDateString()}</span>
       ),
     },
+    { key: 'reason', header: t('transfers.reason'), sortable: true },
     {
       key: 'status',
-      header: t('assets.status'),
+      header: t('transfers.status'),
       sortable: true,
       render: (row) => (
         <StatusBadge
           tone={statusTone(row.status)}
-          label={t(`assets.statuses.${row.status}`)}
+          label={t(`transfers.statuses.${row.status}`)}
         />
-      ),
-    },
-    {
-      key: 'acquisitionDate',
-      header: t('assets.acquisitionDate'),
-      sortable: true,
-      render: (row) => (
-        <span className="text-sm">{new Date(row.acquisitionDate).toLocaleDateString()}</span>
       ),
     },
   ]
@@ -78,15 +69,15 @@ export default function Assets() {
   return (
     <RequirePermission permission="assets.asset.view">
       <PageLayout
-        title={t('assets.title')}
-        icon={<Package className="h-5 w-5" />}
+        title={t('transfers.title')}
+        icon={<ArrowRightLeft className="h-5 w-5" />}
       >
         <div className="mb-4">
           <SearchInput
             value={search}
             onChange={(e) => { setSearch(e.target.value); setPage(1) }}
             onClear={() => { setSearch(''); setPage(1) }}
-            placeholder={t('assets.searchPlaceholder')}
+            placeholder={t('transfers.searchPlaceholder')}
           />
         </div>
 

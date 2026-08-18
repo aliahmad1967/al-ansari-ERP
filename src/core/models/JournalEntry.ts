@@ -22,6 +22,9 @@ export const JournalEntryReferenceType = {
   InventoryAdjustment: 'inventory_adjustment',
   OpeningBalance: 'opening_balance',
   Reversal: 'reversal',
+  AssetAcquisition: 'asset_acquisition',
+  AssetDepreciation: 'asset_depreciation',
+  AssetDisposal: 'asset_disposal',
 } as const
 
 export type JournalEntryReferenceTypeValue = (typeof JournalEntryReferenceType)[keyof typeof JournalEntryReferenceType]

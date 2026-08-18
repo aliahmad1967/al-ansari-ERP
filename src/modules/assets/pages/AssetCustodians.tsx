@@ -1,54 +1,66 @@
 import { useState, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
-import { FolderTree } from 'lucide-react'
+import { User } from 'lucide-react'
 
 import PageLayout from '@/components/layout/PageLayout'
 import { DataTable, type DataTableColumn } from '@/components/data-display/DataTable'
 import SearchInput from '@/components/forms/SearchInput'
 import Pagination from '@/components/ui/Pagination'
 import { RequirePermission } from '@/components/auth/RequirePermission'
-import { useAssetCategories } from '@/modules/assets/hooks/useAssetCategories'
+import { useAssetCustodians } from '@/modules/assets/hooks/useAssetCustodians'
 
-export default function AssetCategories() {
+export default function AssetCustodians() {
   const { t } = useTranslation('assets')
-  const { categories, loading } = useAssetCategories()
+  const { custodians, loading } = useAssetCustodians()
 
   const [search, setSearch] = useState('')
   const [page, setPage] = useState(1)
   const [pageSize, setPageSize] = useState(10)
 
   const filtered = useMemo(() => {
-    if (!search.trim()) return categories
+    if (!search.trim()) return custodians
     const q = search.toLowerCase()
-    return categories.filter(
+    return custodians.filter(
       (item) =>
-        item.code.toLowerCase().includes(q) ||
-        item.name.toLowerCase().includes(q),
+        item.name.toLowerCase().includes(q) ||
+        item.department.toLowerCase().includes(q),
     )
-  }, [categories, search])
+  }, [custodians, search])
 
   const paginated = filtered.slice((page - 1) * pageSize, page * pageSize)
 
-  const columns: DataTableColumn<typeof categories[0]>[] = [
-    { key: 'code', header: t('categories.code'), sortable: true, width: '120px' },
-    { key: 'name', header: t('categories.name'), sortable: true },
-    { key: 'nameAr', header: t('categories.nameAr'), sortable: true },
-    { key: 'defaultUsefulLife', header: t('categories.defaultUsefulLife'), sortable: true },
-    { key: 'defaultDepreciationMethod', header: t('categories.defaultDepreciationMethod'), sortable: true },
+  const columns: DataTableColumn<typeof custodians[0]>[] = [
+    { key: 'name', header: t('custodians.name'), sortable: true },
+    { key: 'nameAr', header: t('custodians.nameAr'), sortable: true },
+    { key: 'department', header: t('custodians.department'), sortable: true },
+    {
+      key: 'email',
+      header: t('custodians.email'),
+      render: (row) => (
+        <span className="text-sm text-content-muted">{row.email ?? '-'}</span>
+      ),
+    },
+    {
+      key: 'phone',
+      header: t('custodians.phone'),
+      render: (row) => (
+        <span className="text-sm text-content-muted">{row.phone ?? '-'}</span>
+      ),
+    },
   ]
 
   return (
-    <RequirePermission permission="assets.asset-category.view">
+    <RequirePermission permission="assets.asset.view">
       <PageLayout
-        title={t('categories.title')}
-        icon={<FolderTree className="h-5 w-5" />}
+        title={t('custodians.title')}
+        icon={<User className="h-5 w-5" />}
       >
         <div className="mb-4">
           <SearchInput
             value={search}
             onChange={(e) => { setSearch(e.target.value); setPage(1) }}
             onClear={() => { setSearch(''); setPage(1) }}
-            placeholder={t('categories.searchPlaceholder')}
+            placeholder={t('custodians.searchPlaceholder')}
           />
         </div>
 

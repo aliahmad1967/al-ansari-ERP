@@ -55,6 +55,14 @@ const BudgetsPage = lazy(() => import('@/modules/accounting/pages/Budgets'))
 const TrialBalancePage = lazy(() => import('@/modules/accounting/pages/TrialBalance'))
 const ProfitAndLossPage = lazy(() => import('@/modules/accounting/pages/ProfitAndLoss'))
 const BalanceSheetPage = lazy(() => import('@/modules/accounting/pages/BalanceSheet'))
+const AssetsPage = lazy(() => import('@/modules/assets/pages/Assets'))
+const AssetCategoriesPage = lazy(() => import('@/modules/assets/pages/AssetCategories'))
+const AssetLocationsPage = lazy(() => import('@/modules/assets/pages/AssetLocations'))
+const AssetCustodiansPage = lazy(() => import('@/modules/assets/pages/AssetCustodians'))
+const DepreciationSchedulesPage = lazy(() => import('@/modules/assets/pages/DepreciationSchedules'))
+const AssetMaintenancePage = lazy(() => import('@/modules/assets/pages/AssetMaintenanceList'))
+const AssetTransfersPage = lazy(() => import('@/modules/assets/pages/AssetTransfers'))
+const AssetDisposalsPage = lazy(() => import('@/modules/assets/pages/AssetDisposals'))
 
 export const appRoutes: RouteObject[] = [
   // Public routes (guest only)
@@ -141,6 +149,16 @@ export const appRoutes: RouteObject[] = [
           { path: 'trial-balance', element: <TrialBalancePage /> },
           { path: 'profit-and-loss', element: <ProfitAndLossPage /> },
           { path: 'balance-sheet', element: <BalanceSheetPage /> },
+
+          // Fixed Asset Management
+          { path: 'assets', element: <AssetsPage /> },
+          { path: 'asset-categories', element: <AssetCategoriesPage /> },
+          { path: 'asset-locations', element: <AssetLocationsPage /> },
+          { path: 'asset-custodians', element: <AssetCustodiansPage /> },
+          { path: 'depreciation-schedules', element: <DepreciationSchedulesPage /> },
+          { path: 'asset-maintenance', element: <AssetMaintenancePage /> },
+          { path: 'asset-transfers', element: <AssetTransfersPage /> },
+          { path: 'asset-disposals', element: <AssetDisposalsPage /> },
         ],
       },
     ],

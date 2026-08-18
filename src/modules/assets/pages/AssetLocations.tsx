@@ -1,54 +1,53 @@
 import { useState, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
-import { FolderTree } from 'lucide-react'
+import { MapPin } from 'lucide-react'
 
 import PageLayout from '@/components/layout/PageLayout'
 import { DataTable, type DataTableColumn } from '@/components/data-display/DataTable'
 import SearchInput from '@/components/forms/SearchInput'
 import Pagination from '@/components/ui/Pagination'
 import { RequirePermission } from '@/components/auth/RequirePermission'
-import { useAssetCategories } from '@/modules/assets/hooks/useAssetCategories'
+import { useAssetLocations } from '@/modules/assets/hooks/useAssetLocations'
 
-export default function AssetCategories() {
+export default function AssetLocations() {
   const { t } = useTranslation('assets')
-  const { categories, loading } = useAssetCategories()
+  const { locations, loading } = useAssetLocations()
 
   const [search, setSearch] = useState('')
   const [page, setPage] = useState(1)
   const [pageSize, setPageSize] = useState(10)
 
   const filtered = useMemo(() => {
-    if (!search.trim()) return categories
+    if (!search.trim()) return locations
     const q = search.toLowerCase()
-    return categories.filter(
+    return locations.filter(
       (item) =>
         item.code.toLowerCase().includes(q) ||
         item.name.toLowerCase().includes(q),
     )
-  }, [categories, search])
+  }, [locations, search])
 
   const paginated = filtered.slice((page - 1) * pageSize, page * pageSize)
 
-  const columns: DataTableColumn<typeof categories[0]>[] = [
-    { key: 'code', header: t('categories.code'), sortable: true, width: '120px' },
-    { key: 'name', header: t('categories.name'), sortable: true },
-    { key: 'nameAr', header: t('categories.nameAr'), sortable: true },
-    { key: 'defaultUsefulLife', header: t('categories.defaultUsefulLife'), sortable: true },
-    { key: 'defaultDepreciationMethod', header: t('categories.defaultDepreciationMethod'), sortable: true },
+  const columns: DataTableColumn<typeof locations[0]>[] = [
+    { key: 'code', header: t('locations.code'), sortable: true, width: '120px' },
+    { key: 'name', header: t('locations.name'), sortable: true },
+    { key: 'nameAr', header: t('locations.nameAr'), sortable: true },
+    { key: 'address', header: t('locations.address'), sortable: true },
   ]
 
   return (
-    <RequirePermission permission="assets.asset-category.view">
+    <RequirePermission permission="assets.asset.view">
       <PageLayout
-        title={t('categories.title')}
-        icon={<FolderTree className="h-5 w-5" />}
+        title={t('locations.title')}
+        icon={<MapPin className="h-5 w-5" />}
       >
         <div className="mb-4">
           <SearchInput
             value={search}
             onChange={(e) => { setSearch(e.target.value); setPage(1) }}
             onClear={() => { setSearch(''); setPage(1) }}
-            placeholder={t('categories.searchPlaceholder')}
+            placeholder={t('locations.searchPlaceholder')}
           />
         </div>
 

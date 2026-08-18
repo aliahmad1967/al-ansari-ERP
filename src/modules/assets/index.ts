@@ -1,0 +1,8 @@
+export { default as AssetsPage } from './pages/Assets'
+export { default as AssetCategoriesPage } from './pages/AssetCategories'
+export { default as AssetLocationsPage } from './pages/AssetLocations'
+export { default as AssetCustodiansPage } from './pages/AssetCustodians'
+export { default as DepreciationSchedulesPage } from './pages/DepreciationSchedules'
+export { default as AssetMaintenancePage } from './pages/AssetMaintenanceList'
+export { default as AssetTransfersPage } from './pages/AssetTransfers'
+export { default as AssetDisposalsPage } from './pages/AssetDisposals'

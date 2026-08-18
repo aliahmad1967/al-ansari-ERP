@@ -1,0 +1,191 @@
+{
+  "nav": {
+    "assets": "Fixed Assets",
+    "assetCategories": "Asset Categories",
+    "assetLocations": "Asset Locations",
+    "assetCustodians": "Asset Custodians",
+    "depreciation": "Depreciation",
+    "maintenance": "Maintenance",
+    "transfers": "Asset Transfers",
+    "disposals": "Asset Disposals"
+  },
+  "assets": {
+    "title": "Fixed Assets",
+    "create": "New Asset",
+    "edit": "Edit Asset",
+    "searchPlaceholder": "Search assets...",
+    "code": "Asset Code",
+    "name": "Asset Name",
+    "nameAr": "Asset Name (Arabic)",
+    "description": "Description",
+    "category": "Category",
+    "location": "Location",
+    "custodian": "Custodian",
+    "purchaseValue": "Purchase Value",
+    "salvageValue": "Salvage Value",
+    "usefulLife": "Useful Life (Months)",
+    "depreciationMethod": "Depreciation Method",
+    "acquisitionDate": "Acquisition Date",
+    "disposalDate": "Disposal Date",
+    "status": "Status",
+    "serialNumber": "Serial Number",
+    "model": "Model",
+    "manufacturer": "Manufacturer",
+    "bookValue": "Book Value",
+    "statuses": {
+      "active": "Active",
+      "inactive": "Inactive",
+      "disposed": "Disposed",
+      "transferred": "Transferred",
+      "under_maintenance": "Under Maintenance"
+    },
+    "depreciationMethods": {
+      "straight_line": "Straight Line",
+      "declining_balance": "Declining Balance",
+      "sum_of_years_digits": "Sum of Years Digits",
+      "units_of_production": "Units of Production"
+    },
+    "emptyState": "No assets found",
+    "confirmArchive": "Are you sure you want to archive this asset?"
+  },
+  "categories": {
+    "title": "Asset Categories",
+    "create": "New Category",
+    "edit": "Edit Category",
+    "searchPlaceholder": "Search categories...",
+    "code": "Category Code",
+    "name": "Category Name",
+    "nameAr": "Category Name (Arabic)",
+    "defaultUsefulLife": "Default Useful Life (Months)",
+    "defaultDepreciationMethod": "Default Depreciation Method",
+    "expenseAccount": "Depreciation Expense Account",
+    "accumulatedDepreciationAccount": "Accumulated Depreciation Account",
+    "emptyState": "No categories found"
+  },
+  "locations": {
+    "title": "Asset Locations",
+    "create": "New Location",
+    "edit": "Edit Location",
+    "searchPlaceholder": "Search locations...",
+    "code": "Location Code",
+    "name": "Location Name",
+    "nameAr": "Location Name (Arabic)",
+    "address": "Address",
+    "branch": "Branch",
+    "emptyState": "No locations found"
+  },
+  "custodians": {
+    "title": "Asset Custodians",
+    "create": "New Custodian",
+    "edit": "Edit Custodian",
+    "searchPlaceholder": "Search custodians...",
+    "name": "Custodian Name",
+    "nameAr": "Custodian Name (Arabic)",
+    "department": "Department",
+    "email": "Email",
+    "phone": "Phone",
+    "emptyState": "No custodians found"
+  },
+  "depreciation": {
+    "title": "Depreciation Schedules",
+    "generate": "Generate Schedule",
+    "searchPlaceholder": "Search depreciation schedules...",
+    "asset": "Asset",
+    "periodStart": "Period Start",
+    "periodEnd": "Period End",
+    "depreciationAmount": "Depreciation Amount",
+    "accumulatedDepreciation": "Accumulated Depreciation",
+    "bookValue": "Book Value",
+    "status": "Status",
+    "journalEntry": "Journal Entry",
+    "finalize": "Finalize",
+    "reverse": "Reverse",
+    "statuses": {
+      "draft": "Draft",
+      "finalized": "Finalized",
+      "reversed": "Reversed"
+    },
+    "emptyState": "No depreciation schedules found"
+  },
+  "maintenance": {
+    "title": "Asset Maintenance",
+    "create": "New Maintenance",
+    "edit": "Edit Maintenance",
+    "searchPlaceholder": "Search maintenance records...",
+    "asset": "Asset",
+    "type": "Type",
+    "description": "Description",
+    "scheduledDate": "Scheduled Date",
+    "completedDate": "Completed Date",
+    "cost": "Cost",
+    "status": "Status",
+    "vendor": "Vendor",
+    "notes": "Notes",
+    "types": {
+      "preventive": "Preventive",
+      "corrective": "Corrective",
+      "emergency": "Emergency"
+    },
+    "statuses": {
+      "scheduled": "Scheduled",
+      "in_progress": "In Progress",
+      "completed": "Completed",
+      "cancelled": "Cancelled"
+    },
+    "emptyState": "No maintenance records found"
+  },
+  "transfers": {
+    "title": "Asset Transfers",
+    "create": "New Transfer",
+    "searchPlaceholder": "Search transfers...",
+    "asset": "Asset",
+    "fromLocation": "From Location",
+    "toLocation": "To Location",
+    "fromCustodian": "From Custodian",
+    "toCustodian": "To Custodian",
+    "transferDate": "Transfer Date",
+    "reason": "Reason",
+    "status": "Status",
+    "approvedBy": "Approved By",
+    "approvedAt": "Approved At",
+    "approve": "Approve",
+    "reject": "Reject",
+    "complete": "Complete",
+    "statuses": {
+      "pending": "Pending",
+      "approved": "Approved",
+      "rejected": "Rejected",
+      "completed": "Completed"
+    },
+    "emptyState": "No transfers found"
+  },
+  "disposals": {
+    "title": "Asset Disposals",
+    "create": "New Disposal",
+    "searchPlaceholder": "Search disposals...",
+    "asset": "Asset",
+    "disposalDate": "Disposal Date",
+    "disposalMethod": "Disposal Method",
+    "disposalValue": "Disposal Value",
+    "bookValue": "Book Value",
+    "gainLoss": "Gain/Loss",
+    "reason": "Reason",
+    "status": "Status",
+    "approve": "Approve",
+    "reject": "Reject",
+    "complete": "Complete",
+    "methods": {
+      "sale": "Sale",
+      "scrapping": "Scrapping",
+      "donation": "Donation",
+      "write_off": "Write Off"
+    },
+    "statuses": {
+      "pending": "Pending",
+      "approved": "Approved",
+      "completed": "Completed",
+      "rejected": "Rejected"
+    },
+    "emptyState": "No disposals found"
+  }
+}

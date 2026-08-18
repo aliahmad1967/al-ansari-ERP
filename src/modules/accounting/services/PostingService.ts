@@ -389,6 +389,226 @@ export class PostingService {
     )
   }
 
+  postAssetAcquisition(asset: {
+    _id: string
+    code: string
+    acquisitionDate: Date
+    purchaseValue: number
+    categoryId: string
+    fixedAssetAccountId?: string
+    apAccountId?: string
+  }, actorUserId?: string, actorUsername?: string) {
+    const existing = this.journalService.findEntryByCode(`AST-${asset.code}`)
+    if (existing) {
+      throw new Error(`Journal entry already exists for asset ${asset.code}`)
+    }
+
+    const fixedAssetAccount = asset.fixedAssetAccountId
+      ? this.accountRepo.findById(asset.fixedAssetAccountId)
+      : this.findAccountByCode('1500')
+    const apAccount = asset.apAccountId
+      ? this.accountRepo.findById(asset.apAccountId)
+      : this.findAccountByCode('2100')
+
+    if (!fixedAssetAccount) {
+      throw new Error('Fixed asset account not found. Ensure account 1500 exists.')
+    }
+
+    const period = this.fiscalYearService.findPeriodForDate(asset.acquisitionDate)
+    const year = this.fiscalYearService.findYearForDate(asset.acquisitionDate)
+    if (!period || !year) {
+      throw new Error('No open fiscal period for acquisition date')
+    }
+
+    const lines: JournalEntryLineInput[] = [
+      {
+        accountId: fixedAssetAccount._id,
+        debit: asset.purchaseValue,
+        credit: 0,
+        description: `Fixed Asset - ${asset.code}`,
+      },
+    ]
+
+    if (apAccount) {
+      lines.push({
+        accountId: apAccount._id,
+        debit: 0,
+        credit: asset.purchaseValue,
+        description: `A/P - ${asset.code}`,
+      })
+    }
+
+    return this.journalService.createDraftEntry(
+      {
+        entryDate: asset.acquisitionDate,
+        fiscalYearId: year._id,
+        fiscalPeriodId: period._id,
+        description: `Asset Acquisition ${asset.code}`,
+        referenceType: JournalEntryReferenceType.AssetAcquisition,
+        referenceId: asset._id,
+        referenceNumber: asset.code,
+        lines,
+      },
+      actorUserId,
+      actorUsername,
+    )
+  }
+
+  postDepreciation(schedule: {
+    _id: string
+    assetId: string
+    assetCode: string
+    periodEnd: Date
+    depreciationAmount: number
+    expenseAccountId?: string
+    accumulatedDepreciationAccountId?: string
+  }, actorUserId?: string, actorUsername?: string) {
+    const existing = this.journalService.findEntryByCode(`DEPR-${schedule.assetCode}-${schedule._id.slice(0, 8)}`)
+    if (existing) {
+      throw new Error(`Journal entry already exists for depreciation schedule ${schedule._id}`)
+    }
+
+    const expenseAccount = schedule.expenseAccountId
+      ? this.accountRepo.findById(schedule.expenseAccountId)
+      : this.findAccountByCode('5300')
+    const accumulatedDepAccount = schedule.accumulatedDepreciationAccountId
+      ? this.accountRepo.findById(schedule.accumulatedDepreciationAccountId)
+      : this.findAccountByCode('1510')
+
+    if (!expenseAccount || !accumulatedDepAccount) {
+      throw new Error('Required depreciation accounts not found. Ensure Depreciation Expense (5300) and Accumulated Depreciation (1510) exist.')
+    }
+
+    const period = this.fiscalYearService.findPeriodForDate(schedule.periodEnd)
+    const year = this.fiscalYearService.findYearForDate(schedule.periodEnd)
+    if (!period || !year) {
+      throw new Error('No open fiscal period for depreciation date')
+    }
+
+    return this.journalService.createDraftEntry(
+      {
+        entryDate: schedule.periodEnd,
+        fiscalYearId: year._id,
+        fiscalPeriodId: period._id,
+        description: `Depreciation - ${schedule.assetCode}`,
+        referenceType: JournalEntryReferenceType.AssetDepreciation,
+        referenceId: schedule._id,
+        referenceNumber: schedule.assetCode,
+        lines: [
+          {
+            accountId: expenseAccount._id,
+            debit: schedule.depreciationAmount,
+            credit: 0,
+            description: `Depreciation Expense - ${schedule.assetCode}`,
+          },
+          {
+            accountId: accumulatedDepAccount._id,
+            debit: 0,
+            credit: schedule.depreciationAmount,
+            description: `Accumulated Depreciation - ${schedule.assetCode}`,
+          },
+        ],
+      },
+      actorUserId,
+      actorUsername,
+    )
+  }
+
+  postAssetDisposal(disposal: {
+    _id: string
+    assetCode: string
+    disposalDate: Date
+    disposalValue: number
+    bookValue: number
+    gainLoss: number
+    fixedAssetAccountId?: string
+    accumulatedDepreciationAccountId?: string
+  }, actorUserId?: string, actorUsername?: string) {
+    const existing = this.journalService.findEntryByCode(`DISP-${disposal.assetCode}`)
+    if (existing) {
+      throw new Error(`Journal entry already exists for disposal of ${disposal.assetCode}`)
+    }
+
+    const cashAccount = this.findAccountByCode('1010')
+    const fixedAssetAccount = disposal.fixedAssetAccountId
+      ? this.accountRepo.findById(disposal.fixedAssetAccountId)
+      : this.findAccountByCode('1500')
+    const accumulatedDepAccount = disposal.accumulatedDepreciationAccountId
+      ? this.accountRepo.findById(disposal.accumulatedDepreciationAccountId)
+      : this.findAccountByCode('1510')
+    const gainLossAccount = disposal.gainLoss >= 0
+      ? this.findAccountByCode('4200')
+      : this.findAccountByCode('5400')
+
+    if (!cashAccount || !fixedAssetAccount || !accumulatedDepAccount) {
+      throw new Error('Required accounts not found for disposal')
+    }
+
+    const period = this.fiscalYearService.findPeriodForDate(disposal.disposalDate)
+    const year = this.fiscalYearService.findYearForDate(disposal.disposalDate)
+    if (!period || !year) {
+      throw new Error('No open fiscal period for disposal date')
+    }
+
+    const accumulatedDepreciation = disposal.bookValue > 0
+      ? disposal.bookValue
+      : 0
+
+    const lines: JournalEntryLineInput[] = [
+      {
+        accountId: cashAccount._id,
+        debit: disposal.disposalValue,
+        credit: 0,
+        description: `Cash - ${disposal.assetCode}`,
+      },
+      {
+        accountId: accumulatedDepAccount._id,
+        debit: accumulatedDepreciation,
+        credit: 0,
+        description: `Accumulated Depreciation - ${disposal.assetCode}`,
+      },
+      {
+        accountId: fixedAssetAccount._id,
+        debit: 0,
+        credit: disposal.bookValue + accumulatedDepreciation,
+        description: `Fixed Asset - ${disposal.assetCode}`,
+      },
+    ]
+
+    if (disposal.gainLoss !== 0 && gainLossAccount) {
+      if (disposal.gainLoss > 0) {
+        lines.push({
+          accountId: gainLossAccount._id,
+          debit: 0,
+          credit: disposal.gainLoss,
+          description: `Gain on Disposal - ${disposal.assetCode}`,
+        })
+      } else {
+        lines.push({
+          accountId: gainLossAccount._id,
+          debit: Math.abs(disposal.gainLoss),
+          credit: 0,
+          description: `Loss on Disposal - ${disposal.assetCode}`,
+        })
+      }
+    }
+
+    return this.journalService.createDraftEntry(
+      {
+        entryDate: disposal.disposalDate,
+        fiscalYearId: year._id,
+        fiscalPeriodId: period._id,
+        description: `Asset Disposal ${disposal.assetCode}`,
+        referenceType: JournalEntryReferenceType.AssetDisposal,
+        referenceId: disposal._id,
+        referenceNumber: disposal.assetCode,
+        lines,
+      },
+      actorUserId,
+      actorUsername,
+    )
+  }
+
   private findAccountByCode(code: string) {
     return this.accountRepo.findByCode(code)
   }

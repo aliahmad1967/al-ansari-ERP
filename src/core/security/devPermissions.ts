@@ -56,7 +56,12 @@ export const ADMIN_PERMISSIONS = [
   // Assets
   'assets.asset.view', 'assets.asset.create', 'assets.asset.update', 'assets.asset.delete',
   'assets.asset-category.view', 'assets.asset-category.create', 'assets.asset-category.update', 'assets.asset-category.delete',
-  'assets.maintenance.view', 'assets.maintenance.create', 'assets.maintenance.update',
+  'assets.asset-location.view', 'assets.asset-location.create', 'assets.asset-location.update', 'assets.asset-location.delete',
+  'assets.asset-custodian.view', 'assets.asset-custodian.create', 'assets.asset-custodian.update', 'assets.asset-custodian.delete',
+  'assets.depreciation.view', 'assets.depreciation.create', 'assets.depreciation.update',
+  'assets.maintenance.view', 'assets.maintenance.create', 'assets.maintenance.update', 'assets.maintenance.delete',
+  'assets.transfer.view', 'assets.transfer.create', 'assets.transfer.update', 'assets.transfer.delete',
+  'assets.disposal.view', 'assets.disposal.create', 'assets.disposal.update', 'assets.disposal.delete',
   // Projects
   'projects.project.view', 'projects.project.create', 'projects.project.update', 'projects.project.delete',
   'projects.task.view', 'projects.task.create', 'projects.task.update', 'projects.task.delete',

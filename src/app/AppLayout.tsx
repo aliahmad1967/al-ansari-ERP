@@ -38,6 +38,10 @@ import {
   Scale,
   TrendingUp,
   LayoutGrid,
+  Wrench,
+  ArrowRightLeft,
+  Trash2,
+  FolderTree,
 } from 'lucide-react'
 
 import Button from '@/components/ui/Button'
@@ -62,6 +66,7 @@ export default function AppLayout() {
   const { t: tProc } = useTranslation('procurement')
   const { t: tSales } = useTranslation('sales')
   const { t: tAcct } = useTranslation('accounting')
+  const { t: tAssets } = useTranslation('assets')
   const { theme, toggleTheme } = useTheme()
   const { toggleLanguage } = useLanguage()
   const { sidebarCollapsed, mobileNavOpen } = useSyncExternalStore(subscribeAppUi, getAppUiState)
@@ -389,6 +394,48 @@ export default function AppLayout() {
           label: tAcct('nav.balanceSheet'),
           icon: <Scale className="h-4 w-4" aria-hidden="true" />,
           to: '/balance-sheet',
+        },
+      ],
+    },
+    {
+      id: 'assets',
+      label: tAssets('nav.assets'),
+      items: [
+        {
+          id: 'fixed-assets',
+          label: tAssets('nav.assets'),
+          icon: <Package className="h-4 w-4" aria-hidden="true" />,
+          to: '/assets',
+        },
+        {
+          id: 'asset-categories',
+          label: tAssets('nav.assetCategories'),
+          icon: <FolderTree className="h-4 w-4" aria-hidden="true" />,
+          to: '/asset-categories',
+        },
+        {
+          id: 'depreciation-schedules',
+          label: tAssets('nav.depreciation'),
+          icon: <TrendingUp className="h-4 w-4" aria-hidden="true" />,
+          to: '/depreciation-schedules',
+        },
+        {
+          id: 'asset-maintenance',
+          label: tAssets('nav.maintenance'),
+          icon: <Wrench className="h-4 w-4" aria-hidden="true" />,
+          to: '/asset-maintenance',
+        },
+        {
+          id: 'asset-transfers',
+          label: tAssets('nav.transfers'),
+          icon: <ArrowRightLeft className="h-4 w-4" aria-hidden="true" />,
+          to: '/asset-transfers',
+        },
+        {
+          id: 'asset-disposals',
+          label: tAssets('nav.disposals'),
+          icon: <Trash2 className="h-4 w-4" aria-hidden="true" />,
+          to: '/asset-disposals',
         },
       ],
     },
