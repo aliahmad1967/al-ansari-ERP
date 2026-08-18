@@ -11,6 +11,7 @@
 export const PERMISSION_MODULES = [
   'hr',
   'finance',
+  'accounting',
   'inventory',
   'procurement',
   'sales',
@@ -28,9 +29,10 @@ export type PermissionModule = (typeof PERMISSION_MODULES)[number]
 export const MODULE_RESOURCES: Record<PermissionModule, readonly string[]> = {
   hr: ['employee', 'attendance', 'leave', 'payroll', 'recruitment'],
   finance: ['invoice', 'payment', 'voucher', 'account', 'budget'],
-  inventory: ['product', 'category', 'warehouse', 'stock', 'adjustment'],
-  procurement: ['purchase-order', 'supplier', 'goods-receipt', 'request'],
-  sales: ['customer', 'sales-order', 'delivery', 'quotation', 'invoice'],
+  accounting: ['accounts', 'journal', 'fiscal', 'costCenter', 'budget', 'reports'],
+  inventory: ['products', 'categories', 'warehouses', 'stock', 'movements', 'transfers', 'adjustments', 'reports'],
+  procurement: ['suppliers', 'orders', 'receipts', 'requests', 'invoices', 'reports'],
+  sales: ['customers', 'quotations', 'orders', 'deliveries', 'invoices', 'payments', 'returns'],
   assets: ['asset', 'asset-category', 'maintenance'],
   projects: ['project', 'task', 'milestone', 'timesheet'],
   organization: ['organization', 'branch', 'department', 'user', 'role', 'permission'],
@@ -45,6 +47,7 @@ export const BASE_ACTIONS = ['view', 'create', 'update', 'delete'] as const
 export const APPROVAL_MODULES = new Set<PermissionModule>([
   'hr',
   'finance',
+  'accounting',
   'procurement',
   'sales',
 ])
@@ -100,9 +103,9 @@ export const SYSTEM_ROLES: SystemRoleConfig[] = [
     nameAr: 'مدير المالية',
     description: 'Full finance module access plus read access to related modules.',
     descriptionAr: 'وصول كامل لوحدة المالية مع وصول للقراءة للوحدات ذات الصلة.',
-    permissionFilter: (module, _resource, action) => {
-      if (module === 'finance') return true
-      if (action === 'view' && ['reports', 'notifications'].includes(module)) return true
+    permissionFilter: (module, _resource, _action) => {
+      if (module === 'finance' || module === 'accounting') return true
+      if (_action === 'view' && ['reports', 'notifications'].includes(module)) return true
       return false
     },
   },

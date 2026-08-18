@@ -12,7 +12,7 @@
 import type { ChangePasswordResult, LoginCredentials, LoginResult, SessionUser } from '@/types/auth'
 import type { Session } from '@/types/auth'
 import { STORAGE_KEYS } from '@/config/app.config'
-import { ADMIN_PERMISSIONS, DEV_SEED_VERSION } from '@/core/security/devPermissions'
+import { DEV_SEED_VERSION, getPermissionsForRole } from '@/core/security/devPermissions'
 
 const DEV_STORAGE_KEY = 'erp_dev_users'
 const DEV_SEEDED_KEY = 'erp_dev_seeded'
@@ -186,8 +186,7 @@ export class DevAuthService {
       mustChangePassword: user.mustChangePassword,
     }
 
-    const permissionCodes =
-      user.roleCode === 'ADMINISTRATOR' ? ADMIN_PERMISSIONS : []
+    const permissionCodes = getPermissionsForRole(user.roleCode)
 
     const now = Date.now()
     const session: Session = {
@@ -261,12 +260,13 @@ export class DevAuthService {
       }
       // Refresh permissions if seed version changed
       const currentVersion = parseInt(localStorage.getItem(DEV_SEED_VERSION_KEY) ?? '0', 10)
-      if (currentVersion === DEV_SEED_VERSION && session.user.roleCode === 'ADMINISTRATOR') {
-        const hasAllPermissions = ADMIN_PERMISSIONS.every((p) =>
+      if (currentVersion === DEV_SEED_VERSION) {
+        const expectedPermissions = getPermissionsForRole(session.user.roleCode)
+        const hasAllPermissions = expectedPermissions.every((p) =>
           session.permissionCodes.includes(p),
         )
         if (!hasAllPermissions) {
-          session.permissionCodes = [...ADMIN_PERMISSIONS]
+          session.permissionCodes = [...expectedPermissions]
           localStorage.setItem(STORAGE_KEYS.session, JSON.stringify(session))
         }
       }

@@ -11,7 +11,7 @@
 
 import { STORAGE_KEYS } from '@/config/app.config'
 import type { Session } from '@/types/auth'
-import { ADMIN_PERMISSIONS, DEV_SEED_VERSION } from '@/core/security/devPermissions'
+import { DEV_SEED_VERSION, getPermissionsForRole } from '@/core/security/devPermissions'
 
 const SESSION_TIMEOUT_MS = 30 * 60 * 1000 // 30 minutes
 const ACTIVITY_TIMEOUT_MS = 30 * 60 * 1000 // 30 minutes of inactivity
@@ -19,19 +19,20 @@ const ACTIVITY_TIMEOUT_MS = 30 * 60 * 1000 // 30 minutes of inactivity
 const DEV_SEED_VERSION_KEY = 'erp_dev_seed_version'
 
 /**
- * Refreshes permission codes for ADMINISTRATOR users when the seed version
- * changes. This ensures newly added permissions in code are picked up
+ * Refreshes permission codes when the seed version changes.
+ * This ensures newly added permissions in code are picked up
  * without requiring a re-login.
  */
 function refreshPermissionsIfNeeded(session: Session): Session {
-  if (session.user.roleCode !== 'ADMINISTRATOR') return session
   const currentVersion = parseInt(localStorage.getItem(DEV_SEED_VERSION_KEY) ?? '0', 10)
   if (currentVersion !== DEV_SEED_VERSION) return session
-  const hasAll = ADMIN_PERMISSIONS.every((p) =>
+  const expectedPermissions = getPermissionsForRole(session.user.roleCode)
+  if (expectedPermissions.length === 0) return session
+  const hasAll = expectedPermissions.every((p) =>
     session.permissionCodes.includes(p),
   )
   if (!hasAll) {
-    session.permissionCodes = [...ADMIN_PERMISSIONS]
+    session.permissionCodes = [...expectedPermissions]
     saveSession(session)
   }
   return session

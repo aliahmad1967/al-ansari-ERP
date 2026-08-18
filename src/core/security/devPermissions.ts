@@ -1,10 +1,12 @@
 /**
  * Dev permission codes — shared between DevAuthService and session loader.
- * These are the permission codes assigned to the ADMINISTRATOR role in
- * development mode when Realm is unavailable.
+ * These are the permission codes assigned to each role in development mode
+ * when Realm is unavailable. They match the codes used by page components.
  */
 
-export const DEV_SEED_VERSION = 2
+export const DEV_SEED_VERSION = 3
+
+// ── All dev permission codes (used by ADMINISTRATOR / SUPER_ADMINISTRATOR) ──
 
 export const ADMIN_PERMISSIONS = [
   // Organization
@@ -73,3 +75,112 @@ export const ADMIN_PERMISSIONS = [
   'reports.report.view', 'reports.report.create',
   'notifications.notification.view', 'notifications.notification.create', 'notifications.notification.update', 'notifications.notification.delete',
 ]
+
+// ── Role-based permission lookup ─────────────────────────────────────────────
+
+/**
+ * Builds a permission code from module, resource, and action.
+ */
+function p(module: string, resource: string, action: string): string {
+  return `${module}.${resource}.${action}`
+}
+
+const BASE_ACTIONS = ['view', 'create', 'update', 'delete'] as const
+
+/**
+ * Generate all permission codes for a given module/resources map.
+ */
+function generateModulePermissions(
+  module: string,
+  resources: readonly string[],
+  actions: readonly string[] = [...BASE_ACTIONS],
+): string[] {
+  const codes: string[] = []
+  for (const resource of resources) {
+    for (const action of actions) {
+      codes.push(p(module, resource, action))
+    }
+  }
+  return codes
+}
+
+// Pre-computed permission sets per module
+const HR_PERMISSIONS = generateModulePermissions('hr', ['employee', 'attendance', 'leave', 'payroll', 'recruitment'], [...BASE_ACTIONS, 'approve'])
+const ACCOUNTING_PERMISSIONS = generateModulePermissions('accounting', ['accounts', 'journal', 'fiscal', 'costCenter', 'budget', 'reports'])
+const FINANCE_PERMISSIONS = generateModulePermissions('finance', ['invoice', 'payment', 'voucher', 'account', 'budget'])
+const INVENTORY_PERMISSIONS = generateModulePermissions('inventory', ['products', 'categories', 'warehouses', 'stock', 'movements', 'transfers', 'adjustments', 'reports'])
+const PROCUREMENT_PERMISSIONS = generateModulePermissions('procurement', ['suppliers', 'orders', 'receipts', 'requests', 'invoices', 'reports'])
+const SALES_PERMISSIONS = generateModulePermissions('sales', ['customers', 'quotations', 'orders', 'deliveries', 'invoices', 'payments', 'returns'])
+const ORGANIZATION_PERMISSIONS = generateModulePermissions('organization', ['organization', 'branch', 'department', 'user', 'role', 'permission'])
+const REPORTS_PERMISSIONS = generateModulePermissions('reports', ['report'])
+const NOTIFICATIONS_PERMISSIONS = generateModulePermissions('notifications', ['notification'])
+
+// Helper: view-only subset of a module
+function viewOnly(codes: string[]): string[] {
+  return codes.filter((c) => c.endsWith('.view'))
+}
+
+// ── Per-role permission sets ─────────────────────────────────────────────────
+
+const ROLE_PERMISSIONS: Record<string, string[]> = {
+  SUPER_ADMINISTRATOR: ADMIN_PERMISSIONS,
+  ADMINISTRATOR: ADMIN_PERMISSIONS.filter((c) => {
+    if (c.startsWith('settings.') && !c.endsWith('.view')) return false
+    return true
+  }),
+  HR_MANAGER: [
+    ...HR_PERMISSIONS,
+    ...viewOnly(ORGANIZATION_PERMISSIONS),
+    ...viewOnly(REPORTS_PERMISSIONS),
+    ...viewOnly(NOTIFICATIONS_PERMISSIONS),
+  ],
+  FINANCE_MANAGER: [
+    ...FINANCE_PERMISSIONS,
+    ...ACCOUNTING_PERMISSIONS,
+    ...viewOnly(REPORTS_PERMISSIONS),
+    ...viewOnly(NOTIFICATIONS_PERMISSIONS),
+  ],
+  INVENTORY_MANAGER: [
+    ...INVENTORY_PERMISSIONS,
+    ...viewOnly(PROCUREMENT_PERMISSIONS),
+    ...viewOnly(REPORTS_PERMISSIONS),
+    ...viewOnly(NOTIFICATIONS_PERMISSIONS),
+  ],
+  PROCUREMENT_MANAGER: [
+    ...PROCUREMENT_PERMISSIONS,
+    ...viewOnly(INVENTORY_PERMISSIONS),
+    ...viewOnly(REPORTS_PERMISSIONS),
+    ...viewOnly(NOTIFICATIONS_PERMISSIONS),
+  ],
+  SALES_MANAGER: [
+    ...SALES_PERMISSIONS,
+    ...viewOnly(INVENTORY_PERMISSIONS),
+    ...viewOnly(REPORTS_PERMISSIONS),
+    ...viewOnly(NOTIFICATIONS_PERMISSIONS),
+  ],
+  EMPLOYEE: [
+    ...viewOnly(HR_PERMISSIONS),
+    ...viewOnly(INVENTORY_PERMISSIONS),
+    ...viewOnly(SALES_PERMISSIONS),
+    ...viewOnly(NOTIFICATIONS_PERMISSIONS),
+  ],
+  VIEWER: [
+    ...viewOnly(HR_PERMISSIONS),
+    ...viewOnly(FINANCE_PERMISSIONS),
+    ...viewOnly(ACCOUNTING_PERMISSIONS),
+    ...viewOnly(INVENTORY_PERMISSIONS),
+    ...viewOnly(PROCUREMENT_PERMISSIONS),
+    ...viewOnly(SALES_PERMISSIONS),
+    ...viewOnly(ORGANIZATION_PERMISSIONS),
+    ...viewOnly(REPORTS_PERMISSIONS),
+    ...viewOnly(NOTIFICATIONS_PERMISSIONS),
+  ],
+}
+
+/**
+ * Returns the dev permission codes for a given role code.
+ * Falls back to an empty array for unknown roles.
+ */
+export function getPermissionsForRole(roleCode: string): string[] {
+  return ROLE_PERMISSIONS[roleCode] ?? []
+}

@@ -9,7 +9,7 @@
 
 import type Realm from 'realm'
 
-import { MODULE_RESOURCES, SYSTEM_ROLES } from '../../config/permissions.config'
+import { MODULE_RESOURCES, APPROVAL_MODULES, SYSTEM_ROLES } from '../../config/permissions.config'
 import { AuditAction, AuditOutcome } from '../models/AuditLog'
 import { buildPermissionCode } from '../models/Permission'
 import { AuditRepository } from '../repositories/AuditRepository'
@@ -108,6 +108,10 @@ export function seedDatabase(realm: Realm): SeedResult {
       for (const resource of resources) {
         for (const action of BASE_ACTIONS) {
           permissionCodes.add(buildPermissionCode(module, resource, action))
+        }
+        // Add approve action for approval-enabled modules
+        if (APPROVAL_MODULES.has(module as keyof typeof MODULE_RESOURCES)) {
+          permissionCodes.add(buildPermissionCode(module, resource, 'approve'))
         }
       }
     }
