@@ -1,0 +1,90 @@
+{
+  "title": "Workflow Engine",
+  "subtitle": "Manage approval workflows and processes",
+  "definitions": {
+    "title": "Workflow Definitions",
+    "create": "Create Definition",
+    "edit": "Edit Definition",
+    "name": "Name",
+    "nameAr": "Arabic Name",
+    "description": "Description",
+    "descriptionAr": "Arabic Description",
+    "entityType": "Entity Type",
+    "isActive": "Active",
+    "steps": "Steps",
+    "addStep": "Add Step",
+    "stepName": "Step Name",
+    "stepNameAr": "Arabic Step Name",
+    "orderNumber": "Order",
+    "approverType": "Approver Type",
+    "approverRole": "Approver Role",
+    "approverUser": "Approver User",
+    "actionType": "Action Type",
+    "noDefinitions": "No workflow definitions found",
+    "createFirst": "Create your first workflow definition to get started"
+  },
+  "instances": {
+    "title": "Workflow Instances",
+    "initiate": "Initiate Workflow",
+    "pending": "Pending Approvals",
+    "myWorkflows": "My Workflows",
+    "history": "Workflow History",
+    "noInstances": "No workflow instances found",
+    "noPending": "No pending approvals"
+  },
+  "actions": {
+    "submit": "Submit",
+    "approve": "Approve",
+    "reject": "Reject",
+    "cancel": "Cancel",
+    "return": "Return",
+    "confirmApprove": "Are you sure you want to approve this?",
+    "confirmReject": "Are you sure you want to reject this?",
+    "confirmCancel": "Are you sure you want to cancel this?"
+  },
+  "status": {
+    "draft": "Draft",
+    "pending": "Pending",
+    "approved": "Approved",
+    "rejected": "Rejected",
+    "cancelled": "Cancelled",
+    "completed": "Completed",
+    "archived": "Archived"
+  },
+  "action": {
+    "submit": "Submitted",
+    "approve": "Approved",
+    "reject": "Rejected",
+    "cancel": "Cancelled",
+    "return": "Returned"
+  },
+  "approverType": {
+    "role": "Role",
+    "user": "User",
+    "department_manager": "Department Manager"
+  },
+  "stats": {
+    "totalDefinitions": "Total Definitions",
+    "activeDefinitions": "Active Definitions",
+    "pendingInstances": "Pending Instances",
+    "completedInstances": "Completed",
+    "rejectedInstances": "Rejected"
+  },
+  "history": {
+    "title": "Approval History",
+    "actor": "Actor",
+    "action": "Action",
+    "step": "Step",
+    "comment": "Comment",
+    "date": "Date",
+    "noHistory": "No approval history found"
+  },
+  "notifications": {
+    "approvalRequired": "Action Required",
+    "workflowApproved": "Workflow Approved",
+    "workflowRejected": "Workflow Rejected",
+    "approvalRequiredBody": "A {{entityType}} requires your approval",
+    "workflowApprovedBody": "Your {{entityType}} has been approved",
+    "workflowRejectedBody": "Your {{entityType}} has been rejected"
+  }
+}

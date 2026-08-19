@@ -1,0 +1,90 @@
+{
+  "title": "محرك سير العمل",
+  "subtitle": "إدارة خطوط الموافقة والعمليات",
+  "definitions": {
+    "title": "تعريفات سير العمل",
+    "create": "إنشاء تعريف",
+    "edit": "تعديل التعريف",
+    "name": "الاسم",
+    "nameAr": "الاسم بالعربية",
+    "description": "الوصف",
+    "descriptionAr": "الوصف بالعربية",
+    "entityType": "نوع الكيان",
+    "isActive": "نشط",
+    "steps": "الخطوات",
+    "addStep": "إضافة خطوة",
+    "stepName": "اسم الخطوة",
+    "stepNameAr": "اسم الخطوة بالعربية",
+    "orderNumber": "الترتيب",
+    "approverType": "نوع المعتمد",
+    "approverRole": "دور المعتمد",
+    "approverUser": "المستخدم المعتمد",
+    "actionType": "نوع الإجراء",
+    "noDefinitions": "لم يتم العثور على تعريفات سير عمل",
+    "createFirst": "أنشئ أول تعريف لسير العمل للبدء"
+  },
+  "instances": {
+    "title": "نماذج سير العمل",
+    "initiate": "بدء سير عمل",
+    "pending": "الموافقات المعلقة",
+    "myWorkflows": "سير العمل الخاص بي",
+    "history": "سجل سير العمل",
+    "noInstances": "لم يتم العثور على نماذج سير عمل",
+    "noPending": "لا توجد موافقات معلقة"
+  },
+  "actions": {
+    "submit": "إرسال",
+    "approve": "موافقة",
+    "reject": "رفض",
+    "cancel": "إلغاء",
+    "return": "إرجاع",
+    "confirmApprove": "هل أنت متأكد من الموافقة على هذا؟",
+    "confirmReject": "هل أنت متأكد من رفض هذا؟",
+    "confirmCancel": "هل أنت متأكد من إلغاء هذا؟"
+  },
+  "status": {
+    "draft": "مسودة",
+    "pending": "قيد الانتظار",
+    "approved": "تمت الموافقة",
+    "rejected": "مرفوض",
+    "cancelled": "ملغي",
+    "completed": "مكتمل",
+    "archived": "مؤرشف"
+  },
+  "action": {
+    "submit": "تم الإرسال",
+    "approve": "تمت الموافقة",
+    "reject": "مرفوض",
+    "cancel": "تم الإلغاء",
+    "return": "تم الإرجاع"
+  },
+  "approverType": {
+    "role": "دور",
+    "user": "مستخدم",
+    "department_manager": "مدير القسم"
+  },
+  "stats": {
+    "totalDefinitions": "إجمالي التعريفات",
+    "activeDefinitions": "التعريفات النشطة",
+    "pendingInstances": "النماذج المعلقة",
+    "completedInstances": "المكتملة",
+    "rejectedInstances": "المرفوضة"
+  },
+  "history": {
+    "title": "سجل الموافقات",
+    "actor": "الفاعل",
+    "action": "الإجراء",
+    "step": "الخطوة",
+    "comment": "التعليق",
+    "date": "التاريخ",
+    "noHistory": "لم يتم العثور على سجل موافقات"
+  },
+  "notifications": {
+    "approvalRequired": "إجراء مطلوب",
+    "workflowApproved": "تمت الموافقة على سير العمل",
+    "workflowRejected": "تم رفض سير العمل",
+    "approvalRequiredBody": "{{entityType}} يتطلب موافقتك",
+    "workflowApprovedBody": "تمت الموافقة على {{entityType}} الخاص بك",
+    "workflowRejectedBody": "تم رفض {{entityType}} الخاص بك"
+  }
+}

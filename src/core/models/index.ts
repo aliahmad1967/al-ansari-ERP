@@ -94,6 +94,10 @@ import type { Milestone } from './Milestone'
 import type { Timesheet } from './Timesheet'
 import type { ProjectExpense } from './ProjectExpense'
 import type { ProjectBudget } from './ProjectBudget'
+import type { WorkflowDefinition } from './WorkflowDefinition'
+import type { WorkflowStep } from './WorkflowStep'
+import type { WorkflowInstance } from './WorkflowInstance'
+import type { WorkflowAction } from './WorkflowAction'
 
 import { AuditLog as AuditLogModel } from './AuditLog'
 import { AttendanceRecord as AttendanceRecordModel } from './AttendanceRecord'
@@ -185,6 +189,10 @@ import { Milestone as MilestoneModel } from './Milestone'
 import { Timesheet as TimesheetModel } from './Timesheet'
 import { ProjectExpense as ProjectExpenseModel } from './ProjectExpense'
 import { ProjectBudget as ProjectBudgetModel } from './ProjectBudget'
+import { WorkflowDefinition as WorkflowDefinitionModel } from './WorkflowDefinition'
+import { WorkflowStep as WorkflowStepModel } from './WorkflowStep'
+import { WorkflowInstance as WorkflowInstanceModel } from './WorkflowInstance'
+import { WorkflowAction as WorkflowActionModel } from './WorkflowAction'
 
 export {
   AuditLogModel,
@@ -277,6 +285,10 @@ export {
   TimesheetModel,
   ProjectExpenseModel,
   ProjectBudgetModel,
+  WorkflowDefinitionModel,
+  WorkflowStepModel,
+  WorkflowInstanceModel,
+  WorkflowActionModel,
 }
 
 export type {
@@ -370,6 +382,10 @@ export type {
   Timesheet,
   ProjectExpense,
   ProjectBudget,
+  WorkflowDefinition,
+  WorkflowStep,
+  WorkflowInstance,
+  WorkflowAction,
 }
 
 export { AuditAction, AuditOutcome } from './AuditLog'
@@ -536,6 +552,13 @@ export type { ProjectExpenseInput, ProjectExpenseEntity } from './ProjectExpense
 export { ProjectBudgetStatus } from './ProjectBudgetStatus'
 export type { ProjectBudgetStatusValue } from './ProjectBudgetStatus'
 export type { ProjectBudgetInput, ProjectBudgetEntity } from './ProjectBudget'
+export type { WorkflowDefinitionInput, WorkflowDefinitionEntity, WorkflowDefinitionUpdate } from './WorkflowDefinition'
+export { WorkflowStepApproverType, WorkflowStepActionType } from './WorkflowStep'
+export type { WorkflowStepInput, WorkflowStepEntity, WorkflowStepUpdate, WorkflowStepApproverTypeValue, WorkflowStepActionTypeValue } from './WorkflowStep'
+export { WorkflowInstanceStatus } from './WorkflowInstance'
+export type { WorkflowInstanceInput, WorkflowInstanceEntity, WorkflowInstanceUpdate, WorkflowInstanceStatusValue } from './WorkflowInstance'
+export { WorkflowActionType } from './WorkflowAction'
+export type { WorkflowActionInput, WorkflowActionEntity, WorkflowActionTypeValue } from './WorkflowAction'
 export { AccountType } from './Account'
 export type { AccountInput, AccountEntity, AccountTypeValue } from './Account'
 export type { AccountGroupInput, AccountGroupEntity } from './AccountGroup'
@@ -649,6 +672,10 @@ export const MODEL_SCHEMAS: Realm.ObjectSchema[] = [
   TimesheetModel.schema,
   ProjectExpenseModel.schema,
   ProjectBudgetModel.schema,
+  WorkflowDefinitionModel.schema,
+  WorkflowStepModel.schema,
+  WorkflowInstanceModel.schema,
+  WorkflowActionModel.schema,
 ]
 
 /**
@@ -747,4 +774,8 @@ export const MODEL_CLASSES: Realm.RealmObjectConstructor<Realm.AnyRealmObject>[]
   TimesheetModel,
   ProjectExpenseModel,
   ProjectBudgetModel,
+  WorkflowDefinitionModel,
+  WorkflowStepModel,
+  WorkflowInstanceModel,
+  WorkflowActionModel,
 ]
