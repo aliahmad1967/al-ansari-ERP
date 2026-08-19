@@ -12,6 +12,16 @@ function sanitizeFilename(name: string): string {
   return name.replace(/[^a-zA-Z0-9_-]/g, '_').slice(0, 50)
 }
 
+/** Escapes HTML special characters to prevent XSS in document.write output. */
+function escapeHtml(str: string): string {
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;')
+}
+
 export function exportToCsv<T extends ReportDataPoint>(
   data: T[],
   columns: Array<{ key: string; header: string }>,
@@ -133,18 +143,18 @@ export function printReport(
 
   const tableRows = rows
     .map(
-      (row) => `<tr>${row.map((cell) => `<td style="padding:6px 10px;border-bottom:1px solid #e5e7eb;font-size:13px">${cell}</td>`).join('')}</tr>`,
+      (row) => `<tr>${row.map((cell) => `<td style="padding:6px 10px;border-bottom:1px solid #e5e7eb;font-size:13px">${escapeHtml(cell)}</td>`).join('')}</tr>`,
     )
     .join('')
 
   printWindow.document.write(`
     <!DOCTYPE html>
-    <html dir="${dir}">
+    <html dir="${escapeHtml(dir)}">
     <head>
       <meta charset="UTF-8">
-      <title>${title}</title>
+      <title>${escapeHtml(title)}</title>
       <style>
-        body { font-family: ${dir === 'rtl' ? "'Noto Sans Arabic', 'Segoe UI'" : "'Segoe UI', Arial"}, sans-serif; margin: 20px; color: #1a1a1a; direction: ${dir}; }
+        body { font-family: ${dir === 'rtl' ? "'Noto Sans Arabic', 'Segoe UI'" : "'Segoe UI', Arial"}, sans-serif; margin: 20px; color: #1a1a1a; direction: ${escapeHtml(dir)}; }
         h1 { font-size: 20px; margin-bottom: 4px; }
         .meta { font-size: 12px; color: #666; margin-bottom: 16px; }
         table { width: 100%; border-collapse: collapse; }
@@ -155,10 +165,10 @@ export function printReport(
       </style>
     </head>
     <body>
-      <h1>${title}</h1>
+      <h1>${escapeHtml(title)}</h1>
       <div class="meta">${new Date().toLocaleDateString(dir === 'rtl' ? 'ar-SA' : 'en-US')}</div>
       <table>
-        <thead><tr>${headers.map((h) => `<th>${h}</th>`).join('')}</tr></thead>
+        <thead><tr>${headers.map((h) => `<th>${escapeHtml(h)}</th>`).join('')}</tr></thead>
         <tbody>${tableRows}</tbody>
       </table>
     </body>

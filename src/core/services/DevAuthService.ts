@@ -1,6 +1,13 @@
 /**
  * DevAuthService — browser-compatible auth service for local development.
  *
+ * SECURITY WARNING — DEVELOPMENT USE ONLY:
+ *  - This service uses localStorage, which is NOT secure for production.
+ *  - Session data is accessible to any JavaScript on the page.
+ *  - Permission codes are stored client-side and can be tampered with.
+ *  - Default credentials are admin/admin — CHANGE IN PRODUCTION.
+ *  - PBKDF2 hashes are NOT interoperable with production scrypt hashes.
+ *
  * Uses localStorage as a lightweight data store and Web Crypto API (PBKDF2)
  * for password hashing. Provides the same interface as AuthService so the
  * useAuth hook can fall back to it when Realm is unavailable (browser dev).
@@ -255,6 +262,13 @@ export class DevAuthService {
       const session: Session = JSON.parse(raw)
       if (!session.user || !session.permissionCodes || !session.expiresAt) return null
       if (Date.now() > session.expiresAt) {
+        localStorage.removeItem(STORAGE_KEYS.session)
+        return null
+      }
+      // SECURITY: Verify user still exists and is active
+      const users = loadUsers()
+      const user = users.find((u) => u.id === session.user.id)
+      if (!user || user.status !== 'active') {
         localStorage.removeItem(STORAGE_KEYS.session)
         return null
       }

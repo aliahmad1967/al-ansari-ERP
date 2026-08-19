@@ -14,6 +14,7 @@ import Button from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
 import { Alert } from '@/components/ui/Alert'
 import { useAuth } from '@/hooks/useAuth'
+import { validatePassword } from '@/core/security/password'
 
 export default function ChangePasswordPage() {
   const { t } = useTranslation('auth')
@@ -35,7 +36,10 @@ export default function ChangePasswordPage() {
 
   function validate(): string | null {
     if (!currentPassword) return tCommon('validation.required')
-    if (newPassword.length < 8) return t('changePassword.passwordTooShort')
+    const policyResult = validatePassword(newPassword)
+    if (!policyResult.valid) {
+      return t(policyResult.errors[0])
+    }
     if (newPassword !== confirmPassword) return t('changePassword.passwordMismatch')
     return null
   }

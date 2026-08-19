@@ -1,8 +1,16 @@
 /**
  * Password hashing — scrypt with a per-password salt.
  *
- * Never store plain-text passwords. This module is the single source of truth
- * for credential hashing across services.
+ * SECURITY RULES:
+ *  - Never store plain-text passwords.
+ *  - Never log passwords, tokens, or secrets.
+ *  - This module is the single source of truth for credential hashing.
+ *  - Always use `sanitizePasswordLength` before hashing to prevent DoS.
+ *
+ * DEVELOPMENT WARNING:
+ *  - The default admin credentials are admin/admin.
+ *  - In production, FORCE a password change on first login.
+ *  - Never commit real passwords or secrets to version control.
  */
 
 import { randomBytes, scryptSync, timingSafeEqual } from 'node:crypto'
