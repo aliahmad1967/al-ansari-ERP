@@ -2,6 +2,8 @@
   "dismiss": "Dismiss",
   "optional": "Optional",
   "close": "Close",
+  "confirm": "Confirm",
+  "cancel": "Cancel",
   "menu": "Menu",
   "notifications": "Notifications",
   "breadcrumb": "Breadcrumb",
@@ -40,5 +42,43 @@
     "browse": "browse",
     "tooLarge": "File is too large",
     "remove": "Remove"
+  },
+  "backupList": {
+    "title": "Database Backups",
+    "create": "New Backup",
+    "restore": "Restore",
+    "delete": "Delete",
+    "empty": "No backups available",
+    "confirmDelete": "Delete Backup",
+    "confirmDeleteMessage": "Are you sure you want to delete this backup? This action cannot be undone.",
+    "confirmRestore": "Restore Backup",
+    "confirmRestoreMessage": "This will replace the current database with the backup. All unsaved data will be lost."
+  },
+  "import": {
+    "targetSchema": "Target Table",
+    "dropOrClick": "Drop a file here or click to browse",
+    "acceptedFormats": "CSV, Excel (.xlsx), or JSON",
+    "preview": "Preview",
+    "rows": "rows",
+    "clear": "Clear",
+    "detectedMappings": "Detected column mappings",
+    "errors": "{{count}} error(s) found",
+    "warnings": "{{count}} warning(s) found",
+    "rowLabel": "Row {{row}}",
+    "moreIssues": "...and {{count}} more issues",
+    "validateOnly": "Validate Only",
+    "execute": "Import Data"
+  },
+  "export": {
+    "format": "Export Format",
+    "csv": "CSV",
+    "excel": "Excel",
+    "json": "JSON",
+    "pdf": "PDF",
+    "filename": "Filename",
+    "schemas": "Tables to Export",
+    "selectAll": "Select All",
+    "deselectAll": "Deselect All",
+    "execute": "Export"
   }
 }

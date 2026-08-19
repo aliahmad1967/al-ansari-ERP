@@ -37,7 +37,7 @@ export const MODULE_RESOURCES: Record<PermissionModule, readonly string[]> = {
   assets: ['asset', 'asset-category', 'asset-location', 'asset-custodian', 'depreciation', 'maintenance', 'transfer', 'disposal'],
   projects: ['project', 'task', 'milestone', 'timesheet', 'expense', 'budget', 'member'],
   organization: ['organization', 'branch', 'department', 'user', 'role', 'permission'],
-  settings: ['system', 'security', 'backup'],
+  settings: ['system', 'security', 'backup', 'import', 'export'],
   reports: ['report'],
   notifications: ['notification'],
   dashboard: ['dashboard'],

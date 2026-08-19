@@ -2,6 +2,8 @@
   "dismiss": "إغلاق",
   "optional": "اختياري",
   "close": "إغلاق",
+  "confirm": "تأكيد",
+  "cancel": "إلغاء",
   "menu": "القائمة",
   "notifications": "الإشعارات",
   "breadcrumb": "مسار التنقل",
@@ -40,5 +42,43 @@
     "browse": "تصفّح",
     "tooLarge": "الملف كبير جدًا",
     "remove": "إزالة"
+  },
+  "backupList": {
+    "title": "نسخ احتياطي لقاعدة البيانات",
+    "create": "نسخة جديدة",
+    "restore": "استعادة",
+    "delete": "حذف",
+    "empty": "لا توجد نسخ احتياطية",
+    "confirmDelete": "حذف النسخة الاحتياطية",
+    "confirmDeleteMessage": "هل أنت متأكد من حذف هذه النسخة الاحتياطية؟ لا يمكن التراجع عن هذا الإجراء.",
+    "confirmRestore": "استعادة النسخة الاحتياطية",
+    "confirmRestoreMessage": "سيتم استبدال قاعدة البيانات الحالية بالنسخة الاحتياطية. ستفقد جميع البيانات غير المحفوظة."
+  },
+  "import": {
+    "targetSchema": "الجدول المستهدف",
+    "dropOrClick": "اسحب ملفًا هنا أو انقر للتصفح",
+    "acceptedFormats": "CSV أو Excel (.xlsx) أو JSON",
+    "preview": "معاينة",
+    "rows": "صفوف",
+    "clear": "مسح",
+    "detectedMappings": "تطبيقات الأعمدة المكتشفة",
+    "errors": "تم العثور على {{count}} خطأ(أخطاء)",
+    "warnings": "تم العثور على {{count}} تحذير(تحذيرات)",
+    "rowLabel": "الصف {{row}}",
+    "moreIssues": "...و {{count}} مشكلة أخرى",
+    "validateOnly": "تحقق فقط",
+    "execute": "استيراد البيانات"
+  },
+  "export": {
+    "format": "تنسيق التصدير",
+    "csv": "CSV",
+    "excel": "Excel",
+    "json": "JSON",
+    "pdf": "PDF",
+    "filename": "اسم الملف",
+    "schemas": "الجداول للتصدير",
+    "selectAll": "تحديد الكل",
+    "deselectAll": "إلغاء التحديد",
+    "execute": "تصدير"
   }
 }
