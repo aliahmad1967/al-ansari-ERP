@@ -1,1 +1,138 @@
-{}
+{
+  "title": "التقارير والتحليلات",
+  "description": "تقارير مركزة عبر جميع الوحدات",
+  "nav": {
+    "allReports": "جميع التقارير",
+    "analytics": "لوحة التحليلات"
+  },
+  "modules": {
+    "hr": "تقارير الموارد البشرية",
+    "hrDescription": "تقارير الموظفين والحضور والإجازات والرواتب",
+    "finance": "التقارير المالية",
+    "financeDescription": "القيود اليومية الإيرادات والتقارير المالية",
+    "inventory": "تقارير المخزون",
+    "inventoryDescription": "مستويات المخزون والحركات والتقييم",
+    "procurement": "التقارير المشتريات",
+    "procurementDescription": "طلبات الشراء ونفقات الموردين",
+    "sales": "تقارير المبيعات",
+    "salesDescription": "الفواتير الإيرادات وتقارير العملاء",
+    "assets": "التقارير الأصول",
+    "assetsDescription": "حالة الأصول والفئات والتقييم",
+    "projects": "تقارير المشاريع",
+    "projectsDescription": "حالة المشاريع وتوزيع المهام"
+  },
+  "filters": {
+    "title": "الفلاتر",
+    "reset": "إعادة تعيين الفلاتر",
+    "all": "الكل",
+    "status": "الحالة",
+    "dateFrom": "من تاريخ",
+    "dateTo": "إلى تاريخ",
+    "product": "المنتج",
+    "warehouse": "المستودع",
+    "supplier": "المورد",
+    "customer": "العميل",
+    "category": "الفئة",
+    "searchProduct": "بحث عن منتج...",
+    "searchSupplier": "بحث عن مورد...",
+    "searchCustomer": "بحث عن عميل...",
+    "searchCategory": "بحث عن فئة..."
+  },
+  "columns": {
+    "category": "الفئة",
+    "count": "العدد",
+    "status": "الحالة",
+    "department": "القسم",
+    "period": "الفترة",
+    "totalAmount": "المبلغ الإجمالي",
+    "employeeCount": "عدد الموظفين",
+    "product": "المنتج",
+    "warehouse": "المستودع",
+    "quantity": "الكمية",
+    "unitCost": "تكلفة الوحدة",
+    "totalValue": "القيمة الإجمالية",
+    "movementType": "نوع الحركة",
+    "supplier": "المورد",
+    "amount": "المبلغ"
+  },
+  "results": {
+    "count": "تم العثور على {{count}} نتيجة"
+  },
+  "actions": {
+    "refresh": "تحديث",
+    "export": "تصدير",
+    "save": "حفظ التقرير"
+  },
+  "export": {
+    "csv": "CSV",
+    "excel": "Excel",
+    "pdf": "PDF",
+    "print": "طباعة",
+    "save": "حفظ"
+  },
+  "charts": {
+    "noData": "لا توجد بيانات متاحة",
+    "employeeDistribution": "توزيع الموظفين",
+    "attendanceOverview": "نظرة عامة على الحضور",
+    "leaveOverview": "نظرة عامة على الإجازات",
+    "payrollSummary": "ملخص الرواتب",
+    "journalEntries": "القيود اليومية",
+    "revenueBreakdown": "تفصيل الإيرادات",
+    "stockLevels": "مستويات المخزون",
+    "movementDistribution": "توزيع الحركات",
+    "inventoryValuation": "تقييم المخزون",
+    "orderStatus": "حالة الطلبات",
+    "spendingBySupplier": "النفقات حسب المورد",
+    "invoiceStatus": "حالة الفواتير",
+    "assetStatus": "حالة الأصول",
+    "assetsByCategory": "الأصول حسب الفئة",
+    "projectStatus": "حالة المشاريع",
+    "taskDistribution": "توزيع المهام"
+  },
+  "analytics": {
+    "title": "لوحة التحليلات",
+    "description": "تحليلات ورؤى عبر الوحدات"
+  },
+  "hr": {
+    "description": "تقرير {{tab}}",
+    "summary": {
+      "total": "إجمالي الموظفين"
+    }
+  },
+  "finance": {
+    "description": "تقرير {{tab}}",
+    "summary": {
+      "total": "المبلغ الإجمالي"
+    }
+  },
+  "inventory": {
+    "description": "تقرير {{tab}}",
+    "summary": {
+      "totalValue": "إجمالي قيمة المخزون"
+    }
+  },
+  "procurement": {
+    "description": "تقرير {{tab}}",
+    "summary": {
+      "totalAmount": "إجمالي النفقات"
+    }
+  },
+  "sales": {
+    "description": "تقرير {{tab}}",
+    "summary": {
+      "totalRevenue": "إجمالي الإيرادات"
+    }
+  },
+  "assets": {
+    "description": "تقرير {{tab}}",
+    "summary": {
+      "totalValue": "إجمالي قيمة الأصول"
+    }
+  },
+  "projects": {
+    "description": "تقرير {{tab}}",
+    "summary": {
+      "total": "إجمالي العناصر"
+    }
+  }
+}

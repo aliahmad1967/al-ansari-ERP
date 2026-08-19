@@ -69,6 +69,15 @@ const TasksPage = lazy(() => import('@/modules/projects/pages/Tasks'))
 const MilestonesPage = lazy(() => import('@/modules/projects/pages/Milestones'))
 const TimesheetsPage = lazy(() => import('@/modules/projects/pages/Timesheets'))
 const ProjectCostsPage = lazy(() => import('@/modules/projects/pages/ProjectCosts'))
+const ReportsHubPage = lazy(() => import('@/modules/reports/pages/Reports'))
+const AnalyticsPage = lazy(() => import('@/modules/reports/pages/Analytics'))
+const HrReportsPage = lazy(() => import('@/modules/reports/pages/HrReports'))
+const FinanceReportsPage = lazy(() => import('@/modules/reports/pages/FinanceReports'))
+const InventoryReportsPageCenter = lazy(() => import('@/modules/reports/pages/InventoryReports'))
+const ProcurementReportsPageCenter = lazy(() => import('@/modules/reports/pages/ProcurementReports'))
+const SalesReportsPage = lazy(() => import('@/modules/reports/pages/SalesReports'))
+const AssetsReportsPage = lazy(() => import('@/modules/reports/pages/AssetsReports'))
+const ProjectsReportsPage = lazy(() => import('@/modules/reports/pages/ProjectsReports'))
 
 export const appRoutes: RouteObject[] = [
   // Public routes (guest only)
@@ -173,6 +182,17 @@ export const appRoutes: RouteObject[] = [
           { path: 'project-milestones', element: <MilestonesPage /> },
           { path: 'project-timesheets', element: <TimesheetsPage /> },
           { path: 'project-costs', element: <ProjectCostsPage /> },
+
+          // Reports & Analytics
+          { path: 'reports', element: <ReportsHubPage /> },
+          { path: 'analytics', element: <AnalyticsPage /> },
+          { path: 'reports/hr', element: <HrReportsPage /> },
+          { path: 'reports/finance', element: <FinanceReportsPage /> },
+          { path: 'reports/inventory', element: <InventoryReportsPageCenter /> },
+          { path: 'reports/procurement', element: <ProcurementReportsPageCenter /> },
+          { path: 'reports/sales', element: <SalesReportsPage /> },
+          { path: 'reports/assets', element: <AssetsReportsPage /> },
+          { path: 'reports/projects', element: <ProjectsReportsPage /> },
         ],
       },
     ],

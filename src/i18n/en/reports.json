@@ -1,1 +1,138 @@
-{}
+{
+  "title": "Reports & Analytics",
+  "description": "Centralized reporting across all modules",
+  "nav": {
+    "allReports": "All Reports",
+    "analytics": "Analytics Dashboard"
+  },
+  "modules": {
+    "hr": "HR Reports",
+    "hrDescription": "Employee, attendance, leave, and payroll reports",
+    "finance": "Finance Reports",
+    "financeDescription": "Journal entries, revenue, and financial reports",
+    "inventory": "Inventory Reports",
+    "inventoryDescription": "Stock levels, movements, and valuation reports",
+    "procurement": "Procurement Reports",
+    "procurementDescription": "Purchase orders and supplier spending reports",
+    "sales": "Sales Reports",
+    "salesDescription": "Invoices, revenue, and customer reports",
+    "assets": "Assets Reports",
+    "assetsDescription": "Asset status, categories, and valuation reports",
+    "projects": "Projects Reports",
+    "projectsDescription": "Project status and task distribution reports"
+  },
+  "filters": {
+    "title": "Filters",
+    "reset": "Reset Filters",
+    "all": "All",
+    "status": "Status",
+    "dateFrom": "Date From",
+    "dateTo": "Date To",
+    "product": "Product",
+    "warehouse": "Warehouse",
+    "supplier": "Supplier",
+    "customer": "Customer",
+    "category": "Category",
+    "searchProduct": "Search product...",
+    "searchSupplier": "Search supplier...",
+    "searchCustomer": "Search customer...",
+    "searchCategory": "Search category..."
+  },
+  "columns": {
+    "category": "Category",
+    "count": "Count",
+    "status": "Status",
+    "department": "Department",
+    "period": "Period",
+    "totalAmount": "Total Amount",
+    "employeeCount": "Employee Count",
+    "product": "Product",
+    "warehouse": "Warehouse",
+    "quantity": "Quantity",
+    "unitCost": "Unit Cost",
+    "totalValue": "Total Value",
+    "movementType": "Movement Type",
+    "supplier": "Supplier",
+    "amount": "Amount"
+  },
+  "results": {
+    "count": "{{count}} results found"
+  },
+  "actions": {
+    "refresh": "Refresh",
+    "export": "Export",
+    "save": "Save Report"
+  },
+  "export": {
+    "csv": "CSV",
+    "excel": "Excel",
+    "pdf": "PDF",
+    "print": "Print",
+    "save": "Save"
+  },
+  "charts": {
+    "noData": "No data available",
+    "employeeDistribution": "Employee Distribution",
+    "attendanceOverview": "Attendance Overview",
+    "leaveOverview": "Leave Overview",
+    "payrollSummary": "Payroll Summary",
+    "journalEntries": "Journal Entries",
+    "revenueBreakdown": "Revenue Breakdown",
+    "stockLevels": "Stock Levels",
+    "movementDistribution": "Movement Distribution",
+    "inventoryValuation": "Inventory Valuation",
+    "orderStatus": "Order Status",
+    "spendingBySupplier": "Spending by Supplier",
+    "invoiceStatus": "Invoice Status",
+    "assetStatus": "Asset Status",
+    "assetsByCategory": "Assets by Category",
+    "projectStatus": "Project Status",
+    "taskDistribution": "Task Distribution"
+  },
+  "analytics": {
+    "title": "Analytics Dashboard",
+    "description": "Cross-module analytics and insights"
+  },
+  "hr": {
+    "description": "{{tab}} report",
+    "summary": {
+      "total": "Total Employees"
+    }
+  },
+  "finance": {
+    "description": "{{tab}} report",
+    "summary": {
+      "total": "Total Amount"
+    }
+  },
+  "inventory": {
+    "description": "{{tab}} report",
+    "summary": {
+      "totalValue": "Total Inventory Value"
+    }
+  },
+  "procurement": {
+    "description": "{{tab}} report",
+    "summary": {
+      "totalAmount": "Total Spending"
+    }
+  },
+  "sales": {
+    "description": "{{tab}} report",
+    "summary": {
+      "totalRevenue": "Total Revenue"
+    }
+  },
+  "assets": {
+    "description": "{{tab}} report",
+    "summary": {
+      "totalValue": "Total Asset Value"
+    }
+  },
+  "projects": {
+    "description": "{{tab}} report",
+    "summary": {
+      "total": "Total Items"
+    }
+  }
+}

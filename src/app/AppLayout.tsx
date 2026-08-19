@@ -72,6 +72,7 @@ export default function AppLayout() {
   const { t: tAcct } = useTranslation('accounting')
   const { t: tAssets } = useTranslation('assets')
   const { t: tProjects } = useTranslation('projects')
+  const { t: tReports } = useTranslation('reports')
   const { theme, toggleTheme } = useTheme()
   const { toggleLanguage } = useLanguage()
   const { sidebarCollapsed, mobileNavOpen } = useSyncExternalStore(subscribeAppUi, getAppUiState)
@@ -477,6 +478,66 @@ export default function AppLayout() {
           label: tProjects('nav.projectCosts'),
           icon: <DollarSign className="h-4 w-4" aria-hidden="true" />,
           to: '/project-costs',
+        },
+      ],
+    },
+    {
+      id: 'reports',
+      label: tReports('title'),
+      items: [
+        {
+          id: 'reports-hub',
+          label: tReports('nav.allReports'),
+          icon: <BarChart3 className="h-4 w-4" aria-hidden="true" />,
+          to: '/reports',
+        },
+        {
+          id: 'analytics',
+          label: tReports('nav.analytics'),
+          icon: <TrendingUp className="h-4 w-4" aria-hidden="true" />,
+          to: '/analytics',
+        },
+        {
+          id: 'hr-reports',
+          label: tReports('modules.hr'),
+          icon: <Users className="h-4 w-4" aria-hidden="true" />,
+          to: '/reports/hr',
+        },
+        {
+          id: 'finance-reports',
+          label: tReports('modules.finance'),
+          icon: <DollarSign className="h-4 w-4" aria-hidden="true" />,
+          to: '/reports/finance',
+        },
+        {
+          id: 'inventory-reports-center',
+          label: tReports('modules.inventory'),
+          icon: <Package className="h-4 w-4" aria-hidden="true" />,
+          to: '/reports/inventory',
+        },
+        {
+          id: 'procurement-reports-center',
+          label: tReports('modules.procurement'),
+          icon: <ShoppingCart className="h-4 w-4" aria-hidden="true" />,
+          to: '/reports/procurement',
+        },
+        {
+          id: 'sales-reports',
+          label: tReports('modules.sales'),
+          icon: <FileCheck className="h-4 w-4" aria-hidden="true" />,
+          to: '/reports/sales',
+        },
+        {
+          id: 'assets-reports',
+          label: tReports('modules.assets'),
+          icon: <BarChart3 className="h-4 w-4" aria-hidden="true" />,
+          to: '/reports/assets',
+        },
+        {
+          id: 'projects-reports',
+          label: tReports('modules.projects'),
+          icon: <FolderKanban className="h-4 w-4" aria-hidden="true" />,
+          to: '/reports/projects',
         },
       ],
     },
