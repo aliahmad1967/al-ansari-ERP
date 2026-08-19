@@ -38,23 +38,32 @@ interface AuthProvider {
 }
 
 let authProvider: AuthProvider | null = null
+let triedRealm = false
 
 async function getAuthProvider(): Promise<AuthProvider> {
   if (authProvider) return authProvider
 
-  // Try to load the real AuthService (requires Realm native module)
-  try {
-    const { AuthService } = await import('@/core/services/AuthService')
-    authProvider = new AuthService()
-    return authProvider
-  } catch {
-    // Realm unavailable (browser dev) — fall back to DevAuthService
+  // Try to load the real AuthService (requires Realm native module) — only once
+  if (!triedRealm) {
+    triedRealm = true
+    try {
+      const { AuthService } = await import('@/core/services/AuthService')
+      authProvider = new AuthService()
+      return authProvider
+    } catch {
+      // Realm unavailable (browser dev) — fall back to DevAuthService
+    }
   }
 
   // Fall back to browser-compatible dev auth
   const { DevAuthService } = await import('@/core/services/DevAuthService')
   authProvider = new DevAuthService()
   return authProvider
+}
+
+function clearAuthProvider(): void {
+  authProvider = null
+  triedRealm = false
 }
 
 export interface UseAuthResult {
@@ -99,8 +108,17 @@ export function useAuth(): UseAuthResult {
   const login = useCallback(async (credentials: LoginCredentials): Promise<LoginResult> => {
     setLoading()
     try {
-      const provider = await getAuthProvider()
-      const result = await Promise.resolve(provider.login(credentials))
+      let provider = await getAuthProvider()
+      let result: LoginResult
+      try {
+        result = await Promise.resolve(provider.login(credentials))
+      } catch {
+        // Provider may be broken (e.g. Realm opened but not usable) —
+        // clear the cache, fall back to DevAuthService, and retry once.
+        clearAuthProvider()
+        provider = await getAuthProvider()
+        result = await Promise.resolve(provider.login(credentials))
+      }
 
       if (result.success) {
         const session = provider.getCurrentSession()
