@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react'
+import { useDebouncedSearch } from '@/hooks/useDebouncedSearch'
 import { useTranslation } from 'react-i18next'
 import { Key } from 'lucide-react'
 
@@ -16,20 +17,19 @@ export default function PermissionsPage() {
   const { t } = useTranslation('organization')
   const { items: permissions, loading } = usePermissionList()
 
-  const [search, setSearch] = useState('')
-  const [page, setPage] = useState(1)
+  const { search, setSearch, debouncedSearch, page, setPage } = useDebouncedSearch()
   const [pageSize, setPageSize] = useState(10)
 
   const filtered = useMemo(() => {
-    if (!search.trim()) return permissions
-    const q = search.toLowerCase()
+    if (!debouncedSearch.trim()) return permissions
+    const q = debouncedSearch.toLowerCase()
     return permissions.filter(
       (item) =>
         item.code.toLowerCase().includes(q) ||
         item.name.toLowerCase().includes(q) ||
         item.module.toLowerCase().includes(q),
     )
-  }, [permissions, search])
+  }, [permissions, debouncedSearch])
 
   const paginated = filtered.slice((page - 1) * pageSize, page * pageSize)
 

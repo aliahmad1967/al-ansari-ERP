@@ -1,3 +1,4 @@
+import { memo, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 
@@ -38,7 +39,7 @@ function getPageItems(currentPage: number, totalPages: number): PageItem[] {
   return items
 }
 
-export function Pagination({
+export const Pagination = memo(function Pagination({
   page,
   pageSize,
   totalItems,
@@ -53,7 +54,7 @@ export function Pagination({
   const safePage = clamp(page, 1, totalPages)
   const rangeStart = totalItems === 0 ? 0 : (safePage - 1) * pageSize + 1
   const rangeEnd = Math.min(totalItems, safePage * pageSize)
-  const pageItems = getPageItems(safePage, totalPages)
+  const pageItems = useMemo(() => getPageItems(safePage, totalPages), [safePage, totalPages])
 
   const goToPage = (next: number): void => {
     onPageChange(clamp(next, 1, totalPages))
@@ -149,6 +150,6 @@ export function Pagination({
       </nav>
     </div>
   )
-}
+})
 
 export default Pagination

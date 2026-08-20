@@ -116,13 +116,13 @@ export abstract class BaseRepository<TModel extends Realm.AnyRealmObject, TInput
     if (options.sortBy) {
       results = results.sorted(options.sortBy, options.sortAscending ?? true)
     }
-    let records = Array.from(results)
-    if (options.offset !== undefined || options.limit !== undefined) {
+    const hasPagination = options.offset !== undefined || options.limit !== undefined
+    if (hasPagination) {
       const start = options.offset ?? 0
       const end = options.limit !== undefined ? start + options.limit : undefined
-      records = records.slice(start, end)
+      return Array.from(results.slice(start, end))
     }
-    return records
+    return Array.from(results)
   }
 
   /** Returns the first match of a predicate query, if any. */

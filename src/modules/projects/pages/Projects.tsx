@@ -1,5 +1,6 @@
 import { useState, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useDebouncedSearch } from '@/hooks/useDebouncedSearch'
 import { FolderKanban, Plus } from 'lucide-react'
 
 import Button from '@/components/ui/Button'
@@ -18,22 +19,21 @@ export default function Projects() {
   const { t } = useTranslation('projects')
   const { items: projects, loading, create, archive } = useProjects()
 
-  const [search, setSearch] = useState('')
-  const [page, setPage] = useState(1)
+  const { search, setSearch, debouncedSearch, page, setPage } = useDebouncedSearch()
   const [pageSize, setPageSize] = useState(10)
   const [archiveTarget, setArchiveTarget] = useState<(typeof projects)[0] | null>(null)
 
   const filtered = useMemo(() => {
-    if (!search.trim()) return projects
-    const q = search.toLowerCase()
+    if (!debouncedSearch.trim()) return projects
+    const q = debouncedSearch.toLowerCase()
     return projects.filter(
       (item) =>
         item.name.toLowerCase().includes(q) ||
         item.projectCode.toLowerCase().includes(q) ||
-        (item.nameAr ?? '').includes(search) ||
+        (item.nameAr ?? '').includes(debouncedSearch) ||
         (item.description ?? '').toLowerCase().includes(q),
     )
-  }, [projects, search])
+  }, [projects, debouncedSearch])
 
   const paginated = filtered.slice((page - 1) * pageSize, page * pageSize)
 

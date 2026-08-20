@@ -1,5 +1,6 @@
 import { useState, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useDebouncedSearch } from '@/hooks/useDebouncedSearch'
 import { Package, Plus } from 'lucide-react'
 
 import Button from '@/components/ui/Button'
@@ -18,8 +19,7 @@ export default function Products() {
   const { t } = useTranslation('inventory')
   const { products, loading, create, update, archive } = useProducts()
 
-  const [search, setSearch] = useState('')
-  const [page, setPage] = useState(1)
+  const { search, setSearch, debouncedSearch, page, setPage } = useDebouncedSearch()
   const [pageSize, setPageSize] = useState(10)
   const [formOpen, setFormOpen] = useState(false)
   const [editItem, setEditItem] = useState<typeof products[0] | null>(null)
@@ -29,16 +29,16 @@ export default function Products() {
     new Intl.NumberFormat('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(value)
 
   const filtered = useMemo(() => {
-    if (!search.trim()) return products
-    const q = search.toLowerCase()
+    if (!debouncedSearch.trim()) return products
+    const q = debouncedSearch.toLowerCase()
     return products.filter(
       (item) =>
         item.name.toLowerCase().includes(q) ||
-        (item.nameAr ?? '').includes(search) ||
+        (item.nameAr ?? '').includes(debouncedSearch) ||
         item.sku.toLowerCase().includes(q) ||
-        (item.barcode ?? '').includes(search),
+        (item.barcode ?? '').includes(debouncedSearch),
     )
-  }, [products, search])
+  }, [products, debouncedSearch])
 
   const paginated = filtered.slice((page - 1) * pageSize, page * pageSize)
 

@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react'
+import { useDebouncedSearch } from '@/hooks/useDebouncedSearch'
 import { useTranslation } from 'react-i18next'
 import { Layers, Plus } from 'lucide-react'
 
@@ -18,23 +19,22 @@ export default function SalaryStructures() {
   const { t } = useTranslation('hr')
   const { items: structures, loading, create, update, archive } = useSalaryStructures()
 
-  const [search, setSearch] = useState('')
-  const [page, setPage] = useState(1)
+  const { search, setSearch, debouncedSearch, page, setPage } = useDebouncedSearch()
   const [pageSize, setPageSize] = useState(10)
   const [formOpen, setFormOpen] = useState(false)
   const [editItem, setEditItem] = useState<typeof structures[0] | null>(null)
   const [archiveTarget, setArchiveTarget] = useState<typeof structures[0] | null>(null)
 
   const filtered = useMemo(() => {
-    if (!search.trim()) return structures
-    const q = search.toLowerCase()
+    if (!debouncedSearch.trim()) return structures
+    const q = debouncedSearch.toLowerCase()
     return structures.filter(
       (item) =>
         item.name.toLowerCase().includes(q) ||
         item.code.toLowerCase().includes(q) ||
-        (item.nameAr ?? '').includes(search),
+        (item.nameAr ?? '').includes(debouncedSearch),
     )
-  }, [structures, search])
+  }, [structures, debouncedSearch])
 
   const paginated = filtered.slice((page - 1) * pageSize, page * pageSize)
 

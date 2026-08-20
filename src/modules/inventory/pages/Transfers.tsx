@@ -1,5 +1,6 @@
 import { useState, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useDebouncedSearch } from '@/hooks/useDebouncedSearch'
 import { Truck, Plus, CheckCircle, X } from 'lucide-react'
 
 import Button from '@/components/ui/Button'
@@ -20,8 +21,7 @@ export default function Transfers() {
   const { transfers, loading, create, updateStatus, cancel } = useStockTransfers()
   const { warehouses } = useWarehouses()
 
-  const [search, setSearch] = useState('')
-  const [page, setPage] = useState(1)
+  const { search, setSearch, debouncedSearch, page, setPage } = useDebouncedSearch()
   const [pageSize, setPageSize] = useState(10)
   const [formOpen, setFormOpen] = useState(false)
   const [cancelTarget, setCancelTarget] = useState<typeof transfers[0] | null>(null)
@@ -33,8 +33,8 @@ export default function Transfers() {
   }, [warehouses])
 
   const filtered = useMemo(() => {
-    if (!search.trim()) return transfers
-    const q = search.toLowerCase()
+    if (!debouncedSearch.trim()) return transfers
+    const q = debouncedSearch.toLowerCase()
     return transfers.filter((item) => {
       const fromWh = warehouseMap.get(item.fromWarehouseId)
       const toWh = warehouseMap.get(item.toWarehouseId)
@@ -47,7 +47,7 @@ export default function Transfers() {
         (toWh?.code ?? '').toLowerCase().includes(q)
       )
     })
-  }, [transfers, search, warehouseMap])
+  }, [transfers, debouncedSearch, warehouseMap])
 
   const paginated = filtered.slice((page - 1) * pageSize, page * pageSize)
 

@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react'
+import { useDebouncedSearch } from '@/hooks/useDebouncedSearch'
 import { useTranslation } from 'react-i18next'
 import { Package, Plus } from 'lucide-react'
 
@@ -18,15 +19,14 @@ export default function GoodsReceipts() {
   const { t } = useTranslation('procurement')
   const { receipts, loading, create, markReceived, markAccepted, markRejected } = useGoodsReceipts()
 
-  const [search, setSearch] = useState('')
-  const [page, setPage] = useState(1)
+  const { search, setSearch, debouncedSearch, page, setPage } = useDebouncedSearch()
   const [pageSize, setPageSize] = useState(10)
   const [formOpen, setFormOpen] = useState(false)
   const [rejectTarget, setRejectTarget] = useState<typeof receipts[0] | null>(null)
 
   const filtered = useMemo(() => {
-    if (!search.trim()) return receipts
-    const q = search.toLowerCase()
+    if (!debouncedSearch.trim()) return receipts
+    const q = debouncedSearch.toLowerCase()
     return receipts.filter(
       (item) =>
         item.code.toLowerCase().includes(q) ||
@@ -34,7 +34,7 @@ export default function GoodsReceipts() {
         item.supplierId.toLowerCase().includes(q) ||
         item.warehouseId.toLowerCase().includes(q),
     )
-  }, [receipts, search])
+  }, [receipts, debouncedSearch])
 
   const paginated = filtered.slice((page - 1) * pageSize, page * pageSize)
 

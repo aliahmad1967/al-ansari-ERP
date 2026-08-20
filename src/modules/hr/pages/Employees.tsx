@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react'
+import { useDebouncedSearch } from '@/hooks/useDebouncedSearch'
 import { useTranslation } from 'react-i18next'
 import { Users, Plus } from 'lucide-react'
 
@@ -19,26 +20,25 @@ export default function EmployeesPage() {
   const { t } = useTranslation('hr')
   const { items: employees, loading, create, update, archive } = useEmployees()
 
-  const [search, setSearch] = useState('')
-  const [page, setPage] = useState(1)
+  const { search, setSearch, debouncedSearch, page, setPage } = useDebouncedSearch()
   const [pageSize, setPageSize] = useState(10)
   const [formOpen, setFormOpen] = useState(false)
   const [editItem, setEditItem] = useState<typeof employees[0] | null>(null)
   const [archiveTarget, setArchiveTarget] = useState<typeof employees[0] | null>(null)
 
   const filtered = useMemo(() => {
-    if (!search.trim()) return employees
-    const q = search.toLowerCase()
+    if (!debouncedSearch.trim()) return employees
+    const q = debouncedSearch.toLowerCase()
     return employees.filter(
       (item) =>
         item.firstName.toLowerCase().includes(q) ||
         item.lastName.toLowerCase().includes(q) ||
         item.employeeNumber.toLowerCase().includes(q) ||
         item.email.toLowerCase().includes(q) ||
-        (item.firstNameAr ?? '').includes(search) ||
-        (item.lastNameAr ?? '').includes(search),
+        (item.firstNameAr ?? '').includes(debouncedSearch) ||
+        (item.lastNameAr ?? '').includes(debouncedSearch),
     )
-  }, [employees, search])
+  }, [employees, debouncedSearch])
 
   const paginated = filtered.slice((page - 1) * pageSize, page * pageSize)
 

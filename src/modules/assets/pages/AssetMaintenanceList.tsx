@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react'
+import { useDebouncedSearch } from '@/hooks/useDebouncedSearch'
 import { useTranslation } from 'react-i18next'
 import { Wrench } from 'lucide-react'
 
@@ -15,19 +16,18 @@ export default function AssetMaintenanceList() {
   const { t } = useTranslation('assets')
   const { maintenanceRecords, loading } = useAssetMaintenance()
 
-  const [search, setSearch] = useState('')
-  const [page, setPage] = useState(1)
+  const { search, setSearch, debouncedSearch, page, setPage } = useDebouncedSearch()
   const [pageSize, setPageSize] = useState(10)
 
   const filtered = useMemo(() => {
-    if (!search.trim()) return maintenanceRecords
-    const q = search.toLowerCase()
+    if (!debouncedSearch.trim()) return maintenanceRecords
+    const q = debouncedSearch.toLowerCase()
     return maintenanceRecords.filter(
       (item) =>
         (item.asset && item.asset.toLowerCase().includes(q)) ||
         item.description.toLowerCase().includes(q),
     )
-  }, [maintenanceRecords, search])
+  }, [maintenanceRecords, debouncedSearch])
 
   const paginated = filtered.slice((page - 1) * pageSize, page * pageSize)
 

@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react'
+import { useDebouncedSearch } from '@/hooks/useDebouncedSearch'
 import { useTranslation } from 'react-i18next'
 import { Briefcase, Plus } from 'lucide-react'
 
@@ -22,23 +23,22 @@ export default function PositionsPage() {
   const { items: positions, loading, create, update, archive } = usePositions()
   const { items: departments } = useDepartments()
 
-  const [search, setSearch] = useState('')
-  const [page, setPage] = useState(1)
+  const { search, setSearch, debouncedSearch, page, setPage } = useDebouncedSearch()
   const [pageSize, setPageSize] = useState(10)
   const [formOpen, setFormOpen] = useState(false)
   const [editItem, setEditItem] = useState<Position | null>(null)
   const [archiveTarget, setArchiveTarget] = useState<Position | null>(null)
 
   const filtered = useMemo(() => {
-    if (!search.trim()) return positions
-    const q = search.toLowerCase()
+    if (!debouncedSearch.trim()) return positions
+    const q = debouncedSearch.toLowerCase()
     return positions.filter(
       (item) =>
         item.title.toLowerCase().includes(q) ||
         item.code.toLowerCase().includes(q) ||
-        (item.titleAr ?? '').includes(search),
+        (item.titleAr ?? '').includes(debouncedSearch),
     )
-  }, [positions, search])
+  }, [positions, debouncedSearch])
 
   const paginated = filtered.slice((page - 1) * pageSize, page * pageSize)
 

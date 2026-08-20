@@ -1,5 +1,6 @@
 import { useState, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useDebouncedSearch } from '@/hooks/useDebouncedSearch'
 import { CheckSquare, Plus } from 'lucide-react'
 
 import Button from '@/components/ui/Button'
@@ -18,21 +19,20 @@ export default function Tasks() {
   const { t } = useTranslation('projects')
   const { items: tasks, loading, create, archive } = useTasks()
 
-  const [search, setSearch] = useState('')
-  const [page, setPage] = useState(1)
+  const { search, setSearch, debouncedSearch, page, setPage } = useDebouncedSearch()
   const [pageSize, setPageSize] = useState(10)
   const [archiveTarget, setArchiveTarget] = useState<(typeof tasks)[0] | null>(null)
 
   const filtered = useMemo(() => {
-    if (!search.trim()) return tasks
-    const q = search.toLowerCase()
+    if (!debouncedSearch.trim()) return tasks
+    const q = debouncedSearch.toLowerCase()
     return tasks.filter(
       (item) =>
         item.title.toLowerCase().includes(q) ||
         item.taskCode.toLowerCase().includes(q) ||
-        (item.titleAr ?? '').includes(search),
+        (item.titleAr ?? '').includes(debouncedSearch),
     )
-  }, [tasks, search])
+  }, [tasks, debouncedSearch])
 
   const paginated = filtered.slice((page - 1) * pageSize, page * pageSize)
 

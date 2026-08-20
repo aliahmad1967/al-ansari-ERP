@@ -1,4 +1,4 @@
-import { useMemo, useState, type ReactNode } from 'react'
+import { memo, useMemo, useState, type ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ArrowDown, ArrowUp, ChevronsUpDown, Inbox } from 'lucide-react'
 
@@ -61,7 +61,7 @@ function defaultCellValue<T>(row: T, key: string): ReactNode {
   return typeof value === 'object' && value !== null ? null : (value as ReactNode)
 }
 
-export function DataTable<T>({
+function DataTableInner<T>({
   columns,
   data,
   rowKey,
@@ -135,7 +135,7 @@ export function DataTable<T>({
   }
 
   const selectedSet = useMemo(() => new Set(selectedKeys), [selectedKeys])
-  const allKeys = data.map((row) => rowKey(row))
+  const allKeys = useMemo(() => data.map((row) => rowKey(row)), [data, rowKey])
   const allSelected = allKeys.length > 0 && allKeys.every((key) => selectedSet.has(key))
   const someSelected = !allSelected && allKeys.some((key) => selectedSet.has(key))
 
@@ -296,5 +296,8 @@ export function DataTable<T>({
     </div>
   )
 }
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const DataTable: <T>(props: DataTableProps<T>) => React.JSX.Element = memo(DataTableInner) as any
 
 export default DataTable

@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react'
+import { useDebouncedSearch } from '@/hooks/useDebouncedSearch'
 import { useTranslation } from 'react-i18next'
 import { FileText } from 'lucide-react'
 
@@ -15,19 +16,18 @@ export default function JournalEntries() {
   const { t } = useTranslation('accounting')
   const { entries, loading } = useJournalEntries()
 
-  const [search, setSearch] = useState('')
-  const [page, setPage] = useState(1)
+  const { search, setSearch, debouncedSearch, page, setPage } = useDebouncedSearch()
   const [pageSize, setPageSize] = useState(10)
 
   const filtered = useMemo(() => {
-    if (!search.trim()) return entries
-    const q = search.toLowerCase()
+    if (!debouncedSearch.trim()) return entries
+    const q = debouncedSearch.toLowerCase()
     return entries.filter(
       (item) =>
         item.description.toLowerCase().includes(q) ||
         item.code.toLowerCase().includes(q),
     )
-  }, [entries, search])
+  }, [entries, debouncedSearch])
 
   const paginated = filtered.slice((page - 1) * pageSize, page * pageSize)
 

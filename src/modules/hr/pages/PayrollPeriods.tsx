@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react'
+import { useDebouncedSearch } from '@/hooks/useDebouncedSearch'
 import { useTranslation } from 'react-i18next'
 import { Calendar, Plus } from 'lucide-react'
 
@@ -16,21 +17,20 @@ export default function PayrollPeriods() {
   const { t } = useTranslation('hr')
   const { items: periods, loading, create } = usePayrollPeriods()
 
-  const [search, setSearch] = useState('')
-  const [page, setPage] = useState(1)
+  const { search, setSearch, debouncedSearch, page, setPage } = useDebouncedSearch()
   const [pageSize, setPageSize] = useState(10)
   const [formOpen, setFormOpen] = useState(false)
 
   const filtered = useMemo(() => {
-    if (!search.trim()) return periods
-    const q = search.toLowerCase()
+    if (!debouncedSearch.trim()) return periods
+    const q = debouncedSearch.toLowerCase()
     return periods.filter(
       (item) =>
         item.name.toLowerCase().includes(q) ||
-        (item.nameAr ?? '').includes(search) ||
+        (item.nameAr ?? '').includes(debouncedSearch) ||
         String(item.year).includes(q),
     )
-  }, [periods, search])
+  }, [periods, debouncedSearch])
 
   const paginated = filtered.slice((page - 1) * pageSize, page * pageSize)
 

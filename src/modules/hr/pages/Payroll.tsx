@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react'
+import { useDebouncedSearch } from '@/hooks/useDebouncedSearch'
 import { useTranslation } from 'react-i18next'
 import { Calculator, Plus, Play, Eye, CheckCircle, Lock, RotateCcw } from 'lucide-react'
 
@@ -21,8 +22,7 @@ export default function Payroll() {
   const { runs, loading, createRun, calculateRun, reviewRun, approveRun, finalizeRun, reverseRun } = usePayrollRuns()
   const { items: periods } = usePayrollPeriods()
 
-  const [search, setSearch] = useState('')
-  const [page, setPage] = useState(1)
+  const { search, setSearch, debouncedSearch, page, setPage } = useDebouncedSearch()
   const [pageSize, setPageSize] = useState(10)
   const [createDialogOpen, setCreateDialogOpen] = useState(false)
   const [selectedPeriod, setSelectedPeriod] = useState('')
@@ -37,19 +37,19 @@ export default function Payroll() {
   }, [periods])
 
   const filtered = useMemo(() => {
-    if (!search.trim()) return runs
-    const q = search.toLowerCase()
+    if (!debouncedSearch.trim()) return runs
+    const q = debouncedSearch.toLowerCase()
     return runs.filter((item) => {
       const period = periodMap.get(item.periodId)
       return (
         String(item.runNumber).includes(q) ||
         item.status.toLowerCase().includes(q) ||
         (period?.name ?? '').toLowerCase().includes(q) ||
-        (period?.nameAr ?? '').includes(search) ||
+        (period?.nameAr ?? '').includes(debouncedSearch) ||
         (item.notes ?? '').toLowerCase().includes(q)
       )
     })
-  }, [runs, search, periodMap])
+  }, [runs, debouncedSearch, periodMap])
 
   const paginated = filtered.slice((page - 1) * pageSize, page * pageSize)
 

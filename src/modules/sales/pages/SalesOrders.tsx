@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react'
+import { useDebouncedSearch } from '@/hooks/useDebouncedSearch'
 import { useTranslation } from 'react-i18next'
 import { ShoppingCart, Plus } from 'lucide-react'
 
@@ -18,18 +19,17 @@ export default function SalesOrders() {
   const { t } = useTranslation('sales')
   const { salesOrders, loading, archive } = useSalesOrders()
 
-  const [search, setSearch] = useState('')
-  const [page, setPage] = useState(1)
+  const { search, setSearch, debouncedSearch, page, setPage } = useDebouncedSearch()
   const [pageSize, setPageSize] = useState(10)
   const [archiveTarget, setArchiveTarget] = useState<typeof salesOrders[0] | null>(null)
 
   const filtered = useMemo(() => {
-    if (!search.trim()) return salesOrders
-    const q = search.toLowerCase()
+    if (!debouncedSearch.trim()) return salesOrders
+    const q = debouncedSearch.toLowerCase()
     return salesOrders.filter(
       (item) => item.code.toLowerCase().includes(q),
     )
-  }, [salesOrders, search])
+  }, [salesOrders, debouncedSearch])
 
   const paginated = filtered.slice((page - 1) * pageSize, page * pageSize)
 

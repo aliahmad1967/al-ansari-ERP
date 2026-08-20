@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react'
+import { useDebouncedSearch } from '@/hooks/useDebouncedSearch'
 import { useTranslation } from 'react-i18next'
 import { BarChart3 } from 'lucide-react'
 
@@ -15,19 +16,18 @@ export default function Budgets() {
   const { t } = useTranslation('accounting')
   const { accounts, loading } = useAccounts()
 
-  const [search, setSearch] = useState('')
-  const [page, setPage] = useState(1)
+  const { search, setSearch, debouncedSearch, page, setPage } = useDebouncedSearch()
   const [pageSize, setPageSize] = useState(10)
 
   const filtered = useMemo(() => {
-    if (!search.trim()) return accounts
-    const q = search.toLowerCase()
+    if (!debouncedSearch.trim()) return accounts
+    const q = debouncedSearch.toLowerCase()
     return accounts.filter(
       (item) =>
         item.name.toLowerCase().includes(q) ||
         item.code.toLowerCase().includes(q),
     )
-  }, [accounts, search])
+  }, [accounts, debouncedSearch])
 
   const paginated = filtered.slice((page - 1) * pageSize, page * pageSize)
 

@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react'
+import { useDebouncedSearch } from '@/hooks/useDebouncedSearch'
 import { useTranslation } from 'react-i18next'
 import { Calendar, Plus } from 'lucide-react'
 
@@ -15,19 +16,18 @@ export default function FiscalYears() {
   const { t } = useTranslation('accounting')
   const { years, loading } = useFiscalYears()
 
-  const [search, setSearch] = useState('')
-  const [page, setPage] = useState(1)
+  const { search, setSearch, debouncedSearch, page, setPage } = useDebouncedSearch()
   const [pageSize, setPageSize] = useState(10)
 
   const filtered = useMemo(() => {
-    if (!search.trim()) return years
-    const q = search.toLowerCase()
+    if (!debouncedSearch.trim()) return years
+    const q = debouncedSearch.toLowerCase()
     return years.filter(
       (item) =>
         item.name.toLowerCase().includes(q) ||
         item.code.toLowerCase().includes(q),
     )
-  }, [years, search])
+  }, [years, debouncedSearch])
 
   const paginated = filtered.slice((page - 1) * pageSize, page * pageSize)
 

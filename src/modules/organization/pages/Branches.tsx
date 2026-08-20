@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react'
+import { useDebouncedSearch } from '@/hooks/useDebouncedSearch'
 import { useTranslation } from 'react-i18next'
 import { GitBranch, Plus } from 'lucide-react'
 
@@ -22,23 +23,22 @@ export default function BranchesPage() {
   const { items: branches, loading, create, update, archive } = useBranches()
   const { items: organizations } = useOrganizations()
 
-  const [search, setSearch] = useState('')
-  const [page, setPage] = useState(1)
+  const { search, setSearch, debouncedSearch, page, setPage } = useDebouncedSearch()
   const [pageSize, setPageSize] = useState(10)
   const [formOpen, setFormOpen] = useState(false)
   const [editItem, setEditItem] = useState<Branch | null>(null)
   const [archiveTarget, setArchiveTarget] = useState<Branch | null>(null)
 
   const filtered = useMemo(() => {
-    if (!search.trim()) return branches
-    const q = search.toLowerCase()
+    if (!debouncedSearch.trim()) return branches
+    const q = debouncedSearch.toLowerCase()
     return branches.filter(
       (item) =>
         item.name.toLowerCase().includes(q) ||
         item.code.toLowerCase().includes(q) ||
-        (item.nameAr ?? '').includes(search),
+        (item.nameAr ?? '').includes(debouncedSearch),
     )
-  }, [branches, search])
+  }, [branches, debouncedSearch])
 
   const paginated = filtered.slice((page - 1) * pageSize, page * pageSize)
 

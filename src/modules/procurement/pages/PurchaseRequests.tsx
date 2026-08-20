@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react'
+import { useDebouncedSearch } from '@/hooks/useDebouncedSearch'
 import { useTranslation } from 'react-i18next'
 import { FileText, Plus } from 'lucide-react'
 
@@ -19,8 +20,7 @@ export default function PurchaseRequests() {
   const { t } = useTranslation('procurement')
   const { requests, loading, create, approve, reject, cancel } = usePurchaseRequests()
 
-  const [search, setSearch] = useState('')
-  const [page, setPage] = useState(1)
+  const { search, setSearch, debouncedSearch, page, setPage } = useDebouncedSearch()
   const [pageSize, setPageSize] = useState(10)
   const [formOpen, setFormOpen] = useState(false)
   const [rejectTarget, setRejectTarget] = useState<typeof requests[0] | null>(null)
@@ -28,15 +28,15 @@ export default function PurchaseRequests() {
   const [cancelTarget, setCancelTarget] = useState<typeof requests[0] | null>(null)
 
   const filtered = useMemo(() => {
-    if (!search.trim()) return requests
-    const q = search.toLowerCase()
+    if (!debouncedSearch.trim()) return requests
+    const q = debouncedSearch.toLowerCase()
     return requests.filter(
       (item) =>
         item.code.toLowerCase().includes(q) ||
         item.requestedByUserId.toLowerCase().includes(q) ||
         (item.notes ?? '').toLowerCase().includes(q),
     )
-  }, [requests, search])
+  }, [requests, debouncedSearch])
 
   const paginated = filtered.slice((page - 1) * pageSize, page * pageSize)
 

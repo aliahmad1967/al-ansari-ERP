@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react'
+import { useDebouncedSearch } from '@/hooks/useDebouncedSearch'
 import { useTranslation } from 'react-i18next'
 import { MapPin } from 'lucide-react'
 
@@ -13,19 +14,18 @@ export default function AssetLocations() {
   const { t } = useTranslation('assets')
   const { locations, loading } = useAssetLocations()
 
-  const [search, setSearch] = useState('')
-  const [page, setPage] = useState(1)
+  const { search, setSearch, debouncedSearch, page, setPage } = useDebouncedSearch()
   const [pageSize, setPageSize] = useState(10)
 
   const filtered = useMemo(() => {
-    if (!search.trim()) return locations
-    const q = search.toLowerCase()
+    if (!debouncedSearch.trim()) return locations
+    const q = debouncedSearch.toLowerCase()
     return locations.filter(
       (item) =>
         item.code.toLowerCase().includes(q) ||
         item.name.toLowerCase().includes(q),
     )
-  }, [locations, search])
+  }, [locations, debouncedSearch])
 
   const paginated = filtered.slice((page - 1) * pageSize, page * pageSize)
 

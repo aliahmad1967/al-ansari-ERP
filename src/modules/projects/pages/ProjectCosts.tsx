@@ -1,5 +1,6 @@
 import { useState, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useDebouncedSearch } from '@/hooks/useDebouncedSearch'
 import { DollarSign, Plus } from 'lucide-react'
 
 import Button from '@/components/ui/Button'
@@ -21,32 +22,31 @@ export default function ProjectCosts() {
   const { items: budgets, loading: budgetsLoading, create: createBudget, archive: archiveBudget } = useProjectBudgets()
 
   const [activeTab, setActiveTab] = useState<'expenses' | 'budgets'>('expenses')
-  const [search, setSearch] = useState('')
-  const [page, setPage] = useState(1)
+  const { search, setSearch, debouncedSearch, page, setPage } = useDebouncedSearch()
   const [pageSize, setPageSize] = useState(10)
   const [archiveTarget, setArchiveTarget] = useState<{ type: string; id: string; name: string } | null>(null)
 
   const filteredExpenses = useMemo(() => {
-    if (!search.trim()) return expenses
-    const q = search.toLowerCase()
+    if (!debouncedSearch.trim()) return expenses
+    const q = debouncedSearch.toLowerCase()
     return expenses.filter(
       (item) =>
         item.description.toLowerCase().includes(q) ||
-        (item.descriptionAr ?? '').includes(search) ||
+        (item.descriptionAr ?? '').includes(debouncedSearch) ||
         item.category.toLowerCase().includes(q),
     )
-  }, [expenses, search])
+  }, [expenses, debouncedSearch])
 
   const filteredBudgets = useMemo(() => {
-    if (!search.trim()) return budgets
-    const q = search.toLowerCase()
+    if (!debouncedSearch.trim()) return budgets
+    const q = debouncedSearch.toLowerCase()
     return budgets.filter(
       (item) =>
         item.name.toLowerCase().includes(q) ||
-        (item.nameAr ?? '').includes(search) ||
+        (item.nameAr ?? '').includes(debouncedSearch) ||
         item.category.toLowerCase().includes(q),
     )
-  }, [budgets, search])
+  }, [budgets, debouncedSearch])
 
   const items = activeTab === 'expenses' ? filteredExpenses : filteredBudgets
   const paginated = items.slice((page - 1) * pageSize, page * pageSize)

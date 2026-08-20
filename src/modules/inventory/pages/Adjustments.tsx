@@ -1,5 +1,6 @@
 import { useState, useMemo, useCallback, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useDebouncedSearch } from '@/hooks/useDebouncedSearch'
 import { Settings, Plus, CheckCircle, Play } from 'lucide-react'
 
 import Button from '@/components/ui/Button'
@@ -93,8 +94,7 @@ export default function Adjustments() {
   const { warehouses } = useWarehouses()
   const [adjustments, setAdjustments] = useState<DevStockAdjustment[]>([])
   const [loading, setLoading] = useState(true)
-  const [search, setSearch] = useState('')
-  const [page, setPage] = useState(1)
+  const { search, setSearch, debouncedSearch, page, setPage } = useDebouncedSearch()
   const [pageSize, setPageSize] = useState(10)
   const [formOpen, setFormOpen] = useState(false)
 
@@ -111,8 +111,8 @@ export default function Adjustments() {
   }, [warehouses])
 
   const filtered = useMemo(() => {
-    if (!search.trim()) return adjustments
-    const q = search.toLowerCase()
+    if (!debouncedSearch.trim()) return adjustments
+    const q = debouncedSearch.toLowerCase()
     return adjustments.filter((item) => {
       const warehouse = warehouseMap.get(item.warehouseId)
       return (
@@ -123,7 +123,7 @@ export default function Adjustments() {
         (warehouse?.code ?? '').toLowerCase().includes(q)
       )
     })
-  }, [adjustments, search, warehouseMap])
+  }, [adjustments, debouncedSearch, warehouseMap])
 
   const paginated = filtered.slice((page - 1) * pageSize, page * pageSize)
 

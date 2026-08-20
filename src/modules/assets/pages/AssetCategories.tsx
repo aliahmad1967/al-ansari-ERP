@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react'
+import { useDebouncedSearch } from '@/hooks/useDebouncedSearch'
 import { useTranslation } from 'react-i18next'
 import { FolderTree } from 'lucide-react'
 
@@ -13,19 +14,18 @@ export default function AssetCategories() {
   const { t } = useTranslation('assets')
   const { categories, loading } = useAssetCategories()
 
-  const [search, setSearch] = useState('')
-  const [page, setPage] = useState(1)
+  const { search, setSearch, debouncedSearch, page, setPage } = useDebouncedSearch()
   const [pageSize, setPageSize] = useState(10)
 
   const filtered = useMemo(() => {
-    if (!search.trim()) return categories
-    const q = search.toLowerCase()
+    if (!debouncedSearch.trim()) return categories
+    const q = debouncedSearch.toLowerCase()
     return categories.filter(
       (item) =>
         item.code.toLowerCase().includes(q) ||
         item.name.toLowerCase().includes(q),
     )
-  }, [categories, search])
+  }, [categories, debouncedSearch])
 
   const paginated = filtered.slice((page - 1) * pageSize, page * pageSize)
 

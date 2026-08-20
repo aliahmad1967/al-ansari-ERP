@@ -1,5 +1,6 @@
 import { useState, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useDebouncedSearch } from '@/hooks/useDebouncedSearch'
 import { Warehouse, Plus } from 'lucide-react'
 
 import Button from '@/components/ui/Button'
@@ -18,23 +19,22 @@ export default function Warehouses() {
   const { t } = useTranslation('inventory')
   const { warehouses, loading, create, update, archive } = useWarehouses()
 
-  const [search, setSearch] = useState('')
-  const [page, setPage] = useState(1)
+  const { search, setSearch, debouncedSearch, page, setPage } = useDebouncedSearch()
   const [pageSize, setPageSize] = useState(10)
   const [formOpen, setFormOpen] = useState(false)
   const [editItem, setEditItem] = useState<typeof warehouses[0] | null>(null)
   const [archiveTarget, setArchiveTarget] = useState<typeof warehouses[0] | null>(null)
 
   const filtered = useMemo(() => {
-    if (!search.trim()) return warehouses
-    const q = search.toLowerCase()
+    if (!debouncedSearch.trim()) return warehouses
+    const q = debouncedSearch.toLowerCase()
     return warehouses.filter(
       (item) =>
         item.name.toLowerCase().includes(q) ||
-        (item.nameAr ?? '').includes(search) ||
+        (item.nameAr ?? '').includes(debouncedSearch) ||
         item.code.toLowerCase().includes(q),
     )
-  }, [warehouses, search])
+  }, [warehouses, debouncedSearch])
 
   const paginated = filtered.slice((page - 1) * pageSize, page * pageSize)
 

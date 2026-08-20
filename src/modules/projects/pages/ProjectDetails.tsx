@@ -1,5 +1,6 @@
 import { useState, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useDebouncedSearch } from '@/hooks/useDebouncedSearch'
 import { useParams, useNavigate } from 'react-router-dom'
 import { ArrowLeft, Plus, Users, CheckCircle2, Clock, DollarSign } from 'lucide-react'
 
@@ -32,21 +33,20 @@ export default function ProjectDetails() {
   const milestones = useMemo(() => allMilestones.filter((m) => m.projectId === id), [allMilestones, id])
 
   const [activeTab, setActiveTab] = useState<'tasks' | 'milestones' | 'overview'>('overview')
-  const [search, setSearch] = useState('')
-  const [page, setPage] = useState(1)
+  const { search, setSearch, debouncedSearch, page, setPage } = useDebouncedSearch()
   const [pageSize, setPageSize] = useState(10)
   const [archiveTarget, setArchiveTarget] = useState<{ type: string; id: string; name: string } | null>(null)
 
   const filteredTasks = useMemo(() => {
-    if (!search.trim()) return tasks
-    const q = search.toLowerCase()
+    if (!debouncedSearch.trim()) return tasks
+    const q = debouncedSearch.toLowerCase()
     return tasks.filter(
       (item) =>
         item.title.toLowerCase().includes(q) ||
         item.taskCode.toLowerCase().includes(q) ||
-        (item.titleAr ?? '').includes(search),
+        (item.titleAr ?? '').includes(debouncedSearch),
     )
-  }, [tasks, search])
+  }, [tasks, debouncedSearch])
 
   const paginatedTasks = filteredTasks.slice((page - 1) * pageSize, page * pageSize)
 

@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react'
+import { useDebouncedSearch } from '@/hooks/useDebouncedSearch'
 import { useTranslation } from 'react-i18next'
 import { FileText, Plus } from 'lucide-react'
 
@@ -18,18 +19,17 @@ export default function Quotations() {
   const { t } = useTranslation('sales')
   const { quotations, loading, archive } = useQuotations()
 
-  const [search, setSearch] = useState('')
-  const [page, setPage] = useState(1)
+  const { search, setSearch, debouncedSearch, page, setPage } = useDebouncedSearch()
   const [pageSize, setPageSize] = useState(10)
   const [archiveTarget, setArchiveTarget] = useState<typeof quotations[0] | null>(null)
 
   const filtered = useMemo(() => {
-    if (!search.trim()) return quotations
-    const q = search.toLowerCase()
+    if (!debouncedSearch.trim()) return quotations
+    const q = debouncedSearch.toLowerCase()
     return quotations.filter(
       (item) => item.code.toLowerCase().includes(q),
     )
-  }, [quotations, search])
+  }, [quotations, debouncedSearch])
 
   const paginated = filtered.slice((page - 1) * pageSize, page * pageSize)
 

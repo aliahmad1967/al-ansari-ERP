@@ -1,3 +1,4 @@
+import { memo } from 'react'
 import type { HTMLAttributes, TableHTMLAttributes, TdHTMLAttributes, ThHTMLAttributes } from 'react'
 
 import { cn } from '@/lib/cn'
@@ -85,7 +86,7 @@ export function TableFoot({ className, ...rest }: TableFootProps) {
   return <tfoot className={cn('border-t border-border bg-surface-sunken', className)} {...rest} />
 }
 
-export function TableRow({ selected = false, className, ...rest }: TableRowProps) {
+export const TableRow = memo(function TableRow({ selected = false, className, ...rest }: TableRowProps) {
   return (
     <tr
       className={cn(
@@ -97,9 +98,9 @@ export function TableRow({ selected = false, className, ...rest }: TableRowProps
       {...rest}
     />
   )
-}
+})
 
-export function TableHeadCell({ align = 'start', className, ...rest }: TableHeadCellProps) {
+export const TableHeadCell = memo(function TableHeadCell({ align = 'start', className, ...rest }: TableHeadCellProps) {
   return (
     <th
       scope="col"
@@ -111,16 +112,16 @@ export function TableHeadCell({ align = 'start', className, ...rest }: TableHead
       {...rest}
     />
   )
-}
+})
 
-export function TableCell({ align = 'start', className, ...rest }: TableCellProps) {
+export const TableCell = memo(function TableCell({ align = 'start', className, ...rest }: TableCellProps) {
   return (
     <td
       className={cn('px-4 py-2.5 align-middle text-content', alignClasses[align], className)}
       {...rest}
     />
   )
-}
+})
 
 export function TableCaption({ className, ...rest }: TableCaptionProps) {
   return (

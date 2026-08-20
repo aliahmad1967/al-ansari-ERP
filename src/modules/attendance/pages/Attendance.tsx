@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react'
+import { useDebouncedSearch } from '@/hooks/useDebouncedSearch'
 import { useTranslation } from 'react-i18next'
 import { Clock, LogIn, LogOut } from 'lucide-react'
 
@@ -17,8 +18,7 @@ export default function AttendancePage() {
   const { attendance, loading, checkIn, checkOut } = useAttendance()
   const { items: employees } = useEmployees()
 
-  const [search, setSearch] = useState('')
-  const [page, setPage] = useState(1)
+  const { search, setSearch, debouncedSearch, page, setPage } = useDebouncedSearch()
   const [pageSize, setPageSize] = useState(15)
 
   const empMap = useMemo(() => {
@@ -28,14 +28,14 @@ export default function AttendancePage() {
   }, [employees])
 
   const filtered = useMemo(() => {
-    if (!search.trim()) return attendance
-    const q = search.toLowerCase()
+    if (!debouncedSearch.trim()) return attendance
+    const q = debouncedSearch.toLowerCase()
     return attendance.filter((r: Record<string, unknown>) => {
       const emp = empMap.get(r.employeeId as string)
       if (!emp) return false
       return emp.firstName.toLowerCase().includes(q) || emp.lastName.toLowerCase().includes(q) || emp.employeeNumber.toLowerCase().includes(q)
     })
-  }, [attendance, search, empMap])
+  }, [attendance, debouncedSearch, empMap])
 
   const paginated = filtered.slice((page - 1) * pageSize, page * pageSize)
 

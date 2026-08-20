@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react'
+import { useDebouncedSearch } from '@/hooks/useDebouncedSearch'
 import { useTranslation } from 'react-i18next'
 import { FileText } from 'lucide-react'
 
@@ -17,8 +18,7 @@ export default function Payslips() {
   const { items: periods } = usePayrollPeriods()
   const { items: employees } = useEmployees()
 
-  const [search, setSearch] = useState('')
-  const [page, setPage] = useState(1)
+  const { search, setSearch, debouncedSearch, page, setPage } = useDebouncedSearch()
   const [pageSize, setPageSize] = useState(10)
 
   const periodMap = useMemo(() => {
@@ -42,8 +42,8 @@ export default function Payslips() {
   }, [payslips, employeeMap, periodMap])
 
   const filtered = useMemo(() => {
-    if (!search.trim()) return enriched
-    const q = search.toLowerCase()
+    if (!debouncedSearch.trim()) return enriched
+    const q = debouncedSearch.toLowerCase()
     return enriched.filter((item) => {
       const emp = item.employee
       return (
@@ -51,12 +51,12 @@ export default function Payslips() {
         (emp?.firstName?.toLowerCase().includes(q)) ||
         (emp?.lastName?.toLowerCase().includes(q)) ||
         (emp?.employeeNumber?.toLowerCase().includes(q)) ||
-        (emp?.firstNameAr ?? '').includes(search) ||
-        (emp?.lastNameAr ?? '').includes(search) ||
+        (emp?.firstNameAr ?? '').includes(debouncedSearch) ||
+        (emp?.lastNameAr ?? '').includes(debouncedSearch) ||
         (item.period?.name ?? '').toLowerCase().includes(q)
       )
     })
-  }, [enriched, search])
+  }, [enriched, debouncedSearch])
 
   const paginated = filtered.slice((page - 1) * pageSize, page * pageSize)
 

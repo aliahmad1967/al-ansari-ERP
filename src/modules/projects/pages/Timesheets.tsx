@@ -1,5 +1,6 @@
 import { useState, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useDebouncedSearch } from '@/hooks/useDebouncedSearch'
 import { Clock, Plus } from 'lucide-react'
 
 import Button from '@/components/ui/Button'
@@ -18,20 +19,19 @@ export default function Timesheets() {
   const { t } = useTranslation('projects')
   const { items: timesheets, loading, create, archive } = useTimesheets()
 
-  const [search, setSearch] = useState('')
-  const [page, setPage] = useState(1)
+  const { search, setSearch, debouncedSearch, page, setPage } = useDebouncedSearch()
   const [pageSize, setPageSize] = useState(10)
   const [archiveTarget, setArchiveTarget] = useState<(typeof timesheets)[0] | null>(null)
 
   const filtered = useMemo(() => {
-    if (!search.trim()) return timesheets
-    const q = search.toLowerCase()
+    if (!debouncedSearch.trim()) return timesheets
+    const q = debouncedSearch.toLowerCase()
     return timesheets.filter(
       (item) =>
         (item.description ?? '').toLowerCase().includes(q) ||
-        (item.descriptionAr ?? '').includes(search),
+        (item.descriptionAr ?? '').includes(debouncedSearch),
     )
-  }, [timesheets, search])
+  }, [timesheets, debouncedSearch])
 
   const paginated = filtered.slice((page - 1) * pageSize, page * pageSize)
 

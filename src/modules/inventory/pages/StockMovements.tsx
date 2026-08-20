@@ -1,5 +1,6 @@
 import { useState, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useDebouncedSearch } from '@/hooks/useDebouncedSearch'
 import { ArrowUpDown } from 'lucide-react'
 
 import PageLayout from '@/components/layout/PageLayout'
@@ -17,8 +18,7 @@ export default function StockMovements() {
   const { products } = useProducts()
   const { warehouses } = useWarehouses()
 
-  const [search, setSearch] = useState('')
-  const [page, setPage] = useState(1)
+  const { search, setSearch, debouncedSearch, page, setPage } = useDebouncedSearch()
   const [pageSize, setPageSize] = useState(10)
 
   const productMap = useMemo(() => {
@@ -34,8 +34,8 @@ export default function StockMovements() {
   }, [warehouses])
 
   const filtered = useMemo(() => {
-    if (!search.trim()) return movements
-    const q = search.toLowerCase()
+    if (!debouncedSearch.trim()) return movements
+    const q = debouncedSearch.toLowerCase()
     return movements.filter((item) => {
       const product = productMap.get(item.productId)
       const warehouse = warehouseMap.get(item.warehouseId)
@@ -47,7 +47,7 @@ export default function StockMovements() {
         (item.referenceNumber ?? '').toLowerCase().includes(q)
       )
     })
-  }, [movements, search, productMap, warehouseMap])
+  }, [movements, debouncedSearch, productMap, warehouseMap])
 
   const paginated = filtered.slice((page - 1) * pageSize, page * pageSize)
 

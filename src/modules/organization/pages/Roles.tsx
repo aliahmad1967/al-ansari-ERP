@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react'
+import { useDebouncedSearch } from '@/hooks/useDebouncedSearch'
 import { useTranslation } from 'react-i18next'
 import { Shield, Plus } from 'lucide-react'
 
@@ -22,23 +23,22 @@ export default function RolesPage() {
   const { items: roles, loading, create, update, archive } = useRoles()
   const { items: allPermissions } = usePermissionList()
 
-  const [search, setSearch] = useState('')
-  const [page, setPage] = useState(1)
+  const { search, setSearch, debouncedSearch, page, setPage } = useDebouncedSearch()
   const [pageSize, setPageSize] = useState(10)
   const [formOpen, setFormOpen] = useState(false)
   const [editItem, setEditItem] = useState<Role | null>(null)
   const [archiveTarget, setArchiveTarget] = useState<Role | null>(null)
 
   const filtered = useMemo(() => {
-    if (!search.trim()) return roles
-    const q = search.toLowerCase()
+    if (!debouncedSearch.trim()) return roles
+    const q = debouncedSearch.toLowerCase()
     return roles.filter(
       (item) =>
         item.name.toLowerCase().includes(q) ||
         item.code.toLowerCase().includes(q) ||
-        (item.nameAr ?? '').includes(search),
+        (item.nameAr ?? '').includes(debouncedSearch),
     )
-  }, [roles, search])
+  }, [roles, debouncedSearch])
 
   const paginated = filtered.slice((page - 1) * pageSize, page * pageSize)
 

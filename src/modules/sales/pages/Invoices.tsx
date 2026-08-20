@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react'
+import { useDebouncedSearch } from '@/hooks/useDebouncedSearch'
 import { useTranslation } from 'react-i18next'
 import { FileCheck, Plus } from 'lucide-react'
 
@@ -18,18 +19,17 @@ export default function Invoices() {
   const { t } = useTranslation('sales')
   const { invoices, loading, archive } = useSalesInvoices()
 
-  const [search, setSearch] = useState('')
-  const [page, setPage] = useState(1)
+  const { search, setSearch, debouncedSearch, page, setPage } = useDebouncedSearch()
   const [pageSize, setPageSize] = useState(10)
   const [archiveTarget, setArchiveTarget] = useState<typeof invoices[0] | null>(null)
 
   const filtered = useMemo(() => {
-    if (!search.trim()) return invoices
-    const q = search.toLowerCase()
+    if (!debouncedSearch.trim()) return invoices
+    const q = debouncedSearch.toLowerCase()
     return invoices.filter(
       (item) => item.code.toLowerCase().includes(q),
     )
-  }, [invoices, search])
+  }, [invoices, debouncedSearch])
 
   const paginated = filtered.slice((page - 1) * pageSize, page * pageSize)
 

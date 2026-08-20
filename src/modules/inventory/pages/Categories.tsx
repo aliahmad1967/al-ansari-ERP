@@ -1,5 +1,6 @@
 import { useState, useMemo, useCallback, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useDebouncedSearch } from '@/hooks/useDebouncedSearch'
 import { FolderTree, Plus } from 'lucide-react'
 
 import Button from '@/components/ui/Button'
@@ -104,8 +105,7 @@ export default function Categories() {
   const { t } = useTranslation('inventory')
   const [categories, setCategories] = useState<DevCategory[]>([])
   const [loading, setLoading] = useState(true)
-  const [search, setSearch] = useState('')
-  const [page, setPage] = useState(1)
+  const { search, setSearch, debouncedSearch, page, setPage } = useDebouncedSearch()
   const [pageSize, setPageSize] = useState(10)
   const [formOpen, setFormOpen] = useState(false)
   const [editItem, setEditItem] = useState<DevCategory | null>(null)
@@ -122,15 +122,15 @@ export default function Categories() {
   useEffect(() => { refresh() }, [refresh])
 
   const filtered = useMemo(() => {
-    if (!search.trim()) return categories
-    const q = search.toLowerCase()
+    if (!debouncedSearch.trim()) return categories
+    const q = debouncedSearch.toLowerCase()
     return categories.filter(
       (item) =>
         item.name.toLowerCase().includes(q) ||
-        (item.nameAr ?? '').includes(search) ||
+        (item.nameAr ?? '').includes(debouncedSearch) ||
         item.code.toLowerCase().includes(q),
     )
-  }, [categories, search])
+  }, [categories, debouncedSearch])
 
   const paginated = filtered.slice((page - 1) * pageSize, page * pageSize)
 

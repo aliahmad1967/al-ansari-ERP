@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react'
+import { useDebouncedSearch } from '@/hooks/useDebouncedSearch'
 import { useTranslation } from 'react-i18next'
 import { Trash2 } from 'lucide-react'
 
@@ -15,19 +16,18 @@ export default function AssetDisposals() {
   const { t } = useTranslation('assets')
   const { disposals, loading } = useAssetDisposals()
 
-  const [search, setSearch] = useState('')
-  const [page, setPage] = useState(1)
+  const { search, setSearch, debouncedSearch, page, setPage } = useDebouncedSearch()
   const [pageSize, setPageSize] = useState(10)
 
   const filtered = useMemo(() => {
-    if (!search.trim()) return disposals
-    const q = search.toLowerCase()
+    if (!debouncedSearch.trim()) return disposals
+    const q = debouncedSearch.toLowerCase()
     return disposals.filter(
       (item) =>
         item.asset.toLowerCase().includes(q) ||
         item.disposalMethod.toLowerCase().includes(q),
     )
-  }, [disposals, search])
+  }, [disposals, debouncedSearch])
 
   const paginated = filtered.slice((page - 1) * pageSize, page * pageSize)
 

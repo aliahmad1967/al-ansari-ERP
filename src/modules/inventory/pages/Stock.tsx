@@ -1,5 +1,6 @@
 import { useState, useMemo, useCallback, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useDebouncedSearch } from '@/hooks/useDebouncedSearch'
 import { Box } from 'lucide-react'
 
 import PageLayout from '@/components/layout/PageLayout'
@@ -62,8 +63,7 @@ export default function Stock() {
   const { warehouses } = useWarehouses()
   const [balances, setBalances] = useState<DevStockBalance[]>([])
   const [loading, setLoading] = useState(true)
-  const [search, setSearch] = useState('')
-  const [page, setPage] = useState(1)
+  const { search, setSearch, debouncedSearch, page, setPage } = useDebouncedSearch()
   const [pageSize, setPageSize] = useState(10)
 
   const refresh = useCallback(() => {
@@ -85,8 +85,8 @@ export default function Stock() {
   }, [warehouses])
 
   const filtered = useMemo(() => {
-    if (!search.trim()) return balances
-    const q = search.toLowerCase()
+    if (!debouncedSearch.trim()) return balances
+    const q = debouncedSearch.toLowerCase()
     return balances.filter((item) => {
       const product = productMap.get(item.productId)
       const warehouse = warehouseMap.get(item.warehouseId)
@@ -97,7 +97,7 @@ export default function Stock() {
         (warehouse?.code ?? '').toLowerCase().includes(q)
       )
     })
-  }, [balances, search, productMap, warehouseMap])
+  }, [balances, debouncedSearch, productMap, warehouseMap])
 
   const paginated = filtered.slice((page - 1) * pageSize, page * pageSize)
 

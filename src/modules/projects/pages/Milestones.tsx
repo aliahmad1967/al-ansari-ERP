@@ -1,5 +1,6 @@
 import { useState, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useDebouncedSearch } from '@/hooks/useDebouncedSearch'
 import { Flag, Plus } from 'lucide-react'
 
 import Button from '@/components/ui/Button'
@@ -18,20 +19,19 @@ export default function Milestones() {
   const { t } = useTranslation('projects')
   const { items: milestones, loading, create, archive } = useMilestones()
 
-  const [search, setSearch] = useState('')
-  const [page, setPage] = useState(1)
+  const { search, setSearch, debouncedSearch, page, setPage } = useDebouncedSearch()
   const [pageSize, setPageSize] = useState(10)
   const [archiveTarget, setArchiveTarget] = useState<(typeof milestones)[0] | null>(null)
 
   const filtered = useMemo(() => {
-    if (!search.trim()) return milestones
-    const q = search.toLowerCase()
+    if (!debouncedSearch.trim()) return milestones
+    const q = debouncedSearch.toLowerCase()
     return milestones.filter(
       (item) =>
         item.name.toLowerCase().includes(q) ||
-        (item.nameAr ?? '').includes(search),
+        (item.nameAr ?? '').includes(debouncedSearch),
     )
-  }, [milestones, search])
+  }, [milestones, debouncedSearch])
 
   const paginated = filtered.slice((page - 1) * pageSize, page * pageSize)
 

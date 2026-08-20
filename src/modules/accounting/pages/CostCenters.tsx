@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react'
+import { useDebouncedSearch } from '@/hooks/useDebouncedSearch'
 import { useTranslation } from 'react-i18next'
 import { LayoutGrid, Plus } from 'lucide-react'
 
@@ -17,20 +18,19 @@ export default function CostCenters() {
   const { t } = useTranslation('accounting')
   const { costCenters, loading, create, archive } = useCostCenters()
 
-  const [search, setSearch] = useState('')
-  const [page, setPage] = useState(1)
+  const { search, setSearch, debouncedSearch, page, setPage } = useDebouncedSearch()
   const [pageSize, setPageSize] = useState(10)
   const [archiveTarget, setArchiveTarget] = useState<typeof costCenters[0] | null>(null)
 
   const filtered = useMemo(() => {
-    if (!search.trim()) return costCenters
-    const q = search.toLowerCase()
+    if (!debouncedSearch.trim()) return costCenters
+    const q = debouncedSearch.toLowerCase()
     return costCenters.filter(
       (item) =>
         item.name.toLowerCase().includes(q) ||
         item.code.toLowerCase().includes(q),
     )
-  }, [costCenters, search])
+  }, [costCenters, debouncedSearch])
 
   const paginated = filtered.slice((page - 1) * pageSize, page * pageSize)
 

@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react'
+import { useDebouncedSearch } from '@/hooks/useDebouncedSearch'
 import { useTranslation } from 'react-i18next'
 import { FileCheck, Plus } from 'lucide-react'
 
@@ -19,8 +20,7 @@ export default function SupplierInvoices() {
   const { t } = useTranslation('procurement')
   const { invoices, loading, create, register, validate, recordPayment } = useSupplierInvoices()
 
-  const [search, setSearch] = useState('')
-  const [page, setPage] = useState(1)
+  const { search, setSearch, debouncedSearch, page, setPage } = useDebouncedSearch()
   const [pageSize, setPageSize] = useState(10)
   const [formOpen, setFormOpen] = useState(false)
   const [paymentTarget, setPaymentTarget] = useState<typeof invoices[0] | null>(null)
@@ -28,15 +28,15 @@ export default function SupplierInvoices() {
   const [paymentMethod, setPaymentMethod] = useState('bank_transfer')
 
   const filtered = useMemo(() => {
-    if (!search.trim()) return invoices
-    const q = search.toLowerCase()
+    if (!debouncedSearch.trim()) return invoices
+    const q = debouncedSearch.toLowerCase()
     return invoices.filter(
       (item) =>
         item.code.toLowerCase().includes(q) ||
         item.invoiceNumber.toLowerCase().includes(q) ||
         item.supplierId.toLowerCase().includes(q),
     )
-  }, [invoices, search])
+  }, [invoices, debouncedSearch])
 
   const paginated = filtered.slice((page - 1) * pageSize, page * pageSize)
 

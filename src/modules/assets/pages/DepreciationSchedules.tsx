@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react'
+import { useDebouncedSearch } from '@/hooks/useDebouncedSearch'
 import { useTranslation } from 'react-i18next'
 import { TrendingDown } from 'lucide-react'
 
@@ -15,18 +16,17 @@ export default function DepreciationSchedules() {
   const { t } = useTranslation('assets')
   const { schedules, loading } = useDepreciationSchedules()
 
-  const [search, setSearch] = useState('')
-  const [page, setPage] = useState(1)
+  const { search, setSearch, debouncedSearch, page, setPage } = useDebouncedSearch()
   const [pageSize, setPageSize] = useState(10)
 
   const filtered = useMemo(() => {
-    if (!search.trim()) return schedules
-    const q = search.toLowerCase()
+    if (!debouncedSearch.trim()) return schedules
+    const q = debouncedSearch.toLowerCase()
     return schedules.filter(
       (item) =>
         item.asset.toLowerCase().includes(q),
     )
-  }, [schedules, search])
+  }, [schedules, debouncedSearch])
 
   const paginated = filtered.slice((page - 1) * pageSize, page * pageSize)
 

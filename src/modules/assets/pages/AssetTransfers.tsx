@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react'
+import { useDebouncedSearch } from '@/hooks/useDebouncedSearch'
 import { useTranslation } from 'react-i18next'
 import { ArrowRightLeft } from 'lucide-react'
 
@@ -14,19 +15,18 @@ export default function AssetTransfers() {
   const { t } = useTranslation('assets')
   const { transfers, loading } = useAssetTransfers()
 
-  const [search, setSearch] = useState('')
-  const [page, setPage] = useState(1)
+  const { search, setSearch, debouncedSearch, page, setPage } = useDebouncedSearch()
   const [pageSize, setPageSize] = useState(10)
 
   const filtered = useMemo(() => {
-    if (!search.trim()) return transfers
-    const q = search.toLowerCase()
+    if (!debouncedSearch.trim()) return transfers
+    const q = debouncedSearch.toLowerCase()
     return transfers.filter(
       (item) =>
         item.asset.toLowerCase().includes(q) ||
         item.reason.toLowerCase().includes(q),
     )
-  }, [transfers, search])
+  }, [transfers, debouncedSearch])
 
   const paginated = filtered.slice((page - 1) * pageSize, page * pageSize)
 

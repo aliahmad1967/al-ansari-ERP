@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react'
+import { useDebouncedSearch } from '@/hooks/useDebouncedSearch'
 import { useTranslation } from 'react-i18next'
 import { Calendar, Plus, Check, X } from 'lucide-react'
 
@@ -23,8 +24,7 @@ export default function LeavePage() {
   const { types, requests, balances, loading, createRequest, approveRequest, rejectRequest, cancelRequest } = useLeave()
   const { items: employees } = useEmployees()
 
-  const [search, setSearch] = useState('')
-  const [page, setPage] = useState(1)
+  const { search, setSearch, debouncedSearch, page, setPage } = useDebouncedSearch()
   const [pageSize, setPageSize] = useState(10)
   const [formOpen, setFormOpen] = useState(false)
   const [approveTarget, setApproveTarget] = useState<Record<string, unknown> | null>(null)
@@ -47,13 +47,13 @@ export default function LeavePage() {
   }, [types])
 
   const filtered = useMemo(() => {
-    if (!search.trim()) return requests
-    const q = search.toLowerCase()
+    if (!debouncedSearch.trim()) return requests
+    const q = debouncedSearch.toLowerCase()
     return requests.filter((r: Record<string, unknown>) => {
       const emp = empMap.get(r.employeeId as string)
       return emp?.firstName.toLowerCase().includes(q) || emp?.lastName.toLowerCase().includes(q) || (r.status as string).includes(q)
     })
-  }, [requests, search, empMap])
+  }, [requests, debouncedSearch, empMap])
 
   const paginated = filtered.slice((page - 1) * pageSize, page * pageSize)
 
