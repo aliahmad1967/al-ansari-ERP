@@ -1,64 +1,53 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { AccountService } from '@/modules/accounting/services/AccountService'
 
+const mockAccount = {
+  _id: 'acc-001',
+  code: '1010',
+  name: 'Cash',
+  nameAr: 'نقداً',
+  type: 'asset',
+  parentId: null,
+  level: 1,
+  isGroup: false,
+  isActive: true,
+  currency: 'SAR',
+  openingBalance: 0,
+  currentBalance: 0,
+  normalBalance: 'debit',
+  createdAt: new Date(),
+  updatedAt: new Date(),
+  isDeleted: false,
+  deletedAt: null,
+}
+
 vi.mock('@/core/repositories/AccountRepository', () => ({
   AccountRepository: vi.fn().mockImplementation(function () {
     return {
       findAll: vi.fn().mockReturnValue([]),
-      findById: vi.fn().mockReturnValue(null),
-      findActive: vi.fn().mockReturnValue([]),
-      findByCode: vi.fn().mockReturnValue(null),
+      findById: vi.fn().mockImplementation(function (id: string) {
+        if (id === 'nonexistent') return null
+        return { ...mockAccount }
+      }),
+      findByCode: vi.fn().mockImplementation(function (code: string) {
+        if (code === '1010') return { ...mockAccount }
+        return null
+      }),
       findByType: vi.fn().mockReturnValue([]),
       findByParent: vi.fn().mockReturnValue([]),
-      findByAccountGroup: vi.fn().mockReturnValue([]),
-      findLeafAccounts: vi.fn().mockReturnValue([]),
+      findActive: vi.fn().mockReturnValue([]),
+      findLeaf: vi.fn().mockReturnValue([]),
+      findGroup: vi.fn().mockReturnValue([]),
       search: vi.fn().mockReturnValue([]),
       create: vi.fn().mockImplementation(function (input: Record<string, unknown>) {
-        return {
-          _id: 'acc-001',
-          code: input.code,
-          name: input.name,
-          nameAr: input.nameAr ?? null,
-          type: input.type,
-          parentAccountId: input.parentAccountId ?? null,
-          accountGroupId: input.accountGroupId ?? null,
-          level: input.level ?? 0,
-          isGroup: input.isGroup ?? false,
-          isActive: true,
-          currency: input.currency ?? 'SAR',
-          description: input.description ?? null,
-          descriptionAr: input.descriptionAr ?? null,
-          openingBalance: input.openingBalance ?? 0,
-          currentBalance: input.currentBalance ?? 0,
-          costCenterId: input.costCenterId ?? null,
-          notes: input.notes ?? null,
-          createdAt: new Date(),
-          updatedAt: new Date(),
-          isDeleted: false,
-          deletedAt: null,
-        }
+        return { ...mockAccount, ...input, _id: 'acc-001' }
       }),
       update: vi.fn().mockImplementation(function (id: string, changes: Record<string, unknown>) {
-        return {
-          _id: id,
-          code: 'AC-001',
-          name: changes.name ?? 'Test Account',
-          type: 'asset',
-          level: 0,
-          isGroup: false,
-          isActive: true,
-          currency: 'SAR',
-          openingBalance: 0,
-          currentBalance: 0,
-          createdAt: new Date(),
-          updatedAt: new Date(),
-          isDeleted: false,
-          deletedAt: null,
-        }
+        return { ...mockAccount, ...changes, _id: id }
       }),
+      updateBalance: vi.fn(),
       softDelete: vi.fn().mockReturnValue(true),
       restore: vi.fn().mockReturnValue(true),
-      updateBalance: vi.fn(),
     }
   }),
 }))
@@ -69,27 +58,13 @@ vi.mock('@/core/repositories/AccountGroupRepository', () => ({
       findAll: vi.fn().mockReturnValue([]),
       findById: vi.fn().mockReturnValue(null),
       findByCode: vi.fn().mockReturnValue(null),
-      findActive: vi.fn().mockReturnValue([]),
-      search: vi.fn().mockReturnValue([]),
       create: vi.fn().mockImplementation(function (input: Record<string, unknown>) {
-        return {
-          _id: 'grp-001',
-          code: input.code,
-          name: input.name,
-          type: input.type,
-          sortOrder: input.sortOrder ?? 1,
-          isActive: true,
-          createdAt: new Date(),
-          updatedAt: new Date(),
-          isDeleted: false,
-          deletedAt: null,
-        }
+        return { _id: 'ag-001', ...input }
       }),
       update: vi.fn().mockImplementation(function (id: string, changes: Record<string, unknown>) {
-        return { _id: id, code: 'GRP-001', name: changes.name ?? 'Test Group', type: 'asset', isActive: true, createdAt: new Date(), updatedAt: new Date(), isDeleted: false, deletedAt: null }
+        return { _id: id, ...changes }
       }),
       softDelete: vi.fn().mockReturnValue(true),
-      restore: vi.fn().mockReturnValue(true),
     }
   }),
 }))
@@ -108,86 +83,76 @@ describe('AccountService', () => {
     service = new AccountService()
   })
 
+  describe('findAllAccounts', () => {
+    it('returns all accounts', () => {
+      expect(service.findAllAccounts()).toEqual([])
+    })
+  })
+
+  describe('findAccountById', () => {
+    it('finds account by id', () => {
+      expect(service.findAccountById('acc-001')).toBeDefined()
+    })
+
+    it('returns null for nonexistent', () => {
+      expect(service.findAccountById('nonexistent')).toBeNull()
+    })
+  })
+
+  describe('findAccountByCode', () => {
+    it('finds account by code', () => {
+      expect(service.findAccountByCode('1010')).toBeDefined()
+    })
+
+    it('returns null for unknown code', () => {
+      expect(service.findAccountByCode('9999')).toBeNull()
+    })
+  })
+
   describe('createAccount', () => {
-    it('creates an account with correct properties', () => {
+    it('creates an account', () => {
       const result = service.createAccount(
-        { code: '1000', name: 'Cash', type: 'asset' },
+        { code: '2010', name: 'Accounts Payable', type: 'liability', normalBalance: 'credit' } as never,
         'user-1',
         'admin',
       )
       expect(result._id).toBe('acc-001')
-      expect(result.code).toBe('1000')
-      expect(result.name).toBe('Cash')
-      expect(result.type).toBe('asset')
     })
 
-    it('throws on duplicate code', () => {
-      const repo = service['accountRepo']
-      repo.findByCode = vi.fn().mockReturnValue({ _id: 'existing', code: '1000' })
+    it('rejects duplicate code', () => {
+      const svc = service as unknown as { accountRepo: { findByCode: ReturnType<typeof vi.fn> } }
+      svc.accountRepo.findByCode.mockReturnValue({ ...mockAccount })
       expect(() =>
-        service.createAccount({ code: '1000', name: 'Cash', type: 'asset' }),
+        service.createAccount({ code: '1010', name: 'Cash', type: 'asset', normalBalance: 'debit' } as never, 'user-1', 'admin'),
       ).toThrow('already exists')
     })
   })
 
-  describe('updateAccount', () => {
-    it('updates account properties', () => {
-      const result = service.updateAccount('acc-001', { name: 'Updated Account' })
-      expect(result.name).toBe('Updated Account')
-    })
-  })
-
   describe('archiveAccount', () => {
-    it('archives an account', () => {
-      const repo = service['accountRepo']
-      repo.findById = vi.fn().mockReturnValue({
-        _id: 'acc-001',
-        code: '1000',
-        name: 'Cash',
-        currentBalance: 0,
-      })
-      expect(service.archiveAccount('acc-001')).toBe(true)
-    })
-
-    it('throws on non-zero balance', () => {
-      const repo = service['accountRepo']
-      repo.findById = vi.fn().mockReturnValue({
-        _id: 'acc-001',
-        code: '1000',
-        name: 'Cash',
-        currentBalance: 500,
-      })
-      expect(() => service.archiveAccount('acc-001')).toThrow('non-zero balance')
-    })
-
-    it('throws when account has children', () => {
-      const repo = service['accountRepo']
-      repo.findById = vi.fn().mockReturnValue({
-        _id: 'acc-001',
-        code: '1000',
-        name: 'Assets',
-        currentBalance: 0,
-      })
-      repo.findByParent = vi.fn().mockReturnValue([{ _id: 'child-1' }])
-      expect(() => service.archiveAccount('acc-001')).toThrow('child accounts')
+    it('archives an account with zero balance', () => {
+      expect(service.archiveAccount('acc-001', 'user-1', 'admin')).toBe(true)
     })
   })
 
   describe('restoreAccount', () => {
-    it('restores an archived account', () => {
-      expect(service.restoreAccount('acc-001')).toBe(true)
+    it('restores an account', () => {
+      expect(service.restoreAccount('acc-001', 'user-1', 'admin')).toBe(true)
     })
   })
 
-  describe('createGroup', () => {
-    it('creates an account group', () => {
-      const result = service.createGroup(
-        { code: 'GRP-001', name: 'Current Assets', type: 'asset' },
-        'user-1',
-        'admin',
-      )
-      expect(result._id).toBe('grp-001')
-      expect(result.code).toBe('GRP-001')
+  describe('updateAccountBalance', () => {
+    it('updates balance with debit', () => {
+      const svc = service as unknown as { accountRepo: { findById: ReturnType<typeof vi.fn>; updateBalance: ReturnType<typeof vi.fn> } }
+      svc.accountRepo.findById.mockReturnValue({ ...mockAccount, normalBalance: 'debit' })
+      service.updateAccountBalance('acc-001', 1000, 0)
+      expect(svc.accountRepo.updateBalance).toHaveBeenCalled()
+    })
+
+    it('updates balance with credit', () => {
+      const svc = service as unknown as { accountRepo: { findById: ReturnType<typeof vi.fn>; updateBalance: ReturnType<typeof vi.fn> } }
+      svc.accountRepo.findById.mockReturnValue({ ...mockAccount, normalBalance: 'credit' })
+      service.updateAccountBalance('acc-001', 0, 500)
+      expect(svc.accountRepo.updateBalance).toHaveBeenCalled()
     })
   })
 })

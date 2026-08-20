@@ -135,7 +135,7 @@ describe('SalesReturnService', () => {
       service.processReturnStockMovements('sr-001', 'user-1', 'admin')
       const stockRepo = (service as unknown as { stockMovementRepo: { create: ReturnType<typeof vi.fn> } }).stockMovementRepo
       expect(stockRepo.create).toHaveBeenCalledTimes(1)
-      const call = stockRepo.create.mock.calls[0][0]
+      const call = stockRepo.create.mock.calls[0]![0]
       expect(call.type).toBe(StockMovementType.ReturnIn)
       expect(call.quantity).toBe(5)
       expect(call.productId).toBe('prod-001')

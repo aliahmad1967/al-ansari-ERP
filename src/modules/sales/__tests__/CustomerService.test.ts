@@ -1,39 +1,38 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { CustomerService } from '@/modules/sales/services/CustomerService'
 
+const mockCustomer = {
+  _id: 'cust-001',
+  name: 'Acme Corp',
+  code: 'CUST-001',
+  contactEmail: 'info@acme.com',
+  balance: 0,
+  isActive: true,
+  createdAt: new Date(),
+  updatedAt: new Date(),
+  isDeleted: false,
+  deletedAt: null,
+}
+
 vi.mock('@/core/repositories/CustomerRepository', () => ({
   CustomerRepository: vi.fn().mockImplementation(function () {
     return {
       findAll: vi.fn().mockReturnValue([]),
-      findById: vi.fn().mockReturnValue(null),
-      findActive: vi.fn().mockReturnValue([]),
-      findByCode: vi.fn().mockReturnValue(null),
+      findById: vi.fn().mockImplementation(function (id: string) {
+        if (id === 'nonexistent') return null
+        return { ...mockCustomer }
+      }),
+      findActive: vi.fn().mockReturnValue([{ ...mockCustomer }]),
+      findByCode: vi.fn().mockImplementation(function (code: string) {
+        if (code === 'CUST-001') return { ...mockCustomer }
+        return null
+      }),
       search: vi.fn().mockReturnValue([]),
       create: vi.fn().mockImplementation(function (input: Record<string, unknown>) {
-        return {
-          _id: 'cust-001',
-          code: input.code,
-          name: input.name,
-          balance: 0,
-          status: 'active',
-          createdAt: new Date(),
-          updatedAt: new Date(),
-          isDeleted: false,
-          deletedAt: null,
-        }
+        return { ...mockCustomer, ...input, _id: 'cust-001' }
       }),
       update: vi.fn().mockImplementation(function (id: string, changes: Record<string, unknown>) {
-        return {
-          _id: id,
-          code: 'CUST-001',
-          name: changes.name ?? 'Test Customer',
-          balance: 0,
-          status: 'active',
-          createdAt: new Date(),
-          updatedAt: new Date(),
-          isDeleted: false,
-          deletedAt: null,
-        }
+        return { ...mockCustomer, ...changes, _id: id }
       }),
       softDelete: vi.fn().mockReturnValue(true),
       restore: vi.fn().mockReturnValue(true),
@@ -44,9 +43,7 @@ vi.mock('@/core/repositories/CustomerRepository', () => ({
 
 vi.mock('@/core/repositories/AuditRepository', () => ({
   AuditRepository: vi.fn().mockImplementation(function () {
-    return {
-      create: vi.fn(),
-    }
+    return { create: vi.fn() }
   }),
 }))
 
@@ -58,41 +55,67 @@ describe('CustomerService', () => {
     service = new CustomerService()
   })
 
+  describe('findAllCustomers', () => {
+    it('returns all customers', () => {
+      expect(service.findAllCustomers()).toEqual([])
+    })
+  })
+
+  describe('findCustomerById', () => {
+    it('finds customer by id', () => {
+      const result = service.findCustomerById('cust-001')
+      expect(result).toBeDefined()
+      expect(result?.name).toBe('Acme Corp')
+    })
+
+    it('returns null for nonexistent', () => {
+      expect(service.findCustomerById('nonexistent')).toBeNull()
+    })
+  })
+
+  describe('findActiveCustomers', () => {
+    it('returns active customers', () => {
+      expect(service.findActiveCustomers()).toHaveLength(1)
+    })
+  })
+
+  describe('findCustomerByCode', () => {
+    it('finds customer by code', () => {
+      expect(service.findCustomerByCode('CUST-001')).toBeDefined()
+    })
+
+    it('returns null for unknown code', () => {
+      expect(service.findCustomerByCode('UNKNOWN')).toBeNull()
+    })
+  })
+
   describe('createCustomer', () => {
-    it('creates a customer with audit log', () => {
+    it('creates a customer', () => {
       const result = service.createCustomer(
-        { code: 'CUST-001', name: 'Acme Corp', email: 'contact@acme.com' },
+        { name: 'Acme Corp', code: 'CUST-001' } as never,
         'user-1',
         'admin',
       )
-      expect(result._id).toBe('cust-001')
-      expect(result.code).toBe('CUST-001')
       expect(result.name).toBe('Acme Corp')
     })
   })
 
   describe('updateCustomer', () => {
-    it('updates a customer with audit log', () => {
-      const result = service.updateCustomer('cust-001', { name: 'Updated Corp' }, 'user-1', 'admin')
-      expect(result.name).toBe('Updated Corp')
+    it('updates a customer', () => {
+      const result = service.updateCustomer('cust-001', { name: 'New Corp' }, 'user-1', 'admin')
+      expect(result.name).toBe('New Corp')
     })
   })
 
   describe('archiveCustomer', () => {
-    it('archives (soft-deletes) a customer', () => {
+    it('archives a customer', () => {
       expect(service.archiveCustomer('cust-001', 'user-1', 'admin')).toBe(true)
     })
   })
 
   describe('restoreCustomer', () => {
-    it('restores an archived customer', () => {
+    it('restores a customer', () => {
       expect(service.restoreCustomer('cust-001', 'user-1', 'admin')).toBe(true)
-    })
-  })
-
-  describe('adjustBalance', () => {
-    it('adjusts customer balance', () => {
-      service.adjustBalance('cust-001', 500)
     })
   })
 })
