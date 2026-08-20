@@ -48,13 +48,16 @@ import {
   DollarSign,
 } from 'lucide-react'
 
+import AppLoading from '@/components/ui/AppLoading'
 import Button from '@/components/ui/Button'
 import Drawer from '@/components/ui/Drawer'
+import OfflineIndicator from '@/components/ui/OfflineIndicator'
 import MobileNavigation from '@/components/layout/MobileNavigation'
 import Sidebar, { SidebarCollapseToggle, type SidebarSection } from '@/components/layout/Sidebar'
 import Topbar from '@/components/layout/Topbar'
 import { cn } from '@/lib/cn'
 import { useAuth } from '@/hooks/useAuth'
+import { useDatabaseReady } from '@/hooks/useDatabaseReady'
 import { useLanguage } from '@/hooks/useLanguage'
 import { useTheme } from '@/hooks/useTheme'
 import { closeMobileNav, getAppUiState, openMobileNav, subscribeAppUi } from '@/stores/app.store'
@@ -77,6 +80,7 @@ export default function AppLayout() {
   const { toggleLanguage } = useLanguage()
   const { sidebarCollapsed, mobileNavOpen } = useSyncExternalStore(subscribeAppUi, getAppUiState)
   const { session, logout } = useAuth()
+  useDatabaseReady()
 
   const sections: SidebarSection[] = [
     {
@@ -562,12 +566,17 @@ export default function AppLayout() {
       : session?.user.fullName ?? ''
 
   return (
-    <div
-      className={cn(
-        'flex min-h-screen flex-col bg-surface text-content',
-        sidebarCollapsed && 'sidebar-collapsed',
-      )}
-    >
+    <>
+      <AppLoading />
+
+      <div
+        className={cn(
+          'flex min-h-screen flex-col bg-surface text-content',
+          sidebarCollapsed && 'sidebar-collapsed',
+        )}
+      >
+        <OfflineIndicator />
+
       <a
         href="#main-content"
         className="sr-only focus:not-sr-only focus:fixed focus:start-2 focus:top-2 focus:z-skip focus:rounded-md focus:bg-surface-raised focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-content focus:shadow-md"
@@ -691,6 +700,7 @@ export default function AppLayout() {
           },
         ]}
       />
-    </div>
+      </div>
+    </>
   )
 }

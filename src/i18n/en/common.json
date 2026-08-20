@@ -38,5 +38,25 @@
   },
   "footer": {
     "copyright": "© {{year}} AL-ANSARI ERP. All rights reserved."
+  },
+  "offline": {
+    "indicator": "You are currently offline. All data is saved locally.",
+    "reconnect": "Reconnect",
+    "recovered": "Connection restored. You are back online.",
+    "healthCheck": "Offline Health Check",
+    "healthPassed": "All systems operational",
+    "healthFailed": "Some systems need attention"
+  },
+  "appLoading": {
+    "starting": "Starting application...",
+    "initializing": "Initializing database...",
+    "preparingData": "Your data is being prepared for offline use.",
+    "error": "Failed to initialize database",
+    "online": "Online",
+    "offline": "Offline"
+  },
+  "update": {
+    "available": "A new version is available.",
+    "reload": "Reload to update"
   }
 }

@@ -1,18 +1,56 @@
 {
   "name": "AL-ANSARI ERP",
-  "short_name": "AL-ANSARI ERP",
+  "short_name": "AL-ANSARI",
   "description": "Offline-first enterprise resource planning system",
   "start_url": "/",
   "display": "standalone",
+  "orientation": "any",
   "background_color": "#ffffff",
-  "theme_color": "#ffffff",
-  "lang": "en",
-  "dir": "ltr",
+  "theme_color": "#3b82f6",
+  "lang": "ar",
+  "dir": "auto",
+  "categories": ["business", "productivity", "finance"],
+  "scope": "/",
+  "prefer_related_applications": false,
   "icons": [
     {
       "src": "/assets/logo.svg",
       "sizes": "any",
-      "type": "image/svg+xml"
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/icon-192.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/icon-512.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "screenshots": [],
+  "shortcuts": [
+    {
+      "name": "Dashboard",
+      "short_name": "Home",
+      "url": "/",
+      "description": "Go to the main dashboard"
+    },
+    {
+      "name": "Employees",
+      "short_name": "HR",
+      "url": "/employees",
+      "description": "Manage employees"
+    },
+    {
+      "name": "Products",
+      "short_name": "Inventory",
+      "url": "/products",
+      "description": "Manage inventory products"
     }
   ]
 }
