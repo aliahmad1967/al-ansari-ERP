@@ -42,3 +42,6 @@ backups/
 *.pem
 *.key
 *.crt
+
+# Graphify knowledge-graph tooling output
+graphify-out/
